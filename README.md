@@ -2,16 +2,20 @@
 
 ### Documents
 
-### Experiments
-* Organised by folders, one per material, e.g. NBTxBT; CCFO; DIPACo
-* Sample sub-folder "Raman Data" for the measurements.
-* Sub-folders, one per sample named "Sample *sample_code*", containing raw spectrum files (typically binary format).
+Any files which aren't _Literature_, i.e. anything that won't or can't be cited.
 
 ### Literature
-A flat folder containing PDF copies of anything that could be cited (journal articles, tech notes, etc.). There should be a JabRef bibliography file at the same level as the PDF files.
 
-### Report
-Contains the ENGR 489 report.
-* LaTeX source files
-* Igor, R, etc. experiments at this level for the report's figures only.
+A flat folder containing PDF copies of anything that will or could be cited in the reports: journal articles, tech notes, etc.  There should be a JabRef bibliography file at the same level as the PDF files.
+
+### Presentations
+
+The files used in any presentations, including the final presentation.
+
+### Reports
+
+Contains the ENGR 489 reports. There are two reports required this year, a Preliminary Report and a Final Report.
+
+* LaTeX source files.
+* R, Matlab, etc. files, containing _only_ the figures used in the report at this level.
 * One sub-folder "Figures" to keep figures organised.
