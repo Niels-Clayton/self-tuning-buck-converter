@@ -6,7 +6,7 @@ Any files which aren't _Literature_, i.e. anything that won't or can't be cited.
 
 ### Literature
 
-A flat folder containing PDF copies of anything that will or could be cited in the reports: journal articles, tech notes, etc.  There should be a JabRef bibliography file at the same level as the PDF files.
+A flat folder containing PDF copies of anything that will or could be cited in the reports: journal articles, tech notes, etc.  There should be a BibTeX `.bib` bibliography file at the same level as the PDF files, for use with the [JabRef](http://www.jabref.org) open source bibliography and reference manager.
 
 ### Presentations
 
