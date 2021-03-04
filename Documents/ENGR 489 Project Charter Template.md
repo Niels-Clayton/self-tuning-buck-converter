@@ -1,10 +1,10 @@
 # Project Long Title
-## ENGR 489 Project 2018
+## ENGR 489 Project (YYYY)
 
 ### Project Charter
 
-**Project Start Date:** dd March 2018<br>
-**Project End Date:** dd October 2018
+**Project Start Date:** dd March YYYY<br>
+**Project End Date:** dd October YYYY
 
 #### Key Dates
 
