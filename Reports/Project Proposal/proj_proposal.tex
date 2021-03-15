@@ -6,8 +6,10 @@
 \documentclass[11pt, a4paper, twoside, openright]{report}
 
 \usepackage{float} % lets you have non-floating floats
-
 \usepackage{url} % for typesetting urls
+\usepackage[image,ecs]{vuwproject}
+
+\renewcommand{\thesection}{\arabic{section}}
 
 %  We don't want figures to float so we define
 %
@@ -15,10 +17,10 @@
 \floatname{fig}{Figure}
 
 
-\usepackage[image,ecs]{vuwproject} 
+ 
 
 \title{Self Tuning Buck Converter}
-\author{Niels Clayton}
+\author{Niels Daniel Clayton}
 \supervisor{Daniel Burmester}
 \otherdegree{Honours of Electronic and Computer System Engineering}
 
@@ -52,21 +54,10 @@
 
 \section*{1. Introduction}
 
-In this section you should include a very brief introduction to the
-problem to the problem and the project.
+The step-down switch mode power supply also known as a buck converter, is a common DC-to-DC power converter that steps down an input voltage to a desired output efficiently. Currently the design of these converters for specific applications requires a specifically designed output filter, designed around the switching speed of the converter. This filter will smooth the converter output voltage and maintain the inductor current ripple at the designed values. This design process is not always applicable however, if the specified components for the filter are not available there can be lead times and delays.
 
-Your project proposal should cover the following points:
+This project aims to remove the need for designing the output stage of the buck converter. Using a control system, the switching frequency and duty cycle of the converter can be modulated to meet a selected inductor ripple, while maintaining a selected output voltage. This project will focus on the design and implementation this control system on a basic asynchronous buck converter. 
 
-\begin{itemize}
-\item the engineering problem that you are going to solve;
-\item how you plan to solve your problem;
-\item how you intend to evaluate your solution; and
-\item any resource requirements for your project such as software,
-  hardware or other resources that will be needed in the course of the
-  project.
-\end{itemize}
-
-Your proposal should be not more than than 3 pages long.
 
 \section*{2. The Problem}
 
