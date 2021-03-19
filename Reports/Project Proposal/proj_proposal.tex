@@ -7,6 +7,7 @@
 
 \usepackage{float} % lets you have non-floating floats
 \usepackage{url} % for typesetting urls
+\usepackage{wrapfig}
 \usepackage[image,ecs]{vuwproject}
 
 \renewcommand{\thesection}{\arabic{section}}
@@ -15,7 +16,7 @@
 %
 \newfloat{fig}{thp}{lof}[chapter]
 \floatname{fig}{Figure}
-
+\graphicspath{ {./Figures/} }
 
  
 
@@ -54,7 +55,20 @@
 
 \section*{1. Introduction}
 
-The step-down switch mode power supply also known as a buck converter, is a common DC-to-DC power converter that steps down an input voltage to a desired output efficiently. Currently the design of these converters for specific applications requires a specifically designed output filter, designed around the switching speed of the converter. This filter will smooth the converter output voltage and maintain the inductor current ripple at the designed values. This design process is not always applicable however, if the specified components for the filter are not available there can be lead times and delays.
+
+\subsection*{Switch Mode Power Supplies}
+
+Switch mode power supplies convert a DC input voltage to another DC output voltage. They are commonly used in a wide variety of consumer and professional appliances such as laptops and chargers due to their high efficiency compared to other DC-to-DC converters. This project will 
+
+The step-down switch mode power supply also known as a buck converter, is a common DC-to-DC power converter that steps down an input voltage to a desired output efficiently. Currently the design of these converters for specific applications requires a specifically designed output filter, designed around the switching speed of the converter. This filter will smooth the converter output voltage and maintain the inductor current ripple at the designed values. However this design process is not always applicable, if the specified components for the filter are not available there can be lead times, cost implications and delays.
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{asynchronous_buck.png} 
+    \caption{Asynchronous buck converter topology \cite{BuckTopology}}
+    \label{asynchronous_buck}
+  \end{center}
+\end{figure} 
 
 This project aims to remove the need for designing the output stage of the buck converter. Using a control system, the switching frequency and duty cycle of the converter can be modulated to meet a selected inductor ripple, while maintaining a selected output voltage. This project will focus on the design and implementation this control system on a basic asynchronous buck converter. 
 
@@ -65,8 +79,7 @@ In this section you should give a brief description of the problem
 itself. You want to briefly explain the problem, why it is important
 to solve the problem and define your project aims. After reading this
 section, the reader should understand why it is a problem, believe
-that it is important to solve and have a clear idea of the aims of
-your project.
+that it is important to solve and have a clear idea of the aims of your project.
 
 When describing the aims of the project, you should avoid vague,
 unmeasurable words like `analyse', `investigate', `describe', and use
@@ -143,7 +156,6 @@ hardware, software or access to subjects.
 \backmatter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\bibliographystyle{ieeetr}
-\bibliographystyle{acm}
+\bibliographystyle{ieeetr}
 \bibliography{sample}
 \end{document}
