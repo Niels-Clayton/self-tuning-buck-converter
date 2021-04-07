@@ -58,7 +58,8 @@ _minted*
 */auto/*
 
 ## Log file
-# *.log
+*.log
+*.raw
 
 ## Python/Django
 #__pycache__/
