@@ -1,0 +1,64 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=2.5cm, right=2.5cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{ %color attributes of citation, link, etc.
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=gray,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+\setlength{\parindent}{0pt}
+
+%'codify' text for snippets
+\usepackage{xcolor}
+\definecolor{codegray}{gray}{1}
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+
+\graphicspath{ {./images/} }
+  
+\title{\LARGE{\textbf{Self Tuning Buck Converter Design}}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace{-20pt}
+\hrule
+
+\section{PWM Generation}
+
+Based on our evaluation criteria, the generated PWM signal will need to be capable of outputting frequencies between 1kHz and 100kHz. \\
+
+This PWM signal will also need to facilitate the required output voltage accuracy of $\pm5\%$ of the target output voltage, for target voltages between 3V and 10V. The relationship between the input and output voltage of a buck converter is given by $V_{out} = D \times V_{in}$. It should be noted that the output voltage is a function of the PWM duty cycle, therefore we must design the duty cycle such that it can provide the required output voltage accuracy. The workings of this design can be seen in the following.\\
+
+Assuming $V_{min} = 3V$ 
+\begin{align*}
+    V_{error} &= 5\% \mathrm{\; of \;} V_{min} = 0.15V\\
+    D_{steps} &\ge \frac{V_{in}}{V_{error}} \ge 80
+\end{align*}
+
+By designing the PWM duty cycle based on the buck converter minimum output voltage, we design the system to achieve the smallest tolerable error. This design guarantees that the required output voltage accuracy will always be achievable by our system if our PWM duty cycle has more than 80 steps. 
+
+\subsection{Analogue}
+
+\subsection{Microcontroller}
+
+\subsection{FPGA}
+
+
+\section{Current Ripple Sensing}
+
+\end{document}
+
+
+% \begin{center}
+%     \fbox{\includegraphics[width=0.9\textwidth]{image_name.png}}
+% \end{center}
