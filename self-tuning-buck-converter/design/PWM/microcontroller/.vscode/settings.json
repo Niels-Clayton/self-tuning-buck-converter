@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "esp_task_wdt.h": "c",
+        "esp_int_wdt.h": "c",
+        "ledc.h": "c",
+        "rtc_wdt.h": "c"
+    }
+}
