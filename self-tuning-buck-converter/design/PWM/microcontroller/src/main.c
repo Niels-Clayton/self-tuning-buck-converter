@@ -5,8 +5,8 @@
 #include "driver/ledc.h"
 #include "esp_err.h"
 
-// #define DUTY_TEST
-#define FREQUENCY_TEST
+#define DUTY_TEST
+// #define FREQUENCY_TEST
 
 #define DUTY_RESOLUTION LEDC_TIMER_8_BIT
 #define FREQUENCY_MIN 1000
@@ -15,7 +15,7 @@
 void app_main() 
 {
 
-    const TickType_t xDelay = (100 / portTICK_PERIOD_MS);
+    const TickType_t xDelay = (10 / portTICK_PERIOD_MS);
 
     ledc_timer_config_t ledc_timer = {
         .duty_resolution = DUTY_RESOLUTION,    // resolution of PWM duty
@@ -54,7 +54,6 @@ void app_main()
 
             esp_err_t status = ledc_set_freq(ledc_channel.speed_mode, ledc_timer.timer_num, frequency);
             printf("PWM frequency: %d  ->  %d\n", ledc_get_freq(ledc_channel.speed_mode, ledc_timer.timer_num), status);
-            // feedTheDog();
         }
         #endif
     }
