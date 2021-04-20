@@ -5,12 +5,14 @@
 #include "driver/ledc.h"
 #include "esp_err.h"
 
-#define DUTY_TEST
-// #define FREQUENCY_TEST
+// #define DUTY_TEST
+#define FREQUENCY_TEST
 
-#define DUTY_RESOLUTION LEDC_TIMER_8_BIT
+#define DUTY_RESOLUTION LEDC_TIMER_9_BIT
 #define FREQUENCY_MIN 1000
 #define FREQUENCY_MAX 100000
+
+#define DUTY_STEPS 512
 
 void app_main() 
 {
@@ -19,7 +21,7 @@ void app_main()
 
     ledc_timer_config_t ledc_timer = {
         .duty_resolution = DUTY_RESOLUTION,    // resolution of PWM duty
-        .freq_hz = 1000,                     // frequency of PWM signal
+        .freq_hz = 100000,                     // frequency of PWM signal
         .speed_mode = LEDC_HIGH_SPEED_MODE,    // timer mode
         .timer_num = LEDC_TIMER_0,             // timer index
         .clk_cfg = LEDC_AUTO_CLK,              // Auto select the source clock
@@ -27,7 +29,7 @@ void app_main()
 
     ledc_channel_config_t ledc_channel = {
         .channel    = LEDC_CHANNEL_0,
-        .duty       = 128,
+        .duty       = 2*DUTY_STEPS/4,
         .gpio_num   = 23,
         .speed_mode = LEDC_HIGH_SPEED_MODE,
         .timer_sel  = LEDC_TIMER_0
@@ -38,7 +40,6 @@ void app_main()
 
     while (true)
     {
-
         #ifdef DUTY_TEST
         for(int duty = 0; duty < 255; duty++){
             
@@ -50,10 +51,11 @@ void app_main()
 
         #ifdef FREQUENCY_TEST
 
-        for(int frequency = FREQUENCY_MIN; frequency <= FREQUENCY_MAX; frequency = frequency+1){
+        for(int frequency = FREQUENCY_MIN; frequency <= FREQUENCY_MAX; frequency = frequency+10){
 
             esp_err_t status = ledc_set_freq(ledc_channel.speed_mode, ledc_timer.timer_num, frequency);
             printf("PWM frequency: %d  ->  %d\n", ledc_get_freq(ledc_channel.speed_mode, ledc_timer.timer_num), status);
+            // vTaskDelay(xDelay);
         }
         #endif
     }
