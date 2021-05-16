@@ -1,0 +1,81 @@
+%% $RCSfile: proj_report_outline.tex,v $
+%% $Revision: 1.3 $
+%% $Date: 2016/06/10 03:41:54 $
+%% $Author: kevin $
+
+\documentclass[11pt, a4paper, oneside]{report}
+
+
+\usepackage{float} % lets you have non-floating floats
+\usepackage{url} % for typesetting urls
+\usepackage{wrapfig}
+\usepackage[image,ecs]{vuwproject}
+
+% \renewcommand{\thesection}{\arabic{section}}
+% \setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+
+%
+%  We don't want figures to float so we define
+%
+\newfloat{fig}{thp}{lof}[chapter]
+\floatname{fig}{Figure}
+\graphicspath{ {./Figures/} }
+
+%% These are standard LaTeX definitions for the document
+%%                            
+\title{Self Tuning Buck Converter}
+\author{Niels Daniel Clayton}
+
+\supervisors{Daniel Burmester, Ramesh Rayudu}
+\otherdegree{Bachelor of Engineering with Honours}
+
+\date{}
+
+\begin{document}
+
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+	Switch-mode power supplies are commonly used in a wide variety of consumer and professional appliances to transform DC voltages with high efficiency. One such switch-mode supply is the buck converter, which steps down a DC voltage. The design of a buck converter is based around its tolerated inductor ripple, and will require specific components to design the output filter. These components can be difficult to purchase or accurately manufacture. This project will implement a control system to actively control with inductor ripple by modulating the switching frequency. This will allow engineers to design the converter directly for the indutor ripple, eleminating the need to design the output filter.
+
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitle
+
+% \include{acknowledge}
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% individual chapters included here
+\include{introduction}
+\include{background}
+\include{work}
+\include{future}
+\include{feedback}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\backmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\bibliographystyle{ieeetr}
+\bibliographystyle{acm}
+\bibliography{sample}
+
+
+\end{document}
