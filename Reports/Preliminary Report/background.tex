@@ -13,38 +13,42 @@ These searches returned no research relevant to the designs of this project, wit
 
 \section{Buck Converters}
 
-\begin{itemize}
 
-    \item 
-    Talk about the use and purpose of buck converters, as well as their basic design factors.
-
-    \item 
-    Talk about the different buck converter topologies, and why it is that we have chosen to implement this design on a non-synchronous converter. 
-
-    \item 
-    Talk about the buck converter design equations, and specify which equations are relevant to my design.
-
-\end{itemize}
+The buck converters is a variant of switch mode power supply that steps down a DC input voltage to a DC output voltage. They are commonly used in a wide variety of consumer and professional appliances such as laptops, phones, and chargers due to their high efficiency compared to other DC-to-DC converters.
 
 
+\subsection{Buck Converter Topologies}
+
+Talk about the difference between the continuous and discontinuous buck converter topologies, as well as non-synchronous and synchronous. Talk about why it is that we have chosen to implement this design on a non-synchronous converter.
+
+Insert many images describing the topologies. 
+
+\subsection{Buck Converter Design}
+
+Talk about the buck converter design equations, and specify which equations are relevant to my design.
+
+\begin{align*}
+   \Delta I_L &= \frac{ V_{Out} \cdot \left( 1 - D \right) } {L \cdot f_s}\\\\
+   V_o &= D \cdot V_{in}
+\end{align*}
 
 \section{PWM Generation}
 
 \begin{itemize}
 
-    \item 
-    Discuss what PWM is, and how it is used in the context of a buck converter.
-    
-    \item 
-    Discuss the different methods of PWM generation. 
+    \item
+          Discuss what PWM is, and how it is used in the context of a buck converter.
 
-    \begin{itemize}
-        \item Analogue 
-        \item Digital (Microcontroller \& FPGA)
-    \end{itemize}
+    \item
+          Discuss the different methods of PWM generation.
 
-    \item 
-    Discuss how PWM is used in the context of the project. Quickly overview how in this project it will be important to modulate both the PWM frequency, and the PWM duty cycle.
+          \begin{itemize}
+              \item Analogue
+              \item Digital (Microcontroller \& FPGA)
+          \end{itemize}
+
+    \item
+          Discuss how PWM is used in the context of the project. Quickly overview how in this project it will be important to modulate both the PWM frequency, and the PWM duty cycle.
 
 \end{itemize}
 
@@ -53,11 +57,11 @@ These searches returned no research relevant to the designs of this project, wit
 Possibly not needed in this report as I have not designed any control systems yet for this project?
 
 \begin{itemize}
-    
+
     \item
-    Discuss in very general terms what a control system is what what it seeks to do in a system.
+          Discuss in very general terms what a control system is what what it seeks to do in a system.
 
-    \item 
-    Discuss what the control system will be doing in the case of this project. Talk about how a controller will be used to control both the output voltage of the converter, and the inductor ripple of the converter.  
+    \item
+          Discuss what the control system will be doing in the case of this project. Talk about how a controller will be used to control both the output voltage of the converter, and the inductor ripple of the converter.
 
-    \end{itemize}
+\end{itemize}
