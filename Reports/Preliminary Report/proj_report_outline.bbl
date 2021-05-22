@@ -1,13 +1,17 @@
 \begin{thebibliography}{1}
 
 \bibitem{Roman2001}
-J.~R. Roman, ``Pwm regulator with varying operating frequency for reduced
-  emi,'' Mar. 2001.
+J.~R. Roman, ``{PWM} regulator with varying operating frequency for reduced
+  {EMI},'' Mar. 2001.
 
 \bibitem{Familiant2016}
-A.~Familiant, Yakov L. ;~Ruderman, ``A variable switching frequency pwm
-  technique for induction motor drive to spread acoustic noise spectrum with
-  reduced current ripple,'' {\em IEEE transactions on industry applications},
-  vol.~52, no.~6, pp.~5355--5355, 2016.
+Y.~L. Familiant and A.~Ruderman, ``{A} {V}ariable {S}witching {F}requency {PWM}
+  {T}echnique for {I}nduction {M}otor {D}rive to {S}pread {A}coustic {N}oise
+  {S}pectrum {W}ith {R}educed {C}urrent {R}ipple,'' {\em IEEE transactions on
+  industry applications}, vol.~52, no.~6, pp.~5355--5355, 2016.
+
+\bibitem{Mohan2012}
+N.~Mohan, {\em {P}ower {E}lectronics a {F}irst {C}ourse}.
+\newblock Don Fowley, 2012.
 
 \end{thebibliography}
