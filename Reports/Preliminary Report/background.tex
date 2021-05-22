@@ -1,6 +1,6 @@
 \chapter{Background}\label{C:background}
 
-A Literature research was performed to inform design decision made in this project, and to evaluate any existing research. It will discuss buck converter design factors and topologies, as well as the various different methods of PWM generation. In performing this literature research, the following terms were used to search for articles from Google Scholar, Engineering Village, and Te Waharoa:
+A literature research was performed to inform design decision made in this project, and to evaluate any existing research. It will discuss buck converter design factors and topologies, as well as the various different methods of PWM generation. In performing this literature research, the following terms were used to search for articles from Google Scholar, Engineering Village, and Te Waharoa:
 
 \begin{itemize}
     \item Frequency Variable PWM
@@ -37,7 +37,7 @@ The buck converters is a variant of a switch mode power supply that steps down a
 
 The basic operational components of a buck converter can be seen below in Figure \ref{F:buck_func}. From this we see that a buck converter has three main elements, the input voltage source, two switching components, and an output filter across the load. In the case of Figure \ref{F:buck_func}, the first switching component is an actively controlled switch such as a MOSFET or transistor, and the second a passive switching diode. This configuration of an active and a passive switch is known as the non-synchronous buck converter topology, if the passive diode were to be replaced with a second active switch the topology would be considered synchronous. Although both topologies function under the same fundamental principles, the non-synchronous topology is easier to implement with the drawback of higher losses and therefor lower efficiency.\\
 
-It can also be seen from Figure \ref{F:buck_func} that a buck converter has two operating states that are controlled through the activation of these switching components. By toggling these switching components at high speed though the use of PWM, we can control the current flowing through the inductor of the output filter. By controlling this current we are also able to directly control the current through, and voltage across the output load of the converter. Using this, buck converters will often have a feedback control system in their design to be able to actively control and regulate the output voltage during usage. This controller will vary the duty cycle of the the switching PWM signal, thereby varying the output voltage of the buck converter as shown in equation \ref{E:V_out}\\
+It can also be seen from Figure \ref{F:buck_func} that a buck converter has two operating states that are controlled through the activation of these switching components. By toggling these switching components at high speed though the use of PWM, we can control the current flowing through the inductor of the output filter. By controlling this current we are also able to directly control the current through, and voltage across the output load of the converter. Using this, buck converters will often have a feedback control system in their design to be able to actively control and regulate the output voltage during usage. This controller will vary the duty cycle of the the switching PWM signal, thereby varying the output voltage of the buck converter as shown in Equation \ref{E:V_out}\\
 
 \begin{figure}[H]
       \includegraphics[width = 1\textwidth]{Buck_Functionality.png}
@@ -48,14 +48,15 @@ It can also be seen from Figure \ref{F:buck_func} that a buck converter has two 
 
 \subsection{Buck Converter Design}
 
-The design of a common buck converter has two main considerations, the output voltage of the converter $V_0$, and the inductor current ripple of the converter $\Delta i_L$. These considerations can be specified by designing the buck converter around the equations \ref{E:V_out} \& \ref{E:delta_i}.\\ 
+The design of a common buck converter has two main considerations, the output voltage of the converter $V_0$, and the inductor current ripple of the converter $\Delta i_L$. These considerations can be specified by designing the buck converter using Equation \ref{E:V_out} \& Equation \ref{E:delta_i}.\\ 
 
-When designing a buck converter the first design specification that must be met is the output voltage. In equation \ref{E:V_out} the output voltage can be directly related to the input voltage $V_{in}$, and the duty cycle $D$. Using this equation it is possible to directly set the output voltage of the buck converter. 
-
+When designing a buck converter the first design specification that must be met is the output voltage. In Equation \ref{E:V_out} the output voltage can be directly related to the input voltage $V_{in}$ and the switching duty cycle $D$. Using this equation it is possible to directly set the output voltage of the buck converter by varying this duty cycle.
 
 \begin{align}\label{E:V_out}
       V_o &= D \cdot V_{in}
 \end{align}
+
+
 
 \begin{align}\label{E:delta_i}
    \Delta i_L &= \frac{ V_{o} \cdot \left( 1 - D \right) } {L \cdot f_s}
