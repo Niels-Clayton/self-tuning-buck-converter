@@ -8,10 +8,24 @@
 
 \usepackage{float} % lets you have non-floating floats
 \usepackage{url} % for typesetting urls
-\usepackage{hyperref}
-\usepackage{wrapfig}
+
 \usepackage{amsmath}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{wrapfig}
+\usepackage{subcaption}
 \usepackage{graphicx}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    citecolor=blue,
+    urlcolor=magenta,
+}
 
 \usepackage[image,ecs]{vuwproject}
 
@@ -72,8 +86,6 @@ Put in an abstract once the full report has been written.
 \include{background}
 \include{work}
 \include{future}
-\include{feedback}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -84,7 +96,7 @@ Put in an abstract once the full report has been written.
 
 \bibliographystyle{ieeetr}
 % \bibliographystyle{acm}
-\bibliography{bibliography}
+\bibliography{../../Literature/bibliography}
 
 
 \end{document}

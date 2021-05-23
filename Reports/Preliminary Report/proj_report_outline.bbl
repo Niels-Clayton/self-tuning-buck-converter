@@ -10,8 +10,29 @@ Y.~L. Familiant and A.~Ruderman, ``{A} {V}ariable {S}witching {F}requency {PWM}
   {S}pectrum {W}ith {R}educed {C}urrent {R}ipple,'' {\em IEEE transactions on
   industry applications}, vol.~52, no.~6, pp.~5355--5355, 2016.
 
+\bibitem{Tareen2019}
+W.~Tareen, M.~Aamir, S.~Mekhilef, M.~Nakaoka, M.~Seyedmahmoudian, B.~Horan,
+  M.~A. Memon, and N.~A. Baig, ``Mitigation of power quality issues due to
+  highpenetration of renewable energy sources in electricgrid systems using
+  three-phase apf/statcomtechnologies: A review,'' in {\em Power Electronics in
+  Renewable Energy Systems} (T.~Suntio and T.~Messo, eds.), 2019.
+
+\bibitem{Caldwell2013}
+J.~Caldwell, {\em Analog Pulse Width Modulation}.
+\newblock texas instruments, June 2013.
+
+\bibitem{Colley2020}
+S.~Colley, ``Pulse-width modulation (pwm) timers in microcontrollers.'' Online,
+  Feb. 2020.
+
 \bibitem{Mohan2012}
-N.~Mohan, {\em {P}ower {E}lectronics a {F}irst {C}ourse}.
+N.~Mohan, {\em {P}ower {E}lectronics: {A} {F}irst {C}ourse}.
+\newblock Don Fowley, Oct. 2011.
+
+\bibitem{Mohan2012_Design}
+N.~Mohan, {\em {P}ower {E}lectronics a {F}irst {C}ourse}, ch.~4: Switch Mode
+  DC-DC Converters: Switching Analysis, Topology Selection and Design,
+  pp.~38--68.
 \newblock Don Fowley, 2012.
 
 \end{thebibliography}

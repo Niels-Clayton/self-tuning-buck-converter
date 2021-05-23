@@ -10,26 +10,46 @@ A literature research was performed to inform design decision made in this proje
 
 These searches returned no research relevant to the designs of this project, with the only related work focusing on the electromagnetic noise reduction using randomised frequency modulation \cite{Roman2001,Familiant2016}. Because of this, research was instead performed to inform the design of the buck converter and the generation of PWM signals.
 
-\section{PWM Generation}\label{S:PWM}
+\section{Pulse Width Modulated Signal Generation}\label{S:PWM}
 
-\begin{itemize}
+Pulse width modulation (PWM) is a digital signal generation technique shown in \Cref{F:PWM}, in which the Period $T$ of the signal is held constant, while the ratio of its logic high period $T_{on}$ to logic low period $T_{off}$ is modulated. This ratio of high period to the low period is referred to as the duty cycle of the PWM signal and is often expressed as a percentage, this can be seen in \Cref{F:Duty}.\\
 
-    \item
-          Discuss what PWM is, and how it is used in the context of a buck converter.
+PWM signals are used in a wide variety of applications for both digital and analogue electronics. PWM is often used to generate analogue signals from digital components by varying the average voltage of the digital PWM signal over time \cite{Tareen2019}. PWM is also used to control the switching elements contained within switch mode power supplies using this same principle, as discussed in \Cref{S:buck}. With regard to this project, we will be looking to generate a PWM signal that can be modulated in both duty cycle and frequency.
 
-    \item
-          Discuss the different methods of PWM generation.
+\begin{figure}[H]
+      \centering
+      \begin{subfigure}{0.45\textwidth}
+          \includegraphics[width=\columnwidth]{PWM.png}
+          \subcaption{Pulse width modulated signal}
+          \label{F:PWM}
+      \end{subfigure}
+      \hspace{10pt}
+      \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\columnwidth]{Duty_cycle.png}
+          \vspace{-6pt}
+          \subcaption{Duty cycle calculation}
+          \label{F:Duty}
+      \end{subfigure}
+      \caption{Pulse width modulated signal characteristics}
+      \label{F:PWM_description}
+  \end{figure}
 
-          \begin{itemize}
-              \item Analogue
-              \item Digital (Microcontroller \& FPGA)
-          \end{itemize}
+\subsection{Analogue PWM Signal Generation} \label{S:analogue_PWM}
 
-    \item
-          Discuss how PWM is used in the context of the project. Quickly overview how in this project it will be important to modulate both the PWM frequency, and the PWM duty cycle.
+Designing a PWM signal generator using analogue components has three distinct stages required to generate the signal. These stages can be seen in \Cref{F:analogue_PWM}, and include clock generation, triangle wave generation, and signal comparator stages \cite{Caldwell2013}.\\ 
 
-\end{itemize}
+The clock generation stage generates a square wave clock signal at a set frequency. This is usually done using a quartz crystal oscillator, or another form of resonating oscillator circuit. The triangle wave generating state must take the clock signal from the previous stage, and produce a triangle wave of the same frequency. This stage is most often done using a standard op-amp integrating circuit with unity gain at the resonating frequency of the clock source. The final signal comparator stage will convert this triangle wave into a PWM signal. Using a comparator, a refrence voltage can be applied to the non-inverting input, and then the triangle wave can be applied to the inverting input. This will produce a pulse train with the same frequency as the clock source, where the period of $T_{on}$ and $T_{off}$ is set by the refrence voltage. 
 
+\begin{figure}[H]
+	\includegraphics[width = 1\textwidth]{Analogue_PWM.png}
+	\caption{Stages of analogue PWM generation}
+	\label{F:analogue_PWM}
+\end{figure}
+
+
+\subsection{Digital PWM Signal Generation}
+
+Designing a PWM signal generator with digital components is far more simple than the method described in \ref{S:analogue_PWM}, and can be done using either a microcontroller or a Field Programable Gate Array (FPGA). By using an internal timer that is continually incrementing at a known period we can set a period for our PWM. Then by toggling a digital I/O when a compare variable is equal to the value of the timer. we are able to generate a PWM signal with a variable duty cycle \cite{Colley2020}. This can be achieved on most microcontrollers, however the maximum frequency and duty cycle accuracy will be dependant on individual clock speed a and internal register sizes.
 
 \section{Buck Converters}\label{S:buck}
 
@@ -37,42 +57,43 @@ The buck converters is a variant of a switch mode power supply that steps down a
 
 The basic operational components of a buck converter can be seen below in Figure \ref{F:buck_func}. From this we see that a buck converter has three main elements, the input voltage source, two switching components, and an output filter across the load. In the case of Figure \ref{F:buck_func}, the first switching component is an actively controlled switch such as a MOSFET or transistor, and the second a passive switching diode. This configuration of an active and a passive switch is known as the non-synchronous buck converter topology, if the passive diode were to be replaced with a second active switch the topology would be considered synchronous. Although both topologies function under the same fundamental principles, the non-synchronous topology is easier to implement with the drawback of higher losses and therefor lower efficiency.\\
 
-It can also be seen from Figure \ref{F:buck_func} that a buck converter has two operating states that are controlled through the activation of these switching components. By toggling these switching components at high speed though the use of PWM, we can control the current flowing through the inductor of the output filter. By controlling this current we are also able to directly control the current through, and voltage across the output load of the converter. Using this, buck converters will often have a feedback control system in their design to be able to actively control and regulate the output voltage during usage. This controller will vary the duty cycle of the the switching PWM signal, thereby varying the output voltage of the buck converter as shown in Equation \ref{E:V_out}\\
+It can also be seen from Figure \ref{F:buck_func} that a buck converter has two operating states that are controlled through the activation of these switching components. By toggling these switching components at high speed though the use of PWM, we can control the current flowing through the inductor of the output filter. By controlling this current we are also able to directly control the current through, and voltage across the output load of the converter. Using this, buck converters will often have a feedback control system in their design to be able to actively control and regulate the output voltage during usage. This controller will vary the duty cycle of the the switching PWM signal, thereby varying the output voltage of the buck converter as shown in Equation \ref{E:V_out}.\\
 
 \begin{figure}[H]
-      \includegraphics[width = 1\textwidth]{Buck_Functionality.png}
-      \caption{Operating states of a buck converter}
-      \label{F:buck_func}
-  \end{figure}
+	\includegraphics[width = 1\textwidth]{Buck_Functionality.png}
+	\caption{Operating states of a buck converter}
+	\label{F:buck_func}
+\end{figure}
 
 
 \subsection{Buck Converter Design}
 
-The design of a common buck converter has two main considerations, the output voltage of the converter $V_0$, and the inductor current ripple of the converter $\Delta i_L$. These considerations can be specified by designing the buck converter using Equation \ref{E:V_out} \& Equation \ref{E:delta_i}.\\ 
+The design of a common buck converter has two primary considerations, the output voltage of the converter $V_0$, and the inductor current ripple of the converter $\Delta i_L$. These considerations can be specified by designing the buck converter using Equation \ref{E:V_out} \& Equation \ref{E:delta_i} \cite{Mohan2012_Design}.\\ 
 
 When designing a buck converter the first design specification that must be met is the output voltage. In Equation \ref{E:V_out} the output voltage can be directly related to the input voltage $V_{in}$ and the switching duty cycle $D$. Using this equation it is possible to directly set the output voltage of the buck converter by varying this duty cycle.
 
 \begin{align}\label{E:V_out}
-      V_o &= D \cdot V_{in}
+	V_o &= D \cdot V_{in}
 \end{align}
 
-
+Once the output voltage has been specified, the inductor current ripple can be calculated and specified with \Cref{E:delta_i}. This equation allows for the inductor current ripple to be directly related to the inductor size $L$, and the PWM switching frequency $f_s$. This allows the the specification of the inductor current ripple through the varying of these two values.
 
 \begin{align}\label{E:delta_i}
    \Delta i_L &= \frac{ V_{o} \cdot \left( 1 - D \right) } {L \cdot f_s}
 \end{align}
 
+These two equations will be used to inform the designs and specifications of this project, and will be discussed in detail in \Cref{S:specs}.
 
-\section{Control Systems}\label{S:control}
+% \section{Control Systems}\label{S:control}
 
-Possibly not needed in this report as I have not designed any control systems yet for this project?
+% Possibly not needed in this report as I have not designed any control systems yet for this project?
 
-\begin{itemize}
+% \begin{itemize}
 
-    \item
-          Discuss in very general terms what a control system is what what it seeks to do in a system.
+%     \item
+%         Discuss in very general terms what a control system is what what it seeks to do in a system.
 
-    \item
-          Discuss what the control system will be doing in the case of this project. Talk about how a controller will be used to control both the output voltage of the converter, and the inductor ripple of the converter.
+%     \item
+%         Discuss what the control system will be doing in the case of this project. Talk about how a controller will be used to control both the output voltage of the converter, and the inductor ripple of the converter.
 
-\end{itemize}
+% \end{itemize}
