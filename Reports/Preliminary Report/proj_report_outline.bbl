@@ -35,4 +35,8 @@ N.~Mohan, {\em {P}ower {E}lectronics a {F}irst {C}ourse}, ch.~4: Switch Mode
   pp.~38--68.
 \newblock Don Fowley, 2012.
 
+\bibitem{Hauke2015}
+B.~Hauke, ``{B}asic {C}alculation of a {B}uck {C}onverter's {P}ower {S}tage,''
+  tech. rep., Texas Instruments, Aug. 2015.
+
 \end{thebibliography}
