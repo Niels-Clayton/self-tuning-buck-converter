@@ -1,4 +1,10 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Earley2013}
+E.~Earley, ``What’s the difference between ac and dc?.'' Online, Sept. 2013.
+
+\bibitem{Bocock}
+G.~Bocock, ``History of switch mode power supplies (smps).'' Online.
 
 \bibitem{Roman2001}
 J.~R. Roman, ``{PWM} regulator with varying operating frequency for reduced
@@ -38,5 +44,8 @@ N.~Mohan, {\em {P}ower {E}lectronics a {F}irst {C}ourse}, ch.~4: Switch Mode
 \bibitem{Hauke2015}
 B.~Hauke, ``{B}asic {C}alculation of a {B}uck {C}onverter's {P}ower {S}tage,''
   tech. rep., Texas Instruments, Aug. 2015.
+
+\bibitem{ESP32Manual}
+Espressif Systems, {\em ESP32: Technical Reference Manual}, 4.4~ed., 2021.
 
 \end{thebibliography}

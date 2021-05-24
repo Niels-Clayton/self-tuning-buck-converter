@@ -1,12 +1,6 @@
 \chapter{Background}\label{C:background}
 
-A literature research was performed to inform design decision made in this project, and to evaluate any existing research. It will discuss buck converter design factors and topologies, as well as the various different methods of PWM generation. In performing this literature research, the following terms were used to search for articles from Google Scholar, Engineering Village, and Te Waharoa:
-
-\begin{itemize}
-    \item Frequency Variable PWM
-    \item Frequency-PWM converter
-    \item Switching Frequency Converter
-\end{itemize}
+A literature research was performed to inform design decision made in this project, and to evaluate any existing research. It will discuss buck converter design factors and topologies, as well as the various different methods of PWM generation. In performing this literature research, we searched Google Scholar, Engineering Village, and Te Waharoa to find designs that utilised variable frequency PWM. 
 
 These searches returned no research relevant to the designs of this project, with the only related work focusing on the electromagnetic noise reduction using randomised frequency modulation \cite{Roman2001,Familiant2016}. Because of this, research was instead performed to inform the design of the buck converter and the generation of PWM signals.
 
@@ -47,17 +41,17 @@ The clock generation stage generates a square wave clock signal at a set frequen
 \end{figure}
 
 
-\subsection{Digital PWM Signal Generation}
+\subsection{Digital PWM Signal Generation}\label{S:digital_PWM}
 
-Designing a PWM signal generator with digital components is far more simple than the method described in \ref{S:analogue_PWM}, and can be done using either a microcontroller or a Field Programable Gate Array (FPGA). By using an internal timer that is continually incrementing at a known period we can set a period for our PWM. Then by toggling a digital I/O when a compare variable is equal to the value of the timer. we are able to generate a PWM signal with a variable duty cycle \cite{Colley2020}. This can be achieved on most microcontrollers, however the maximum frequency and duty cycle accuracy will be dependant on individual clock speed a and internal register sizes.
+Designing a PWM signal generator with digital components is far more simple than the method described in \Cref{S:analogue_PWM}, and can be done using either a microcontroller or a Field Programable Gate Array (FPGA). By using an internal timer that is continually incrementing at a known period we can set a period for our PWM. Then by toggling a digital I/O when a compare variable is equal to the value of the timer. we are able to generate a PWM signal with a variable duty cycle \cite{Colley2020}. This can be achieved on most microcontrollers, however the maximum frequency and duty cycle accuracy will be dependant on individual clock speed a and internal register sizes.
 
 \section{Buck Converters}\label{S:buck}
 
 The buck converters is a variant of a switch mode power supply that steps down a DC input voltage to a DC output voltage. They are commonly used in a wide variety of consumer and professional appliances such as laptops, phones, and chargers due to their high efficiency compared to other DC-to-DC step down converters such as linear regulators \cite{Mohan2012}.\\
 
-The basic operational components of a buck converter can be seen below in Figure \ref{F:buck_func}. From this we see that a buck converter has three main elements, the input voltage source, two switching components, and an output filter across the load. In the case of Figure \ref{F:buck_func}, the first switching component is an actively controlled switch such as a MOSFET or transistor, and the second a passive switching diode. This configuration of an active and a passive switch is known as the non-synchronous buck converter topology, if the passive diode were to be replaced with a second active switch the topology would be considered synchronous. Although both topologies function under the same fundamental principles, the non-synchronous topology is easier to implement with the drawback of higher losses and therefor lower efficiency.\\
+The basic operational components of a buck converter can be seen below in \Cref{F:buck_func}. From this we see that a buck converter has three main elements, the input voltage source, two switching components, and an output filter across the load. In the case of \Cref{F:buck_func}, the first switching component is an actively controlled switch such as a MOSFET or transistor, and the second a passive switching diode. This configuration of an active and a passive switch is known as the non-synchronous buck converter topology, if the passive diode were to be replaced with a second active switch the topology would be considered synchronous. Although both topologies function under the same fundamental principles, the non-synchronous topology is easier to implement with the drawback of higher losses and therefor lower efficiency.\\
 
-It can also be seen from Figure \ref{F:buck_func} that a buck converter has two operating states that are controlled through the activation of these switching components. By toggling these switching components at high speed though the use of PWM, we can control the current flowing through the inductor of the output filter. By controlling this current we are also able to directly control the current through, and voltage across the output load of the converter. Using this, buck converters will often have a feedback control system in their design to be able to actively control and regulate the output voltage during usage. This controller will vary the duty cycle of the the switching PWM signal, thereby varying the output voltage of the buck converter as shown in Equation \ref{E:V_out}.\\
+It can also be seen from \Cref{F:buck_func} that a buck converter has two operating states that are controlled through the activation of these switching components. By toggling these switching components at high speed though the use of PWM, we can control the current flowing through the inductor of the output filter. By controlling this current we are also able to directly control the current through, and voltage across the output load of the converter. Using this, buck converters will often have a feedback control system in their design to be able to actively control and regulate the output voltage during usage. This controller will vary the duty cycle of the the switching PWM signal, thereby varying the output voltage of the buck converter as shown in \Cref{E:V_out}.\\
 
 \begin{figure}[H]
 	\includegraphics[width = 1\textwidth]{Buck_Functionality.png}
@@ -68,9 +62,9 @@ It can also be seen from Figure \ref{F:buck_func} that a buck converter has two 
 
 \subsection{Buck Converter Design}
 
-The design of a common buck converter has two primary considerations, the output voltage of the converter $V_0$, and the inductor current ripple of the converter $\Delta i_L$. These considerations can be specified by designing the buck converter using Equation \ref{E:V_out} \& Equation \ref{E:delta_i} \cite{Mohan2012_Design,Hauke2015}.\\ 
+The design of a common buck converter has two primary considerations, the output voltage of the converter $V_0$, and the inductor current ripple of the converter $\Delta i_L$. These considerations can be specified by designing the buck converter using \Cref{E:V_out} \& \Cref{E:delta_i} \cite{Mohan2012_Design,Hauke2015}.\\ 
 
-When designing a buck converter the first design specification that must be met is the output voltage. In Equation \ref{E:V_out} the output voltage can be directly related to the input voltage $V_{in}$ and the switching duty cycle $D$. Using this equation it is possible to directly set the output voltage of the buck converter by varying this duty cycle.
+When designing a buck converter the first design specification that must be met is the output voltage. In \Cref{E:V_out} the output voltage can be directly related to the input voltage $V_{in}$ and the switching duty cycle $D$. Using this equation it is possible to directly set the output voltage of the buck converter by varying this duty cycle.
 
 \begin{align}\label{E:V_out}
 	V_o &= D \cdot V_{in}
