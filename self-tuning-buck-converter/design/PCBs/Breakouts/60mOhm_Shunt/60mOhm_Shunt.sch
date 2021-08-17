@@ -30,7 +30,7 @@ U 1 1 611B32A6
 P 2500 1450
 F 0 "J3" H 2550 1650 50  0000 R CNN
 F 1 "Input -" H 2850 1550 50  0000 R CNN
-F 2 "Connector_PinHeader_1.00mm:PinHeader_1x01_P1.00mm_Vertical" H 2500 1450 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 2500 1450 50  0001 C CNN
 F 3 "~" H 2500 1450 50  0001 C CNN
 	1    2500 1450
 	-1   0    0    -1  
@@ -41,7 +41,7 @@ U 1 1 611B2323
 P 1100 1450
 F 0 "J1" H 1208 1631 50  0000 C CNN
 F 1 "Input +" H 1208 1540 50  0000 C CNN
-F 2 "Connector_PinHeader_1.00mm:PinHeader_1x01_P1.00mm_Vertical" H 1100 1450 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 1100 1450 50  0001 C CNN
 F 3 "~" H 1100 1450 50  0001 C CNN
 	1    1100 1450
 	1    0    0    -1  
@@ -56,7 +56,7 @@ U 1 1 611B4B90
 P 1100 1800
 F 0 "J2" H 1208 1981 50  0000 C CNN
 F 1 "Kelvin +" H 1208 1890 50  0000 C CNN
-F 2 "Connector_PinHeader_1.00mm:PinHeader_1x01_P1.00mm_Vertical" H 1100 1800 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 1100 1800 50  0001 C CNN
 F 3 "~" H 1100 1800 50  0001 C CNN
 	1    1100 1800
 	1    0    0    -1  
@@ -67,7 +67,7 @@ U 1 1 611B5A0D
 P 2500 1800
 F 0 "J4" H 2550 2000 50  0000 R CNN
 F 1 "Kelvin -" H 2850 1900 50  0000 R CNN
-F 2 "Connector_PinHeader_1.00mm:PinHeader_1x01_P1.00mm_Vertical" H 2500 1800 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 2500 1800 50  0001 C CNN
 F 3 "~" H 2500 1800 50  0001 C CNN
 	1    2500 1800
 	-1   0    0    -1  
