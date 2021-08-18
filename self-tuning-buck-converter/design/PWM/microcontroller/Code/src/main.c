@@ -6,7 +6,7 @@
 #include "esp_err.h"
 
 // #define DUTY_TEST
-#define FREQUENCY_TEST
+// #define FREQUENCY_TEST
 
 #define DUTY_RESOLUTION LEDC_TIMER_9_BIT
 #define FREQUENCY_MIN 1000
@@ -21,7 +21,7 @@ void app_main()
 
     ledc_timer_config_t ledc_timer = {
         .duty_resolution = DUTY_RESOLUTION,    // resolution of PWM duty
-        .freq_hz = 100000,                     // frequency of PWM signal
+        .freq_hz = 10000,                     // frequency of PWM signal
         .speed_mode = LEDC_HIGH_SPEED_MODE,    // timer mode
         .timer_num = LEDC_TIMER_0,             // timer index
         .clk_cfg = LEDC_AUTO_CLK,              // Auto select the source clock
@@ -29,7 +29,7 @@ void app_main()
 
     ledc_channel_config_t ledc_channel = {
         .channel    = LEDC_CHANNEL_0,
-        .duty       = 2*DUTY_STEPS/4,
+        .duty       = DUTY_STEPS/4,
         .gpio_num   = 23,
         .speed_mode = LEDC_HIGH_SPEED_MODE,
         .timer_sel  = LEDC_TIMER_0
@@ -41,7 +41,7 @@ void app_main()
     while (true)
     {
         #ifdef DUTY_TEST
-        for(int duty = 0; duty < 255; duty++){
+        for(int duty = 0; duty < DUTY_STEPS; duty++){
             
             ledc_set_duty(ledc_channel.speed_mode, ledc_channel.channel, duty);
             ledc_update_duty(ledc_channel.speed_mode, ledc_channel.channel);
