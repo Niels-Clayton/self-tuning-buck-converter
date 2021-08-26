@@ -20,20 +20,20 @@ int adc_read(){
 
 float rolling_average(int raw_value){
     // get the index of the value to replace, and then replace it
-    int next_index = adc_average_buffer[AVG_POINT];
+    int next_index = adc_average_buffer SPAN];
     adc_average_buffer[next_index] = raw_value;
 
     // Increment the index of the last value and check if it past the end of the array
     next_index++;
-    adc_average_buffer[AVG_POINT] = (next_index >= AVG_POINT) ? 0 : next_index;
+    adc_average_buffer SPAN] = (next_index >= SPAN) ? 0 : next_index;
 
     // Calculate the rolling average
     float total = 0;
-    for(int i = 0; i < AVG_POINT; i++){
+    for(int i = 0; i < SPAN; i++){
         total = total + adc_average_buffer[i];
     }
 
-    return total/AVG_POINT;
+    return total SPAN;
 }
 
 

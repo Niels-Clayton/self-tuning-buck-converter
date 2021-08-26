@@ -2,13 +2,12 @@
 #define BUCK_CONVERTER_ADC
 
 #include <math.h>
-
-#include "driver/adc.h"     // Include the ACD driver
+#include "driver/adc.h" // Include the ACD driver
 
 /*
  * Defines, variables, and functions for controlling the PWM setup
  */
-#define AVG_POINT 10  // Number of readings in the rolling average
+#define SPAN 10  // Number of readings in the rolling average
 
 volatile static int adc_average_buffer[AVG_POINT + 1] = {0}; // Circuilar buffer to hold the raw adc readings for averaging 
 
