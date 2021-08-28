@@ -26,9 +26,7 @@ void app_main(){
     /* 
      *  ADC setup
      */
-
-    // Init the adc and check to see if it was successful
-    esp_err_t adc_status = adc_init();
+    esp_err_t adc_status = adc_init();     // Init the adc and check to see if it was successful
     if(adc_status != ESP_OK){
         printf("ADC init error\nESP error code: %d",adc_status); // If setup fails print the error
         return;
