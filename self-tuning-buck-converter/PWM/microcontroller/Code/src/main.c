@@ -10,12 +10,9 @@
 // Hardware driver includes
 #include "driver/ledc.h"    // Include the PWM driver
 
-// Project includes
-#include "adc.h"
-
 
 // #define DUTY_TEST
-// #define FREQUENCY_TEST
+#define FREQUENCY_TEST
 
 /*
  * Defines and functions for controlling the PWM setup
@@ -24,14 +21,6 @@
 #define FREQUENCY_MIN 1000
 #define FREQUENCY_MAX 100000
 #define DUTY_STEPS 512
-
-/*
- * Defines for ADC conversion
- */
-
-#define R1 (float)51400
-#define R2 (float)22000
-
 
 void app_main() 
 {
@@ -59,18 +48,6 @@ void app_main()
     ledc_timer_config(&ledc_timer);
     ledc_channel_config(&ledc_channel);
 
-    /* 
-     *  ADC setup
-     */
-
-    // Init the adc and check to see if it was successful
-    esp_err_t adc_status = adc_init();
-    if(adc_status != ESP_OK){
-        printf("ADC init error\nESP error code: %d",adc_status); // If setup fails print the error
-        return;
-    }
-
-
     while (true)
     {
         #ifdef DUTY_TEST
@@ -78,7 +55,7 @@ void app_main()
             
             ledc_set_duty(ledc_channel.speed_mode, ledc_channel.channel, duty);
             ledc_update_duty(ledc_channel.speed_mode, ledc_channel.channel);
-            vTaskDelay(xDelay);
+            // vTaskDelay(xDelay);
         }
         #endif
 
@@ -91,16 +68,5 @@ void app_main()
             // vTaskDelay(xDelay);
         }
         #endif
-
-        // ADC testing code
-        
-        int adc_raw = adc_read(); // Take an adc reading
-        float adc_average = rolling_average(adc_raw); // Take a rolling average of this value to remove noise
-        float adc_voltage = adc_conversion(adc_average); // Convert this value to the voltage at the adc
-        float load_voltage = (adc_voltage * (R1 + R2))/R2; // Convert to the voltage at the buck converter load
-
-        printf("%f\n", load_voltage);
-        vTaskDelay(xDelay*1);
-
     }
 }

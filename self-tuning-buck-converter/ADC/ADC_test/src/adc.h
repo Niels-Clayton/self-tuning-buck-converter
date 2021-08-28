@@ -9,7 +9,7 @@
  */
 #define SPAN 10  // Number of readings in the rolling average
 
-volatile static int adc_average_buffer[AVG_POINT + 1] = {0}; // Circuilar buffer to hold the raw adc readings for averaging 
+volatile static int adc_average_buffer[SPAN + 1] = {0}; // Circuilar buffer to hold the raw adc readings for averaging 
 
 esp_err_t adc_init(); // Setup the adc to have a 12bit width, and 11dB attenuation
 

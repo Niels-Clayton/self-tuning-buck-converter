@@ -20,12 +20,12 @@ int adc_read(){
 
 float rolling_average(int raw_value){
     // get the index of the value to replace, and then replace it
-    int next_index = adc_average_buffer SPAN];
+    int next_index = adc_average_buffer[SPAN];
     adc_average_buffer[next_index] = raw_value;
 
     // Increment the index of the last value and check if it past the end of the array
     next_index++;
-    adc_average_buffer SPAN] = (next_index >= SPAN) ? 0 : next_index;
+    adc_average_buffer[SPAN] = (next_index >= SPAN) ? 0 : next_index;
 
     // Calculate the rolling average
     float total = 0;
@@ -33,7 +33,7 @@ float rolling_average(int raw_value){
         total = total + adc_average_buffer[i];
     }
 
-    return total SPAN;
+    return total/SPAN;
 }
 
 
