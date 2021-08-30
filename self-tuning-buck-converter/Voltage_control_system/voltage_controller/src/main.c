@@ -1,6 +1,7 @@
 // Standard includes for math and print functions
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 // RTOS includes for error messages and task handling
 #include "freertos/FreeRTOS.h"
@@ -35,7 +36,7 @@ ledc_channel_config_t pwm_channel; // Create the PWM channel struct
  * Defines, functions, and variables for PID controller
  */
 #define VI 12.0f  // The input voltage of the converter. This should ideally be sampled using the ADC 
-#define VO 10.0f   // The desired output of the converter.
+#define VO 3.0f   // The desired output of the converter.
 
 // Controller gains
 #define KP 0.16f 
@@ -82,20 +83,30 @@ void app_main() {
     
     
     
-    // test the queue
-    float v_out = 6.0f;
-    xQueueSend(target_voltage_queue, (void *) &v_out, (TickType_t) 1);
-
-    vTaskDelay(50);
-
-    v_out = 2.0f;
-    xQueueSend(target_voltage_queue, (void *) &v_out, (TickType_t) 1);
-    
+    float input_voltage;
+    char input_buffer[50] = {0};
+    uint8_t buf_index = 0;
     
     while (true)
-    {
+    {   
+        char input = fgetc(stdin);
+
+        if(input != 0xFF) {
+            input_buffer[buf_index++] = input; // read in the character, and increment the index
+            fputc(input, stdout); //echo the character back
+
+            if ((input_buffer[buf_index-1] == '\n')){
+
+                input_voltage = strtof(input_buffer, NULL);
+
+                xQueueSend(target_voltage_queue, (void *) &input_voltage, (TickType_t) 1);
+
+                printf("\nInput Target Voltage: %f\n", strtof(input_buffer, NULL));
+                buf_index = 0;
+            }
+        }
         // printf("task stack unused: %d\n\n", uxTaskGetStackHighWaterMark(VO_controller));
-        vTaskDelay(100);
+        // vTaskDelay(100);
     }
 }
 
@@ -187,7 +198,6 @@ void control_loop(){
         // Check for a new target voltage
         if( uxQueueMessagesWaiting(target_voltage_queue) ){ // If there is a new target voltage read it
             if( xQueueReceive(target_voltage_queue, &target_voltage, ( TickType_t )1) ){
-                printf("%f\n", target_voltage);
                 target_duty = target_voltage/VI;
             }
         }
