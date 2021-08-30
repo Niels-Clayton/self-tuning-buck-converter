@@ -2,23 +2,23 @@
 #define BUCK_CONVERTER_ADC
 
 #include <math.h>
-#include "driver/adc.h" // Include the ACD driver
+#include "driver/adc.h" // Include the ADC driver
 
 /*
  * Defines and variables
  */
-#define SPAN 10  // Number of readings in the rolling average
+#define SPAN 2  // Number of readings in the rolling average
 
-volatile static int adc_average_buffer[SPAN + 1] = {0}; // Circuilar buffer to hold the raw adc readings for averaging 
+volatile static int adc_average_buffer[SPAN + 1] = {0}; // Circular buffer to hold the raw adc readings for averaging 
 
 
 /*
- * Setup the adc to have a 12bit width, and 11dB attenuation
+ * Set up the adc to have a 12bit width, and 11dB attenuation
  */
 esp_err_t adc_init(){
     
-    // ADC setup
-    esp_err_t status; // Status variable to check if adc init was successful
+    // ADC set up
+    esp_err_t status; // Status variable to check if adc initialisation was successful
 
     status = adc1_config_width(ADC_WIDTH_BIT_12); // Set adc width to 12 bits
     if(status != ESP_OK) return status;
@@ -61,7 +61,7 @@ float rolling_average(int raw_value){
     return total/SPAN;
 }
 
-/* Compute the combersion from the adc reading to a voltage. 
+/* Compute the conversion from the adc reading to a voltage. 
  * 
  * The output of the adc has been characterised and then a polynomial has been fit to the curve.
  * This provides an error of < 1% for readings between 200mV and 3100mV
