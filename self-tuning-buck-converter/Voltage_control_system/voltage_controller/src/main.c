@@ -18,7 +18,7 @@
 /*
  * Defines for ADC conversion
  */
-#define R1 51400.0f  // Voltage divider values from buck output load
+#define R1 50000.0f  // Voltage divider values from buck output load
 #define R2 22000.0f
 
 
@@ -36,7 +36,7 @@ ledc_channel_config_t pwm_channel; // Create the PWM channel struct
  * Defines, functions, and variables for PID controller
  */
 #define VI 12.0f  // The input voltage of the converter. This should ideally be sampled using the ADC 
-#define VO 3.0f   // The desired output of the converter.
+#define VO 9.0f   // The desired output of the converter.
 
 // Controller gains
 #define KP 0.16f 
@@ -150,7 +150,7 @@ void control_loop(){
 
         // Min and max output duty cycles
         .limMin = 0.0f,     // 0% duty cycle
-        .limMax = 0.95f,    // 95% duty cycle
+        .limMax = 0.98f,    // 95% duty cycle
 
         // Integrator wind-up min and max
         .limMinInt = -5.0f,
@@ -207,6 +207,9 @@ void control_loop(){
 
         // Output the new duty cycle 
         PWM_set_duty(&pwm_channel, voltage_controller.out);
+
+        // observe that the duty cycle step is
+        // printf("duty cycle: %d\n\n", 512 - (uint32_t)DUTY(voltage_controller.out));
 
         // Delay task until the provided time period is reached
         vTaskDelayUntil(&xLastWakeTime, TS);
