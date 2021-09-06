@@ -460,19 +460,6 @@ Wire Wire Line
 	2300 1850 2300 1900
 Wire Wire Line
 	2050 1750 2125 1750
-Wire Wire Line
-	2125 1750 2125 2100
-$Comp
-L power:GND #PWR?
-U 1 1 613D32B9
-P 2125 2100
-F 0 "#PWR?" H 2125 1850 50  0001 C CNN
-F 1 "GND" H 2130 1927 50  0000 C CNN
-F 2 "" H 2125 2100 50  0001 C CNN
-F 3 "" H 2125 2100 50  0001 C CNN
-	1    2125 2100
-	1    0    0    -1  
-$EndComp
 NoConn ~ 1350 1750
 $Comp
 L Device:C_Small C?
@@ -518,8 +505,6 @@ Wire Wire Line
 	1100 1650 1100 1450
 Connection ~ 1100 1450
 Wire Wire Line
-	2050 1900 2300 1900
-Wire Wire Line
 	3125 1800 3125 1900
 $Comp
 L IR2125:IR2125 U?
@@ -553,4 +538,11 @@ Wire Wire Line
 	875  1350 875  1450
 Wire Wire Line
 	875  1450 1100 1450
+Wire Wire Line
+	2125 1750 2125 1900
+Wire Wire Line
+	2050 1900 2125 1900
+Wire Wire Line
+	2125 1900 2300 1900
+Connection ~ 2125 1900
 $EndSCHEMATC
