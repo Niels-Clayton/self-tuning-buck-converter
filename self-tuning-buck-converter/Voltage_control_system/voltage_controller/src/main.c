@@ -15,22 +15,26 @@
 #include "pid.h"
 
 /*
- * Defines for ADC conversion
+ * Constants for ADC conversion
  */
-#define R1 51330.0f // Voltage divider values from buck output load
-#define R2 21900.0f
+const float R1 = 51330.0f; // Voltage divider values from buck output load
+const float R2 = 21900.0f;
+
+// Internal esp ADC structs
+esp_adc v_supply;
+
 
 /*
- * Defines and variables for PWM output
+ * Constants and variables for PWM output
  */
-#define PWM_BASE_FREQUENCY 100000
+#define PWM_BASE_FREQUENCY 10000
 #define PWM_BASE_DUTY 0 //Set the base duty cycle to 0 to stop the system responding before the controller initialisation has occurred
 
 ledc_timer_config_t pwm_timer;     // Create the PWM timer struct
 ledc_channel_config_t pwm_channel; // Create the PWM channel struct
 
 /*
- * Defines, functions, and variables for PID controller
+ * Constants, functions, and variables for PID controller
  */
 const float VI = 12.0f; // The input voltage of the converter. This should ideally be sampled using the ADC
 const float VO = 3.3f;  // The desired output of the converter.
@@ -100,6 +104,9 @@ void app_main()
                 buf_index = 0;
             }
         }
+
+        vTaskDelay(1);
+
         // printf("task stack unused: %d\n\n", uxTaskGetStackHighWaterMark(VO_controller));
         // vTaskDelay(100);
     }
@@ -125,6 +132,30 @@ void app_main()
 
 void control_loop()
 {
+    /* 
+     *  ADC set up and local variables
+     */ 
+    uint16_t adc_raw;
+    float adc_voltage;
+    float load_voltage;
+    float measurment_duty;
+    
+    // Setup adc struct for reading the load voltage
+    esp_adc v_load = {
+        // adc input channel 0 (GPIO 36)  
+        .adc_channel = 0,
+
+        // do not allow for a rolling average
+        .span = 0,
+        .buffer = NULL
+    };
+
+    // Init the adc and check to see if it was successful
+    if (adc_init(&v_load) != ESP_OK) 
+    {
+        printf("ADC init error!\n"); // If set up fails print the error
+        vTaskDelete(NULL);
+    }
 
     /* 
      *  PID set up
@@ -157,41 +188,24 @@ void control_loop()
     // initialise the PID controller
     PID_controller_init(&voltage_controller);
 
-    /* 
-     *  ADC set up
-     */ 
-    if (adc_init() != ESP_OK) // Init the adc and check to see if it was successful
-    {
-        printf("ADC init error!\n"); // If set up fails print the error
-        vTaskDelete(NULL);
-    }
-
-    // Declare variables for the ADC readings
-    uint16_t adc_raw;
-    float adc_voltage;
-    float load_voltage;
-    float measurment_duty;
-
     // Task variables
     TickType_t xLastWakeTime; // Hold the time stamp of the last wake time
 
-    /* 
-     *  Enter the PID control loop
-     */
+
+    // Enter the PID control loop
     while (true)
     {
 
         xLastWakeTime = xTaskGetTickCount(); // Store the current tick count
 
-        adc_raw = adc_read(); // Take an adc reading
-        // float adc_average = rolling_average(adc_raw); // Take a rolling average of this value
+        adc_raw = adc_read(&v_load);                   // Take an adc reading
         adc_voltage = adc_conversion(adc_raw);         // Convert this value to the voltage at the adc
         load_voltage = (adc_voltage * (R1 + R2)) / R2; // Convert to the voltage at the buck converter load
         measurment_duty = load_voltage / VI;           // Calculate the duty theoretical duty cycle of the output
 
         // Check for a new target voltage
         if (uxQueueMessagesWaiting(target_voltage_queue))
-        { // If there is a new target voltage read it
+        {   // If there is a new target voltage read it
             if (xQueueReceive(target_voltage_queue, &target_voltage, (TickType_t)1))
             {
                 target_duty = target_voltage / VI;
@@ -203,9 +217,6 @@ void control_loop()
 
         // Output the new duty cycle
         PWM_set_duty(&pwm_channel, voltage_controller.out);
-
-        // observe that the duty cycle step is
-        // printf("duty cycle: %d\n\n", 512 - (uint32_t)DUTY(voltage_controller.out));
 
         // Delay task until the provided time period is reached
         vTaskDelayUntil(&xLastWakeTime, TS);
