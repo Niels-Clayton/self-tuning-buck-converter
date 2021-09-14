@@ -40,7 +40,7 @@ typedef struct
 } PIDController;
 
 
-void PIDController_Init(PIDController *pid){
+void PID_controller_init(PIDController *pid){
 
     /* Clear controller variables */
     pid->integrator = 0.0f;
@@ -53,7 +53,7 @@ void PIDController_Init(PIDController *pid){
 }
 
 
-float PIDController_Update(PIDController *pid, float setpoint, float measurement){
+void PID_controller_update(PIDController *pid, float setpoint, float measurement){
 
     // Error Signal
     float error = setpoint - measurement;
@@ -62,7 +62,7 @@ float PIDController_Update(PIDController *pid, float setpoint, float measurement
     float proportional = pid->Kp * error;
 
     // Integral Signal
-    pid->integrator = pid->integrator + 0.5f * pid->Ki * pid->T * (error + pid->prevError);
+    pid->integrator = pid->integrator + (pid->Ki * pid->T * (error + pid->prevError) * 0.5f);
 
     /* Anti-wind-up via integrator clamping */
     if (pid->integrator > pid->limMaxInt){
@@ -94,9 +94,6 @@ float PIDController_Update(PIDController *pid, float setpoint, float measurement
     /* Store error and measurement for later use */
     pid->prevError = error;
     pid->prevMeasurement = measurement;
-
-    /* Return controller output */
-    return pid->out;
 }
 
 #endif //BUCK_CONVERTER_PID

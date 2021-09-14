@@ -7,7 +7,7 @@
 /*
  * Defines and variables
  */
-#define SPAN 2  // Number of readings in the rolling average
+#define SPAN 5  // Number of readings in the rolling average
 
 volatile static int adc_average_buffer[SPAN + 1] = {0}; // Circular buffer to hold the raw adc readings for averaging 
 
@@ -31,7 +31,7 @@ esp_err_t adc_init(){
 /*
  * Read the raw value from the adc
  */
-int adc_read(){
+uint16_t adc_read(){
 
     // Read the raw value from the adc
     return adc1_get_raw(ADC1_CHANNEL_0);
