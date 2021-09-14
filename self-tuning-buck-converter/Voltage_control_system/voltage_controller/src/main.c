@@ -14,92 +14,87 @@
 #include "adc.h"
 #include "pid.h"
 
-
 /*
  * Defines for ADC conversion
  */
-#define R1 50000.0f  // Voltage divider values from buck output load
-#define R2 22000.0f
-
+#define R1 51330.0f // Voltage divider values from buck output load
+#define R2 21900.0f
 
 /*
  * Defines and variables for PWM output
  */
 #define PWM_BASE_FREQUENCY 100000
-#define PWM_BASE_DUTY 0  //Set the base duty cycle to 0 to stop the system responding before the controller initialisation has occurred
+#define PWM_BASE_DUTY 0 //Set the base duty cycle to 0 to stop the system responding before the controller initialisation has occurred
 
 ledc_timer_config_t pwm_timer;     // Create the PWM timer struct
 ledc_channel_config_t pwm_channel; // Create the PWM channel struct
 
-
 /*
  * Defines, functions, and variables for PID controller
  */
-#define VI 12.0f  // The input voltage of the converter. This should ideally be sampled using the ADC 
-#define VO 9.0f   // The desired output of the converter.
+const float VI = 12.0f; // The input voltage of the converter. This should ideally be sampled using the ADC
+const float VO = 3.3f;  // The desired output of the converter.
 
 // Controller gains
-#define KP 0.16f 
-#define KI 17.1f
-#define KD 0.0f
+const float KP = 0.16f;
+const float KI = 17.1f;
+const float KD = 0.0f;
 
 // Controller Sample time period in ms
-#define TS 2.0f
-
+const float TS = 2.0f;
 
 // Output voltage control loop function
 void control_loop();
-
 
 /*
  * Create task queues
  */
 QueueHandle_t target_voltage_queue;
 
-
 /*
  * Main Program 
  */
 
-void app_main() {
+void app_main()
+{
 
     // initialise the queues
     target_voltage_queue = xQueueCreate(5, sizeof(float));
 
     // PWM set up
-    PWM_setup(&pwm_timer, &pwm_channel, PWM_BASE_FREQUENCY, PWM_BASE_DUTY); 
+    PWM_setup(&pwm_timer, &pwm_channel, PWM_BASE_FREQUENCY, PWM_BASE_DUTY);
 
     // Declare task handles
     TaskHandle_t VO_controller = NULL;
 
     // Create the output voltage control task
-    xTaskCreatePinnedToCore(control_loop,       // Voltage control loop function
-                            "Vout_controller",  // Task name
-                            2048,               // Task stack size
-                            (void *) NULL,      // Function parameters
-                            2,                  // Priority of the task (app_main has priority 1)
-                            &VO_controller,     // Task handle
-                            tskNO_AFFINITY);    // Core the task has been pinned to (No core selected)
-    
-    
-    
+    xTaskCreatePinnedToCore(control_loop,      // Voltage control loop function
+                            "Vout_controller", // Task name
+                            2048,              // Task stack size
+                            (void *)NULL,      // Function parameters
+                            2,                 // Priority of the task (app_main has priority 1)
+                            &VO_controller,    // Task handle
+                            tskNO_AFFINITY);   // Core the task has been pinned to (No core selected)
+
     float input_voltage;
-    char input_buffer[50] = {0};
+    char input_buffer[20] = {0};
     uint8_t buf_index = 0;
-    
+
     while (true)
-    {   
+    {
         char input = fgetc(stdin);
 
-        if(input != 0xFF) {
+        if (input != 0xFF)
+        {
             input_buffer[buf_index++] = input; // read in the character, and increment the index
-            fputc(input, stdout); //echo the character back
+            fputc(input, stdout);              //echo the character back
 
-            if ((input_buffer[buf_index-1] == '\n')){
+            if ((input_buffer[buf_index - 1] == '\n'))
+            {
 
                 input_voltage = strtof(input_buffer, NULL);
 
-                xQueueSend(target_voltage_queue, (void *) &input_voltage, (TickType_t) 1);
+                xQueueSend(target_voltage_queue, (void *)&input_voltage, (TickType_t)1);
 
                 printf("\nInput Target Voltage: %f\n", strtof(input_buffer, NULL));
                 buf_index = 0;
@@ -109,8 +104,6 @@ void app_main() {
         // vTaskDelay(100);
     }
 }
-
-
 
 /*
  * Output voltage PID control loop.
@@ -130,13 +123,14 @@ void app_main() {
  *      - Delay the task until the selected sample period defined by TS has elapsed
  */
 
-void control_loop(){
+void control_loop()
+{
 
     /* 
      *  PID set up
      */
     float target_voltage;
-    float target_duty = VO/VI; // Calculate the target duty cycle for the controller
+    float target_duty = VO / VI; // Calculate the target duty cycle for the controller
 
     // Create the PID struct
     PIDController voltage_controller = {
@@ -149,32 +143,31 @@ void control_loop(){
         .tau = 0.0f,
 
         // Min and max output duty cycles
-        .limMin = 0.0f,     // 0% duty cycle
-        .limMax = 0.98f,    // 95% duty cycle
+        .limMin = 0.0f,  // 0% duty cycle
+        .limMax = 0.98f, // 95% duty cycle
 
         // Integrator wind-up min and max
         .limMinInt = -5.0f,
-        .limMaxInt =  5.0f,
+        .limMaxInt = 5.0f,
 
         // Sample time period
-        .T = TS/100.0f,
+        .T = TS / 100.0f,
     };
 
     // initialise the PID controller
-    PIDController_Init(&voltage_controller);
-
+    PID_controller_init(&voltage_controller);
 
     /* 
      *  ADC set up
-     */
-    esp_err_t adc_status = adc_init(VO); // Init the adc and check to see if it was successful
-    if(adc_status != ESP_OK){
-        printf("ADC init error\nESP error code: %d",adc_status); // If set up fails print the error
-        return;
+     */ 
+    if (adc_init() != ESP_OK) // Init the adc and check to see if it was successful
+    {
+        printf("ADC init error!\n"); // If set up fails print the error
+        vTaskDelete(NULL);
     }
 
     // Declare variables for the ADC readings
-    int adc_raw;
+    uint16_t adc_raw;
     float adc_voltage;
     float load_voltage;
     float measurment_duty;
@@ -185,27 +178,30 @@ void control_loop(){
     /* 
      *  Enter the PID control loop
      */
-    while (true) {
+    while (true)
+    {
 
         xLastWakeTime = xTaskGetTickCount(); // Store the current tick count
 
         adc_raw = adc_read(); // Take an adc reading
-        // float adc_average = rolling_average(adc_raw); // Take a rolling average of this value 
-        adc_voltage = adc_conversion(adc_raw); // Convert this value to the voltage at the adc
-        load_voltage = (adc_voltage * (R1 + R2))/R2; // Convert to the voltage at the buck converter load
-        measurment_duty = load_voltage / VI; // Calculate the duty theoretical duty cycle of the output
+        // float adc_average = rolling_average(adc_raw); // Take a rolling average of this value
+        adc_voltage = adc_conversion(adc_raw);         // Convert this value to the voltage at the adc
+        load_voltage = (adc_voltage * (R1 + R2)) / R2; // Convert to the voltage at the buck converter load
+        measurment_duty = load_voltage / VI;           // Calculate the duty theoretical duty cycle of the output
 
         // Check for a new target voltage
-        if( uxQueueMessagesWaiting(target_voltage_queue) ){ // If there is a new target voltage read it
-            if( xQueueReceive(target_voltage_queue, &target_voltage, ( TickType_t )1) ){
-                target_duty = target_voltage/VI;
+        if (uxQueueMessagesWaiting(target_voltage_queue))
+        { // If there is a new target voltage read it
+            if (xQueueReceive(target_voltage_queue, &target_voltage, (TickType_t)1))
+            {
+                target_duty = target_voltage / VI;
             }
         }
 
         // Update the duty cycle with the PID controller
-        PIDController_Update(&voltage_controller, target_duty, measurment_duty);
+        PID_controller_update(&voltage_controller, target_duty, measurment_duty);
 
-        // Output the new duty cycle 
+        // Output the new duty cycle
         PWM_set_duty(&pwm_channel, voltage_controller.out);
 
         // observe that the duty cycle step is
