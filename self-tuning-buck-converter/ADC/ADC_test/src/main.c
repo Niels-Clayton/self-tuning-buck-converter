@@ -20,27 +20,42 @@
 
 void app_main(){
 
-    // delay setup
-    const TickType_t xDelay = (10 / portTICK_PERIOD_MS);
-
     /* 
      *  ADC setup
      */
-    esp_err_t adc_status = adc_init();     // Init the adc and check to see if it was successful
+    uint16_t test_buffer[5] = {0};
+
+    esp_adc v_test = {
+        // Sample ADC Channel 0 (GPIO 36)
+        .adc_channel = 0,
+        // Set the span of the rolling average buffer
+        .span = 5,
+        .buffer = &test_buffer
+    };
+
+
+    esp_err_t adc_status = adc_init(&v_test);     // Init adc channel 0, and check to see if it was successful
     if(adc_status != ESP_OK){
-        printf("ADC init error\nESP error code: %d",adc_status); // If setup fails print the error
+        printf("ADC init error:      ESP error code: %d\n",adc_status); // If setup fails print the error
         return;
     }
 
     while (true)
     {
         // ADC testing code
-        int adc_raw = adc_read(); // Take an adc reading
-        float adc_average = rolling_average(adc_raw); // Take a rolling average of this value to remove noise
+        int adc_raw = adc_read(&v_test); // Take an adc reading
+        float adc_average = rolling_average(&v_test, adc_raw); // Take a rolling average of this value to remove noise
+
+        if(adc_average == -1)
+        {
+            adc_average = adc_raw;
+            printf("Rolling average computation failed!\n");
+        }
+
         float adc_voltage = adc_conversion(adc_average); // Convert this value to the voltage at the adc
         float load_voltage = (adc_voltage * (R1 + R2))/R2; // Convert to the voltage at the buck converter load
 
         printf("%f\n", load_voltage);
-        vTaskDelay(xDelay*1);
+        vTaskDelay(100);
     }
 }
