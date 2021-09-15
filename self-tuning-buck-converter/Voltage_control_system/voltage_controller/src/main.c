@@ -17,8 +17,8 @@
 /*
  * Constants for ADC conversion
  */
-const float R1 = 51330.0f; // Voltage divider values from buck output load
-const float R2 = 21900.0f;
+const float R1 = 56237.0f; // Voltage divider values from buck output load
+const float R2 = 22035.0f + 995.2f;
 
 // Internal esp ADC structs
 esp_adc v_supply;
@@ -27,7 +27,7 @@ esp_adc v_supply;
 /*
  * Constants and variables for PWM output
  */
-#define PWM_BASE_FREQUENCY 10000
+#define PWM_BASE_FREQUENCY 50000
 #define PWM_BASE_DUTY 0 //Set the base duty cycle to 0 to stop the system responding before the controller initialisation has occurred
 
 ledc_timer_config_t pwm_timer;     // Create the PWM timer struct
