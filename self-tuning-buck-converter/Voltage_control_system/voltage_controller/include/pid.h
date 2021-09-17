@@ -5,7 +5,6 @@
  * PID Controller code structure designed by https://github.com/pms67 under the MIT licence
  * https://github.com/pms67/PID
  */
-
 typedef struct
 {
 
@@ -39,6 +38,10 @@ typedef struct
 
 } PIDController;
 
+#endif
+
+
+#ifdef BUCK_CONVERTER_PID_IMPL
 
 void PID_controller_init(PIDController *pid){
 

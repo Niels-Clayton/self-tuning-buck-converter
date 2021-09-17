@@ -13,6 +13,10 @@
 #define DUTY_STEPS      512
 #define DUTY(X)         ((1.0 - X) * DUTY_STEPS) // Duty cycle calculation macro
 
+#endif
+
+
+#ifdef BUCK_CONVERTER_PWM_IMPL
 
 /*
  *   Set up the PWM timer and channel structs, and configure the PWM output

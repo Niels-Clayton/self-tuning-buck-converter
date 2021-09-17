@@ -4,13 +4,12 @@
 #include <math.h>
 #include "driver/adc.h" // Include the ADC driver
 
-
 /*
  * ADC struct to hold setup data
  */
 typedef struct esp_adc
 {
-    // Rolling averge buffer
+    // Rolling average buffer
     uint16_t *buffer;
     uint8_t span;
 
@@ -19,6 +18,10 @@ typedef struct esp_adc
 
 } esp_adc;
 
+#endif // BUCK_CONVERTER_ADC
+
+
+#ifdef BUCK_CONVERTER_ADC_IMPL
 
 /*
  * Set up the adc to have a 12bit width, and 11dB attenuation
@@ -88,6 +91,5 @@ float adc_conversion(float acd_reading)
            (pow(acd_reading , 2) * -1.06609443189713e-7) +
            (0.00085850726668 * acd_reading) + 0.09077205072441;
 }
-
 
 #endif
