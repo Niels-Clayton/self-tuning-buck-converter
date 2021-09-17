@@ -29,8 +29,11 @@ ledc_channel_config_t pwm_channel; // Create the PWM channel struct
 /*
  * Constants for ADC conversion
  */
-static const float R1 = 56237.0f; // Voltage divider values from buck output load
-static const float R2 = 22035.0f + 995.2f;
+static const float LOAD_R1 = 56237.0f; // Voltage divider values from buck output load
+static const float LOAD_R2 = 22035.0f + 995.2f;
+
+static const float SUPPLY_R1 = 565300.0f; // Voltage divider values from buck output load
+static const float SUPPLY_R2 = 119700.0f;
 
 // Internal esp ADC structs
 esp_adc v_supply;
@@ -38,8 +41,7 @@ esp_adc v_supply;
 /*
  * Constants, functions, and variables for PID controller
  */
-static const float VI = 12.0f; // The input voltage of the converter. This should ideally be sampled using the ADC
-static const float VO = 3.3f;  // The desired output of the converter.
+static const float VO = 3.3f;  // The desired initial output of the converter.
 
 // Controller gains
 static const float KP = 0.16f;
