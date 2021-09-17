@@ -7,20 +7,20 @@ void app_main()
 
     // Declare task handles
     TaskHandle_t VO_controller = NULL;
-    
+
     QueueHandle_t target_voltage_queue;
 
     // initialise the queues
     target_voltage_queue = xQueueCreate(5, sizeof(float));
 
     // Create the output voltage control task
-    xTaskCreatePinnedToCore(control_loop,      // Voltage control loop function
-                            "Vout_controller", // Task name
-                            2048,              // Task stack size
-                            (void *)&target_voltage_queue,      // Function parameters
-                            2,                 // Priority of the task (app_main has priority 1)
-                            &VO_controller,    // Task handle
-                            tskNO_AFFINITY);   // Core the task has been pinned to (No core selected)
+    xTaskCreatePinnedToCore(control_loop,                  // Voltage control loop function
+                            "Vout_controller",             // Task name
+                            2048,                          // Task stack size
+                            (void *)&target_voltage_queue, // Function parameters
+                            2,                             // Priority of the task (app_main has priority 1)
+                            &VO_controller,                // Task handle
+                            tskNO_AFFINITY);               // Core the task has been pinned to (No core selected)
 
     float input_voltage;
     char input_buffer[20] = {0};

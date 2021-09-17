@@ -68,6 +68,12 @@ esp_err_t PWM_set_duty(ledc_channel_config_t *pwm_channel, float duty_cycle){
  */
 
 esp_err_t PWM_set_frequency(ledc_channel_config_t *pwm_channel, ledc_timer_config_t *pwm_timer, uint32_t frequency){
+
+    if(frequency > FREQUENCY_MAX || frequency < FREQUENCY_MIN)
+    {
+        printf("Specified input frequency not within possible range: %d - %d\n", FREQUENCY_MIN, FREQUENCY_MAX);
+        return ESP_ERR_INVALID_ARG;
+    }
     
     // Set the new PWM frequency of the given channel and timer configuration
     return ledc_set_freq(pwm_channel -> speed_mode, pwm_timer -> timer_num, frequency);

@@ -84,7 +84,7 @@ float rolling_average(esp_adc* adc, int raw_value){
  * The output of the adc has been characterised and then a polynomial has been fit to the curve.
  * This provides an error of < 1% for readings between 200mV and 3100mV
  */
-float adc_conversion(float acd_reading)
+ float IRAM_ATTR adc_conversion(float acd_reading)
 {
     return (pow(acd_reading , 4) * -7.6813211494455e-15) + 
            (pow(acd_reading , 3) *  5.03088719249885e-11) +

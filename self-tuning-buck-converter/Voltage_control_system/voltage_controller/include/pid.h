@@ -56,7 +56,7 @@ void PID_controller_init(PIDController *pid){
 }
 
 
-void PID_controller_update(PIDController *pid, float setpoint, float measurement){
+void IRAM_ATTR PID_controller_update(PIDController *pid, float setpoint, float measurement){
 
     // Error Signal
     float error = setpoint - measurement;

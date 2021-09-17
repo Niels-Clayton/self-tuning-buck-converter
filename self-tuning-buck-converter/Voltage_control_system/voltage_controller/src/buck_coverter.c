@@ -1,4 +1,4 @@
-// Project includes
+// Include single header library function implementations
 #define BUCK_CONVERTER_PWM_IMPL
 #define BUCK_CONVERTER_ADC_IMPL
 #define BUCK_CONVERTER_PID_IMPL
