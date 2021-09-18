@@ -27,7 +27,12 @@ Frequency step calculation:
 
 From these equations we can build a list of final specifications to inform the design of our PWM generator and buck converter. The PWM generator must provide a minimum voltage step size of $0.0125$V, for a resolution of 80 voltage steps between 3V and 10V. The PWM generator must also be able to provide a minimum frequency step size of $52$Hz, for a resolution of 1881 frequency steps between $1$kHz \& $100$kHz. Finally we can also specify that the buck converter must be capable of functioning with inductor values between $0.5$mH \& $27.7$mH. \\
 
-By designing the PWM generator and the buck converter to these specifications, we are able to guarantee that we can always achieve the requirements outlined in \Cref{C:intro}.
+By designing the PWM generator and the buck converter to these specifications, we are able to guarantee that we can always achieve the requirements outlined in \Cref{C:intro}.\\
+
+
+\subsubsection{TODO}
+Design the system specifications around the current sensing and voltage sensing. What is the required bandwidth of the sensor? What is the required precision?
+
 
 \section{System Architecture \& Design}\label{S:system}
 
@@ -40,13 +45,28 @@ The second section of work is the design of the sensing elements required by the
 Finally the third section of work is the design and implementation of the two control systems, denoted 3 in \Cref{F:sys_overview}. These control systems will be responsible for maintaining the desired output voltage and inductor current ripple of the buck converter. This system will therefor be responsible for facilitating the final functionality of the project, combining sections 1 \& 2. \\
 
 \begin{figure}[!h]
-    \includegraphics[width = 0.95\textwidth]{System_Overview.png}
+    \includegraphics[width = 0.8\textwidth]{System_Overview.png}
     \caption{High level system overview}
     \vspace{-20pt}
     \label{F:sys_overview}
 \end{figure}
 
-\section{PWM Generation Design}\label{S:pwm_gen}
+
+
+
+
+\section{Control System Design}
+
+The control system designs will inform the selection of the sensors used within the system design. This section will cover the selection of the controller topology (PI \& PID), some basic modelling of the system, and then the selection of the sensors required to generate the correct feedback signals. 
+
+\subsection{Output Load Voltage Controller}
+
+\subsection{Inductor Current Ripple Controller}
+
+
+
+    
+\section{PWM Generation}\label{S:pwm_gen}
 
 In the design of the PWM generator, both the analogue and digital designs discussed in \Cref{S:PWM_back} were considered, designed, and tested for. Each of these designs presented pros and cons that would affects the overall design of the system architecture. This section will discuss these designs and finalise the design of the PWM generator for this system. 
 
@@ -58,6 +78,8 @@ The clock generation stage will be responsible for setting the frequency of the 
 
 The next section designed was the signal integrator stage. This stage consisted of a basic op-amp integrator circuit, with a design requirement that it be able to integrate the clock signal across the frequency range required. This circuit was designed and implemented in an LTSpice simulation to evaluate it's performance, and can be seen in \Cref*{A:analogue_PWM}. From this simulation it was noted that the integrator's frequency response was similar to that of a first order low pass filter, and greatly attenuated the integrated signal. For this reason it was decided that analogue PWM generation would not be implemented in this system, as it presented many issues.
 
+\subsubsection{TODO insert images of the designed integrator circuit, and it's frequency response (bode plot)} 
+
 \subsection{Digital PWM Generator Design}\label{S:digital_design}
 
 As discussed in \Cref{S:digital_PWM_back}, The design of the digital PWM generator is far simpler than that of the analogue, and can be implemented in a wide variety of methods. In this project microcontrollers and FPGA's have been considered.
@@ -65,3 +87,34 @@ As discussed in \Cref{S:digital_PWM_back}, The design of the digital PWM generat
 Based solely on the capabilities of the platform, the PWM generator would be best designed and implemented on an FPGA as it would allow for superior speed and precision. However FGPA design brings a lot of difficulties, primarily in the prototyping and testing stages. Because of this, due to the limited time from of this project, we have decided to implement this PWM design using a microcontroller.
 
 The selection of the microcontroller is highly dependant on the clock frequency and design of the PWM peripherals, as it must be capable of achieving the specifications outlined in \Cref{S:specs}. A large selection of microcontroller datasheets were reviewed to identify their specifications, including AVR, STM8, Espressif, and teensy based microcontrollers. From this review it was decided that the ESP32 microcontroller would be best suited to this project \cite{ESP32Manual}. This microcontroller is capable of outputting a maximum PWM frequency 125$kHz$ with a duty cycle resolution of 9 bits (512 voltage steps). From here a short C program was written to test the PWM functionality of the ESP32, and it was confirmed that it met the required specifications. The source code and images of this PWM signal can be found in \Cref{A:digital_PWM}.
+
+\subsubsection{TODO Gate driving and Bootstrapping} 
+
+Discuss how the micro will be unable to directly drive the gate of the switching MOSFET, as it's $V_{GS_{on}}$ will be too large. Because of this a gate driver will need to be selected. The driver will need to be driven using the 3.3V logic from the ESP32, and will need timings fast enough to function correctly at 100kHz. I can also discuss how during the lockdown I was unable to purchase a gate driver, and so I built a bootstrapping circuit from components I located around the house. 
+ 
+
+
+
+
+
+\section{Inductor Current Ripple Sensing Design}
+
+Discuss the purpose of this sensors, and the requirements of the sensing system in regards to its range, precision, and bandwidth. Also discuss the required outputs of the sensor (we need to detects the current peak value, and the mean current).
+
+
+\subsection{Current Sensor Selection}
+
+Talk about how hall effect sensors were identified to not be suitable for this design due to the reasons outlined in \Cref{S:hall_effect_back}. From here the discuss the selection of a current sense amplifier (it's gain, bandwidth, and precision), and then the selection and design of the shunt resistor. Then discuss the expected voltage output of this current and the expected waveform. 
+
+
+Based on the specs outlined in \Cref{S:specs}, it can be identified that directly sampling the output waveform from this sensors is not feasible due to it's large possible bandwidth. From there then discuss the design of varying analog circuits to attempt to identify the peak current and mean current. 
+
+I want to show circuit designs, and simulations for both the precision rectifier peak detection design, and the capture and hold peak detection design. 
+
+\subsection{Precision Rectifier Peak Voltage Detection}
+
+\subsection{Sample and Hold Peak Voltage Detection}
+
+
+
+
