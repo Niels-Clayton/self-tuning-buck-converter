@@ -8,7 +8,7 @@
 void init_buck()
 {
     // PWM set up
-    PWM_setup(&pwm_timer, &pwm_channel, 10000, 0);
+    PWM_setup(&pwm_timer, &pwm_channel, 50000, 0);
 }
 
 /*

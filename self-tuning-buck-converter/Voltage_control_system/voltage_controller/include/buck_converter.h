@@ -41,7 +41,7 @@ esp_adc v_supply;
 /*
  * Constants, functions, and variables for PID controller
  */
-static const float VO = 3.3f;  // The desired initial output of the converter.
+static const float VO = 3.0f;  // The desired initial output of the converter.
 
 // Controller gains
 static const float KP = 0.16f;
