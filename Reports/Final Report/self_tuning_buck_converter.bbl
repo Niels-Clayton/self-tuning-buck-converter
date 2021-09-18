@@ -1,0 +1,51 @@
+\begin{thebibliography}{10}
+
+\bibitem{Earley2013}
+E.~Earley, ``What’s the difference between ac and dc?.'' Online, Sept. 2013.
+
+\bibitem{Bocock}
+G.~Bocock, ``History of switch mode power supplies (smps).'' Online.
+
+\bibitem{Roman2001}
+J.~R. Roman, ``{PWM} regulator with varying operating frequency for reduced
+  {EMI},'' Mar. 2001.
+
+\bibitem{Familiant2016}
+Y.~L. Familiant and A.~Ruderman, ``{A} {V}ariable {S}witching {F}requency {PWM}
+  {T}echnique for {I}nduction {M}otor {D}rive to {S}pread {A}coustic {N}oise
+  {S}pectrum {W}ith {R}educed {C}urrent {R}ipple,'' {\em IEEE transactions on
+  industry applications}, vol.~52, no.~6, pp.~5355--5355, 2016.
+
+\bibitem{Tareen2019}
+W.~Tareen, M.~Aamir, S.~Mekhilef, M.~Nakaoka, M.~Seyedmahmoudian, B.~Horan,
+  M.~A. Memon, and N.~A. Baig, ``Mitigation of power quality issues due to
+  highpenetration of renewable energy sources in electricgrid systems using
+  three-phase apf/statcomtechnologies: A review,'' in {\em Power Electronics in
+  Renewable Energy Systems} (T.~Suntio and T.~Messo, eds.), pp.~105--133, 2019.
+
+\bibitem{Caldwell2013}
+J.~Caldwell, {\em Analog Pulse Width Modulation}.
+\newblock texas instruments, June 2013.
+
+\bibitem{Colley2020}
+S.~Colley, ``Pulse-width modulation (pwm) timers in microcontrollers.'' Online,
+  Feb. 2020.
+
+\bibitem{Mohan2012}
+N.~Mohan, {\em {P}ower {E}lectronics: {A} {F}irst {C}ourse}.
+\newblock Don Fowley, Oct. 2011.
+
+\bibitem{Mohan2012_Design}
+N.~Mohan, {\em {P}ower {E}lectronics a {F}irst {C}ourse}, ch.~4: Switch Mode
+  DC-DC Converters: Switching Analysis, Topology Selection and Design,
+  pp.~38--68.
+\newblock Don Fowley, 2012.
+
+\bibitem{Hauke2015}
+B.~Hauke, ``{B}asic {C}alculation of a {B}uck {C}onverter's {P}ower {S}tage,''
+  tech. rep., Texas Instruments, Aug. 2015.
+
+\bibitem{ESP32Manual}
+Espressif Systems, {\em ESP32: Technical Reference Manual}, 4.4~ed., 2021.
+
+\end{thebibliography}

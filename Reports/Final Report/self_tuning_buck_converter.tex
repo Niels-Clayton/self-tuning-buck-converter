@@ -1,0 +1,124 @@
+\documentclass[11pt, a4paper, twoside]{report}
+
+
+\usepackage{float} % lets you have non-floating floats
+\usepackage{url} % for typesetting urls
+
+\usepackage{amsmath}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+\usepackage{pdfpages}
+
+% Include C code
+\usepackage{listings}
+\lstset{
+  language=C,                % choose the language of the code
+  numbers=left,                   % where to put the line-numbers
+  stepnumber=1,                   % the step between two line-numbers.        
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    citecolor=black,
+    urlcolor=black,
+}
+
+\usepackage[image,ecs]{vuwproject}
+
+% \renewcommand{\thesection}{\arabic{section}}
+% \setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[hang] 
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter:}{1em}{} 
+
+%
+%  We don't want figures to float so we define
+%
+\newfloat{fig}{thp}{lof}[chapter]
+\floatname{fig}{Figure}
+\graphicspath{ {./Figures/} }
+
+%% These are standard LaTeX definitions for the document
+%%                            
+\title{Self Tuning Buck Converter}
+\author{Niels Clayton}
+
+\supervisors{Daniel Burmester and Ramesh Rayudu}
+\otherdegree{Bachelor of Engineering with Honours}
+
+\date{}
+
+\begin{document}
+
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+    Switch-mode power supplies are commonly used in a wide variety of consumer and professional appliances to transform DC voltages with high efficiency. One such switch-mode supply is the buck converter, which steps down a DC voltage. The current buck converter design process requires that a specific output filter be designed around the switching frequency of the converter, the required output voltage, and the desired inductor ripple. This filter design process often results in the selection of non-standards components that are difficult to purchase or manufacture, increasing costs and leading to design compromises. This project will implement a control system to actively control the inductor current ripple by modulating the switching frequency of the converter. This will allow engineers to design buck converters directly for the inductor current ripple they wish to tolerate, eliminating the issues of designing this output filter.
+
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitle
+
+
+% \include{acknowledge}
+\tableofcontents
+\listof{fig}{figures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% individual chapters included here
+\include{introduction}
+\include{background}
+\include{Design}
+\include{Implementation}
+\include{Evaluation}
+\include{conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\backmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{ieeetr}
+% \bibliographystyle{acm}
+\bibliography{../../Literature/bibliography}
+
+% Include appendix
+
+% \appendix
+% \input{appendix}
+
+\end{document}
