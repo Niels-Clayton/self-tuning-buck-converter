@@ -1,1 +1,16 @@
 \chapter{Implementation}\label{C:implementation}
+
+
+\section{PWM Generation}\label{S:pwm_gen_impl}
+
+
+
+\subsubsection{TODO Gate driving and Bootstrapping} 
+
+Discuss how the micro will be unable to directly drive the gate of the switching MOSFET, as it's $V_{GS_{on}}$ will be too large. Because of this a gate driver will need to be selected. The driver will need to be driven using the 3.3V logic from the ESP32, and will need timings fast enough to function correctly at 100kHz. I can also discuss how during the lock-down I was unable to purchase a gate driver, and so I built a bootstrapping circuit from components I located around the house. 
+
+
+\section{Inductor Current Ripple Sensor}\label{S:current_sense_impl}
+
+
+\section{Control System}\label{S:control_impl}
