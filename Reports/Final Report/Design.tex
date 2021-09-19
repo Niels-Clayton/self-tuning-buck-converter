@@ -2,9 +2,13 @@
 
 \section{Defining \& Justifying System Specifications}\label{S:specs}
 
-Based on the system requirements that have been outlined in \Cref{C:intro}, a set of system specifications can be created to inform the design. Current work on this project has been towards the implementation of the PWM signal generator, and as such all specifications outlined will pertain to this work.
+Based on the system requirements that have been outlined in \Cref{C:intro}, a set of system specifications can be created to inform our design decisions.
 
-The final system is required to be able to select both the output voltage and inductor current ripple of the buck converter. From this requirement we specify that our PWM generator must vary both the duty cycle and the switching frequency of the buck converter, based on \Cref{E:V_out} \& \Cref{E:delta_i}. The requirements also specify the level of precision that will be required for these selections, allowing us to specify the tolerable error. Using these same equations, the minimum duty cycle step size in \Cref{E:duty_step}, the inductor minimum and maximum values in \Cref{E:L_min} \& \Cref{E:L_max}, and the frequency step size in \Cref{E:f_step} have all been derived. For the derivation of these values see \Cref*{A:specs}.\\
+It has been specified that the final system design will be able to select for both the output load voltage, and the inductor current ripple of the buck converter. From this requirement we can identity that two separate control systems should be designed, one to regulate the output voltage of the converter, and one to regulate the inductor current ripple. \\
+
+We are also able to identify that to control these outputs we must be able to actively effect their current state. Based on \Cref{E:V_out} we can see that by varying the duty cycle of the converters PWM we are able to directly control the output voltage. Similarly, from \Cref{E:delta_i} we can see that by varying the controllers PWM switching frequency we are able to directly control the inductor current ripple. From this we can specify that our PWM generation method must be capable of varying the duty cycle and switching frequency of the output PWM signal separately and simultaneously. \\
+
+The requirements also specify the level of precision that will be required for these selections, allowing us to specify the tolerable error. Using these same equations, the minimum duty cycle step size in \Cref{E:duty_step}, the inductor minimum and maximum values in \Cref{E:L_min} \& \Cref{E:L_max}, and the frequency step size in \Cref{E:f_step} have all been derived. For the derivation of these values see \Cref*{A:specs}.\\
 
 Duty cycle step calculation:
 \begin{align}
@@ -40,14 +44,14 @@ To achieve the specifications that have been outlined in \Cref{S:specs}, it is i
 
 The first section of work that must be completed is the design of the PWM generation, denoted 1 in \Cref{F:sys_overview}. This PWM generator will be used to control both the output voltage and the inductor current ripple, and as such must be able to modulate both the duty cycle and the frequency of the PWM to the precisions required. \\
 
-The second section of work is the design of the sensing elements required by the system, denoted 2 in \Cref{F:sys_overview}. These elements will be used to measure both the output voltage and the inductor current ripple, and therefor must be able to achieve the required precisions and sampling rates. \\
+The second section of work is the design of the sensing elements required by the system, denoted 2 in \Cref{F:sys_overview}. These elements will be used to measure both the output voltage and the inductor current ripple, and therefore must be able to achieve the required precisions and sampling rates. \\
 
-Finally the third section of work is the design and implementation of the two control systems, denoted 3 in \Cref{F:sys_overview}. These control systems will be responsible for maintaining the desired output voltage and inductor current ripple of the buck converter. This system will therefor be responsible for facilitating the final functionality of the project, combining sections 1 \& 2. \\
+Finally the third section of work is the design and implementation of the two control systems, denoted 3 in \Cref{F:sys_overview}. These control systems will be responsible for maintaining the desired output voltage and inductor current ripple of the buck converter. This system will therefore be responsible for facilitating the final functionality of the project, combining sections 1 \& 2. \\
 
 \begin{figure}[!h]
-    \includegraphics[width = 0.8\textwidth]{System_Overview.png}
+    \includegraphics[width = \textwidth]{System_Overview.png}
     \caption{High level system overview}
-    \vspace{-20pt}
+    % \vspace{-20pt}
     \label{F:sys_overview}
 \end{figure}
 
@@ -90,7 +94,7 @@ The selection of the microcontroller is highly dependant on the clock frequency 
 
 \subsubsection{TODO Gate driving and Bootstrapping} 
 
-Discuss how the micro will be unable to directly drive the gate of the switching MOSFET, as it's $V_{GS_{on}}$ will be too large. Because of this a gate driver will need to be selected. The driver will need to be driven using the 3.3V logic from the ESP32, and will need timings fast enough to function correctly at 100kHz. I can also discuss how during the lockdown I was unable to purchase a gate driver, and so I built a bootstrapping circuit from components I located around the house. 
+Discuss how the micro will be unable to directly drive the gate of the switching MOSFET, as it's $V_{GS_{on}}$ will be too large. Because of this a gate driver will need to be selected. The driver will need to be driven using the 3.3V logic from the ESP32, and will need timings fast enough to function correctly at 100kHz. I can also discuss how during the lock-down I was unable to purchase a gate driver, and so I built a bootstrapping circuit from components I located around the house. 
  
 
 
@@ -107,7 +111,7 @@ Discuss the purpose of this sensors, and the requirements of the sensing system 
 Talk about how hall effect sensors were identified to not be suitable for this design due to the reasons outlined in \Cref{S:hall_effect_back}. From here the discuss the selection of a current sense amplifier (it's gain, bandwidth, and precision), and then the selection and design of the shunt resistor. Then discuss the expected voltage output of this current and the expected waveform. 
 
 
-Based on the specs outlined in \Cref{S:specs}, it can be identified that directly sampling the output waveform from this sensors is not feasible due to it's large possible bandwidth. From there then discuss the design of varying analog circuits to attempt to identify the peak current and mean current. 
+Based on the specifications outlined in \Cref{S:specs}, it can be identified that directly sampling the output waveform from this sensors is not feasible due to it's large possible bandwidth. From there then discuss the design of varying analog circuits to attempt to identify the peak current and mean current. 
 
 I want to show circuit designs, and simulations for both the precision rectifier peak detection design, and the capture and hold peak detection design. 
 
