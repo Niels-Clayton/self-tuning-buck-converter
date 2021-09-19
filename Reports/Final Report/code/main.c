@@ -1,62 +1,55 @@
+#include "buck_converter.h"
 
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "driver/ledc.h"
-#include "esp_err.h"
-
-// #define DUTY_TEST
-#define FREQUENCY_TEST
-
-#define DUTY_RESOLUTION LEDC_TIMER_9_BIT
-#define FREQUENCY_MIN 1000
-#define FREQUENCY_MAX 100000
-
-#define DUTY_STEPS 512
-
-void app_main() 
+void app_main()
 {
 
-    const TickType_t xDelay = (10 / portTICK_PERIOD_MS);
+    init_buck();
 
-    ledc_timer_config_t ledc_timer = {
-        .duty_resolution = DUTY_RESOLUTION,    // resolution of PWM duty
-        .freq_hz = 100000,                     // frequency of PWM signal
-        .speed_mode = LEDC_HIGH_SPEED_MODE,    // timer mode
-        .timer_num = LEDC_TIMER_0,             // timer index
-        .clk_cfg = LEDC_AUTO_CLK,              // Auto select the source clock
-    };
+    // Declare task handles
+    TaskHandle_t VO_controller = NULL;
 
-    ledc_channel_config_t ledc_channel = {
-        .channel    = LEDC_CHANNEL_0,
-        .duty       = 2*DUTY_STEPS/4,
-        .gpio_num   = 23,
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
-        .timer_sel  = LEDC_TIMER_0
-    };
+    QueueHandle_t target_voltage_queue;
 
-    ledc_timer_config(&ledc_timer);
-    ledc_channel_config(&ledc_channel);
+    // initialise the queues
+    target_voltage_queue = xQueueCreate(5, sizeof(float));
+
+    // Create the output voltage control task
+    xTaskCreatePinnedToCore(control_loop,                  // Voltage control loop function
+                            "Vout_controller",             // Task name
+                            2048,                          // Task stack size
+                            (void *)&target_voltage_queue, // Function parameters
+                            2,                             // Priority of the task (app_main has priority 1)
+                            &VO_controller,                // Task handle
+                            tskNO_AFFINITY);               // Core the task has been pinned to (No core selected)
+
+    float input_voltage;
+    char input_buffer[20] = {0};
+    uint8_t buf_index = 0;
 
     while (true)
     {
-        #ifdef DUTY_TEST
-        for(int duty = 0; duty < 255; duty++){
-            
-            ledc_set_duty(ledc_channel.speed_mode, ledc_channel.channel, duty);
-            ledc_update_duty(ledc_channel.speed_mode, ledc_channel.channel);
-            vTaskDelay(xDelay);
+        char input = fgetc(stdin);
+
+        if (input != 0xFF)
+        {
+            input_buffer[buf_index++] = input; // read in the character, and increment the index
+            fputc(input, stdout);              //echo the character back
+
+            if ((input_buffer[buf_index - 1] == '\n'))
+            {
+
+                input_voltage = strtof(input_buffer, NULL);
+
+                xQueueSend(target_voltage_queue, (void *)&input_voltage, (TickType_t)1);
+
+                printf("\nInput Target Voltage: %f\n", strtof(input_buffer, NULL));
+                buf_index = 0;
+            }
         }
-        #endif
 
-        #ifdef FREQUENCY_TEST
+        vTaskDelay(1);
 
-        for(int frequency = FREQUENCY_MIN; frequency <= FREQUENCY_MAX; frequency = frequency+10){
-
-            esp_err_t status = ledc_set_freq(ledc_channel.speed_mode, ledc_timer.timer_num, frequency);
-            printf("PWM frequency: %d  ->  %d\n", ledc_get_freq(ledc_channel.speed_mode, ledc_timer.timer_num), status);
-            // vTaskDelay(xDelay);
-        }
-        #endif
+        // printf("task stack unused: %d\n\n", uxTaskGetStackHighWaterMark(VO_controller));
+        // vTaskDelay(100);
     }
 }
