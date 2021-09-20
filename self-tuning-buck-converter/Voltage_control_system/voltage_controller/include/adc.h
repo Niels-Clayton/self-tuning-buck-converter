@@ -11,7 +11,8 @@ typedef struct esp_adc
 {
     // Rolling average buffer
     uint16_t *buffer;
-    uint8_t span;
+    uint8_t index;
+    const uint8_t span;
 
     // ADC channel to sample
     uint8_t adc_channel;
@@ -29,6 +30,8 @@ typedef struct esp_adc
 esp_err_t adc_init(esp_adc* adc){
     
     // ADC set up
+    adc->index = 0;  // init the initial buffer index to zero
+
     esp_err_t status; // Status variable to check if adc initialisation was successful
 
     status = adc1_config_width(ADC_WIDTH_BIT_12); // Set adc width to 12 bits
@@ -62,16 +65,15 @@ float rolling_average(esp_adc* adc, int raw_value){
     }
 
     // get the index of the value to replace, and then replace it
-    int next_index = adc->buffer[adc->span];
-    adc->buffer[next_index] = raw_value;
+    adc->buffer[adc->index] = raw_value;
 
     // Increment the index of the last value and check if it past the end of the array
-    next_index++;
-    adc->buffer[adc->span] = (next_index >= adc->span) ? 0 : next_index;
+    adc->index++;
+    adc->index = (adc->index >= adc->span) ? 0 : adc->index;
 
     // Calculate the rolling average
     float total = 0;
-    for(int i = 0; i < adc->span; i++)
+    for(uint8_t i = 0; i < adc->span; i++)
     {
         total = total + adc->buffer[i];
     }
