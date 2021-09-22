@@ -1,3 +1,5 @@
 (fp_lib_table
   (lib (name MODULE_ESP32-DEVKITC-32D)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/MODULE_ESP32-DEVKITC-32D.pretty)(options "")(descr ""))
+  (lib (name LD1117V50)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/LD1117V50.pretty)(options "")(descr ""))
+  (lib (name LT1999-50)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/LT1999-50.pretty)(options "")(descr ""))
 )
