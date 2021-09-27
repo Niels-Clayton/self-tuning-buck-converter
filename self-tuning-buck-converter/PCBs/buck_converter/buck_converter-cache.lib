@@ -104,6 +104,23 @@ X 2 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
+# Device_Net-Tie_2
+#
+DEF Device_Net-Tie_2 NT 0 0 N N 1 F N
+F0 "NT" 0 50 50 H V C CNN
+F1 "Device_Net-Tie_2" 0 -50 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Net*Tie*
+$ENDFPLIST
+DRAW
+P 2 0 1 10 -50 0 50 0 N
+X 1 1 -100 0 100 R 50 50 1 1 P
+X 2 2 100 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Device_Opamp_Dual_Generic
 #
 DEF Device_Opamp_Dual_Generic U 0 20 Y Y 3 L N
@@ -194,23 +211,6 @@ P 4 0 1 0 130 15 115 -10 145 -10 130 15 N
 X G 1 -200 0 100 R 50 50 1 1 I
 X D 2 100 200 100 D 50 50 1 1 P
 X S 3 100 -200 100 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Device_R
-#
-DEF Device_R R 0 0 N Y 1 F N
-F0 "R" 80 0 50 V V C CNN
-F1 "Device_R" 0 0 50 V V C CNN
-F2 "" -70 0 50 V I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- R_*
-$ENDFPLIST
-DRAW
-S -40 -100 40 100 0 1 10 N
-X ~ 1 0 150 50 D 50 50 1 1 P
-X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -403,6 +403,22 @@ X SCL 5 325 -150 100 L 50 50 1 1 O
 X SDA 6 325 -50 100 L 50 50 1 1 O
 X GND 7 325 50 100 L 50 50 1 1 W
 X VDD 8 325 150 100 L 50 50 1 1 W
+ENDDRAW
+ENDDEF
+#
+# Mechanical_MountingHole_Pad
+#
+DEF Mechanical_MountingHole_Pad H 0 40 N N 1 F N
+F0 "H" 0 250 50 H V C CNN
+F1 "Mechanical_MountingHole_Pad" 0 175 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ MountingHole*Pad*
+$ENDFPLIST
+DRAW
+C 0 50 50 0 1 50 N
+X 1 1 0 -100 100 U 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #

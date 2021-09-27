@@ -2,4 +2,6 @@
   (lib (name MODULE_ESP32-DEVKITC-32D)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/MODULE_ESP32-DEVKITC-32D.pretty)(options "")(descr ""))
   (lib (name LD1117V50)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/LD1117V50.pretty)(options "")(descr ""))
   (lib (name LT1999-50)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/LT1999-50.pretty)(options "")(descr ""))
+  (lib (name IND_HCTI-150-5.0)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/IND_HCTI-150-5.0.pretty)(options "")(descr ""))
+  (lib (name multi_capacitor)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/multi_capacitor.pretty)(options "")(descr ""))
 )
