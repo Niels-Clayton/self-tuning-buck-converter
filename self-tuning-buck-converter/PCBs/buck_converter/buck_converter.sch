@@ -1323,7 +1323,7 @@ $Comp
 L Device:Opamp_Quad_Generic U1
 U 2 1 6162B04C
 P 5475 6800
-F 0 "U1" H 5475 7167 50  0000 C CNN
+F 0 "U1" H 5500 7450 50  0000 C CNN
 F 1 "AMP from lab" H 5475 7076 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 5475 6800 50  0001 C CNN
 F 3 "~" H 5475 6800 50  0001 C CNN
@@ -1332,8 +1332,6 @@ F 3 "~" H 5475 6800 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5850 6800 5850 6325
-Wire Wire Line
-	5850 6325 5125 6325
 Wire Wire Line
 	5775 6800 5850 6800
 Wire Wire Line
@@ -1405,4 +1403,41 @@ Wire Wire Line
 	5300 3350 6175 3350
 Connection ~ 5300 3350
 Connection ~ 6175 3350
+$Comp
+L Device:R_Small R?
+U 1 1 6151C957
+P 4925 6325
+F 0 "R?" V 4850 6325 50  0000 C CNN
+F 1 "10k" V 5025 6325 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" H 4925 6325 50  0001 C CNN
+F 3 "~" H 4925 6325 50  0001 C CNN
+F 4 "RR0816P-163-D" V 4925 6325 50  0001 C CNN "Part Number"
+	1    4925 6325
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 6151D31C
+P 5500 6325
+F 0 "R?" V 5425 6325 50  0000 C CNN
+F 1 "10k" V 5600 6325 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" H 5500 6325 50  0001 C CNN
+F 3 "~" H 5500 6325 50  0001 C CNN
+F 4 "RR0816P-163-D" V 5500 6325 50  0001 C CNN "Part Number"
+	1    5500 6325
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5850 6325 5600 6325
+Wire Wire Line
+	5400 6325 5125 6325
+Wire Wire Line
+	5125 6325 5025 6325
+Connection ~ 5125 6325
+Wire Wire Line
+	4825 6325 4725 6325
+Wire Wire Line
+	4725 6325 4725 6425
+Text GLabel 4725 6425 3    50   Input ~ 0
+V_ref
 $EndSCHEMATC
