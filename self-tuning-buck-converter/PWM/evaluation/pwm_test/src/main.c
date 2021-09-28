@@ -11,7 +11,7 @@
 #define BUCK_CONVERTER_PWM_IMPL
 #include "pwm.h"
 
-#define DUTY_TEST
+// #define DUTY_TEST
 // #define FREQUENCY_TEST
 
 #define FREQUENCY_MIN 1000
@@ -26,16 +26,18 @@ void app_main()
      *  PWM setup
      */
 
-    PWM_setup(&pwm_timer, &pwm_channel, 1000, 0.5f);
+    PWM_setup(&pwm_timer, &pwm_channel, 1000, 1.0f - 0.50f);
 
 
     #ifdef DUTY_TEST
+
     printf("Actual,Target\n");
     for(int duty = 0; duty < 512; duty++){
         
         PWM_set_duty(&pwm_channel, 1-(1.0f/512.0f)*duty);
         printf("%f,%f\n", 1.0f - (1.0f / (float)ledc_get_duty(pwm_channel.speed_mode, pwm_timer.timer_num)), (1.0f/512.0f)*duty);
     }
+
     #endif
 
     #ifdef FREQUENCY_TEST
