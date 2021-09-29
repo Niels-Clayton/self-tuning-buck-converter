@@ -13,13 +13,13 @@ PWM signals are used in a wide variety of applications for both digital and anal
 \begin{figure}[H]
       \centering
       \begin{subfigure}{0.45\textwidth}
-          \includegraphics[width=\columnwidth]{PWM.png}
+          \includegraphics[width=\columnwidth]{background/PWM.png}
           \subcaption{Pulse width modulated signal}
           \label{F:PWM}
       \end{subfigure}
       \hspace{10pt}
       \begin{subfigure}{0.5\textwidth}
-          \includegraphics[width=\columnwidth]{Duty_cycle.png}
+          \includegraphics[width=\columnwidth]{background/Duty_cycle.png}
           \vspace{-6pt}
           \subcaption{Duty cycle calculation}
           \label{F:Duty}
@@ -35,7 +35,7 @@ Designing a PWM signal generator using analogue components has three distinct st
 The clock generation stage generates a square wave clock signal at a set frequency. This is usually done using a quartz crystal oscillator, or another form of resonating oscillator circuit. The triangle wave generating state must take the clock signal from the previous stage, and produce a triangle wave of the same frequency. This stage is most often done using a standard op-amp integrating circuit with unity gain at the resonating frequency of the clock source. The final signal comparator stage will convert this triangle wave into a PWM signal. Using a comparator, a reference voltage can be applied to the non-inverting input, and then the triangle wave can be applied to the inverting input. This will produce a pulse train with the same frequency as the clock source, where the period of $T_{on}$ and $T_{off}$ is set by the reference voltage. 
 
 \begin{figure}[H]
-	\includegraphics[width = 1\textwidth]{Analogue_PWM.png}
+	\includegraphics[width = 1\textwidth]{background/Analogue_PWM.png}
 	\caption{Stages of analogue PWM generation}
 	\label{F:analogue_PWM}
 \end{figure}
@@ -54,7 +54,7 @@ The basic operational components of a buck converter can be seen below in \Cref{
 It can also be seen from \Cref{F:buck_func} that a buck converter has two operating states that are controlled through the activation of these switching components. By toggling these switching components at high speed though the use of PWM, we can control the current flowing through the inductor of the output filter. By controlling this current we are also able to directly control the current through, and voltage across the output load of the converter. Using this, buck converters will often have a feedback control system in their design to be able to actively control and regulate the output voltage during usage. This controller will vary the duty cycle of the the switching PWM signal, thereby varying the output voltage of the buck converter as shown in \Cref{E:V_out}.\\
 
 \begin{figure}[H]
-	\includegraphics[width = 1\textwidth]{Buck_Functionality.png}
+	\includegraphics[width = 1\textwidth]{background/Buck_Functionality.png}
 	\caption{Operating states of a buck converter}
 	\label{F:buck_func}
 \end{figure}
