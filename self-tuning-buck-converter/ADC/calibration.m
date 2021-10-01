@@ -12,6 +12,6 @@ hold on
 
 plot(x, poly)
 plot(x, ideal)
-plot(ADC_raw, V_in)
+plot(ADC_raw, V_in, 'o')
 
 hold off
