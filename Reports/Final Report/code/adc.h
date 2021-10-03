@@ -4,9 +4,7 @@
 #include <math.h>
 #include "driver/adc.h" // Include the ADC driver
 
-/*
- * ADC struct to hold setup data
- */
+// ADC struct to hold setup data
 typedef struct esp_adc
 {
     // Rolling average buffer
@@ -48,7 +46,6 @@ uint16_t adc_read(esp_adc* adc){
 }
 
 /* Compute the rolling average of the raw ADC values.
- *
  * The circular buffer will store the index of the next element to be 
  * replaced in it's final index.
  */

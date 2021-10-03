@@ -31,14 +31,10 @@ void init_buck()
 
 void control_loop(void *pvParameters)
 {
-    /* 
-     *  Setup an input queue for receiving new target voltages 
-     */
+    // Setup an input queue for receiving new target voltages 
     QueueHandle_t target_voltage_queue = *(QueueHandle_t *)pvParameters;
 
-    /* 
-     *  Load voltage ADC set up and local variables
-     */
+    // Load voltage ADC set up and local variables
     uint16_t supply_voltage_buffer[5] = {0}; // Supply voltage rolling average buffer
 
     // Variables for storage and conversion of load voltage
@@ -83,9 +79,7 @@ void control_loop(void *pvParameters)
         vTaskDelete(NULL);
     }
 
-    /* 
-     *  PID set up
-     */
+    //PID set up
     float target_voltage = VO;
     float target_duty;
 
@@ -130,13 +124,13 @@ void control_loop(void *pvParameters)
         supply_voltage = (supply_adc_voltage * (SUPPLY_R1 + SUPPLY_R2)) / SUPPLY_R2;
 
         // Read the load voltage ADC
-        load_adc_raw = adc_read(&v_load);                                  // Take an adc reading
-        load_adc_voltage = adc_conversion(load_adc_raw);                   // Convert this value to the voltage at the adc
+        load_adc_raw = adc_read(&v_load); // Take an adc reading
+        load_adc_voltage = adc_conversion(load_adc_raw); // Convert this value to the voltage at the adc
         load_voltage = (load_adc_voltage * (LOAD_R1 + LOAD_R2)) / LOAD_R2; // Convert to the voltage at the buck converter load
 
         // Calculate the measured duty cycle and target duty cycle
         measurment_duty = load_voltage / supply_voltage; // Calculate the duty theoretical duty cycle of the output
-        target_duty = target_voltage / supply_voltage;   // Calculate the target duty cycle for the controller
+        target_duty = target_voltage / supply_voltage; // Calculate the target duty cycle for the controller
 
         // Check for a new target voltage
         if (uxQueueMessagesWaiting(target_voltage_queue))
