@@ -5,6 +5,8 @@
 % % Include the entire project proposal document
 % \includepdf[pages=-]{../Project\ Proposal/proj_proposal.pdf}
 
+\include{Figures/tables/150mV_peak_error}
+
 
 \chapter{System Specification Derivation Equations} \label{A:specs}
 
@@ -45,12 +47,12 @@ PWM frequency equation derivation:\\
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/1kHz_50Duty.JPG}
+        \includegraphics[width=\columnwidth]{pwm/duty/1kHz_50Duty.JPG}
         \subcaption{Digital PWM Generation at $1kHz$ and a 50\% duty cycle}
 
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/1kHz_75Duty.JPG}
+        \includegraphics[width=\columnwidth]{pwm/duty/1kHz_75Duty.JPG}
         \subcaption{Digital PWM Generation at $1kHz$ and a 75\% duty cycle}
 
     \end{subfigure}
@@ -61,12 +63,12 @@ PWM frequency equation derivation:\\
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/100kHz_50Duty.JPG}
+        \includegraphics[width=\columnwidth]{pwm/duty/100kHz_50Duty.JPG}
         \subcaption{Digital PWM Generation at $100kHz$ and a 50\% duty cycle}
 
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/100kHz_75Duty.JPG}
+        \includegraphics[width=\columnwidth]{pwm/duty/100kHz_75Duty.JPG}
         \subcaption{Digital PWM Generation at $100kHz$ and a 75\% duty cycle}
 
     \end{subfigure}
