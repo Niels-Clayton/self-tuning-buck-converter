@@ -2,53 +2,64 @@
 
 \section{Analogue PWM Generation} \label{A:analogue_PWM}
 
-
 \begin{figure}[H]
-    \includegraphics[width = 0.95\textwidth]{pwm/analog/analogue_PWM_ltspice_circuit.png}
-    \caption{Operational amplifier integrator LTSpice circuit simulation}
+    \begin{center}
+        \includegraphics[width = 0.75\textwidth]{pwm/analog/analogue_PWM_ltspice_circuit.png}
+        \caption{Operational amplifier integrator LTSpice circuit simulation}
+    \end{center}
+    \vspace{-10pt}
 \end{figure}
-
+    
 \begin{figure}[H]
-    \includegraphics[width = 0.95\textwidth]{pwm/analog/analogue_PWM_ltspice_1k.png}
+    \includegraphics[width = 0.9\textwidth]{pwm/analog/analogue_PWM_ltspice_1k.png}
     \caption{Operational amplifier integrator simulation with a 1$kHz$ square wave input. Output triangle wave amplitude of 1.5V}
+    \vspace{-10pt}
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width = 0.95\textwidth]{pwm/analog/analogue_PWM_ltspice_100k.png}
+    \includegraphics[width = 0.9\textwidth]{pwm/analog/analogue_PWM_ltspice_100k.png}
     \caption{Operational amplifier integrator simulation with a 1$kHz$ square wave input. Output triangle wave amplitude of 20mV}
+    \vspace{-10pt}
 \end{figure}
-
+    
 
 \section{Digital PWM Generation} \label{A:digital_PWM}
 
+\subsection{PWM Duty Cycle Control}
 \begin{figure}[H]
+    
     \centering
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/duty/1kHz_50Duty.JPG}
-        \subcaption{Digital PWM Generation at $1kHz$ and a 50\% duty cycle}
-
+        \includegraphics[width=\columnwidth]{pwm/duty/pwm_duty_20.PNG}
+        \subcaption{Digital PWM Generation with a 20\% duty cycle}
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/duty/1kHz_75Duty.JPG}
-        \subcaption{Digital PWM Generation at $1kHz$ and a 75\% duty cycle}
-
+        \includegraphics[width=\columnwidth]{pwm/duty/pwm_duty_50.PNG}
+        \subcaption{Digital PWM Generation with a 50\% duty cycle}
     \end{subfigure}
-    \caption{Digital PWM Generation at $1kHz$}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\columnwidth]{pwm/duty/pwm_duty_90.PNG}
+        \subcaption{Digital PWM Generation with a 90\% duty cycle}
+    \end{subfigure}
+    \caption{Digital PWM: Varying PWM duty cycle with a $100kHz$ frequency}
 
 \end{figure}
 
+\subsection{PWM Frequency Control}
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/duty/100kHz_50Duty.JPG}
-        \subcaption{Digital PWM Generation at $100kHz$ and a 50\% duty cycle}
-
+        \includegraphics[width=\columnwidth]{pwm/frequency/pwm_1kHz.PNG}
+        \subcaption{Digital PWM Generation with a $1kHz$ frequency}
     \end{subfigure}
     \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\columnwidth]{pwm/duty/100kHz_75Duty.JPG}
-        \subcaption{Digital PWM Generation at $100kHz$ and a 75\% duty cycle}
-
+        \includegraphics[width=\columnwidth]{pwm/frequency/pwm_50kHz.PNG}
+        \subcaption{Digital PWM Generation with a $50kHz$ frequency}
     \end{subfigure}
-    \caption{Digital PWM Generation at $100kHz$}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\columnwidth]{pwm/frequency/pwm_100kHz.PNG}
+        \subcaption{Digital PWM Generation with a $100kHz$ frequency}
+    \end{subfigure}
+    \caption{Digital PWM: Varying PWM frequency with a 50\% duty cycle}
 
 \end{figure}

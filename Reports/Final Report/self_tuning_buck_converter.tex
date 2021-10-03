@@ -104,7 +104,7 @@
 \maketitle
 
 \tableofcontents
-% \listoffigures
+\listoffigures
 % \listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,7 +133,8 @@
 % \bibliographystyle{acm}
 \bibliography{../../Literature/bibliography}
 
-\appendix
+% Remove the appendix from the table of contents
+% \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
 \input{appendix}
 
 \end{document}
