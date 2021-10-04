@@ -1,12 +1,88 @@
 \chapter{System Specification Derivation} \label{A:specs}
 
-The system specification derivation equations have been input into the graphing platform \url{Desmos.com}. This has allowed me to visually inspect these equations and form conclusions. The full working and step by step derivation is also available on \url{Desmos.com} using the following links.\\
 
-Duty cycle equation derivation:\\
-\url{https://www.desmos.com/calculator/8c7wmbyzw4}\\
+\section*{PWM Duty Cycle Resolution Calculations}
 
-Inductor sizing equation derivation:\\ 
-\url{https://www.desmos.com/calculator/v7ntrescw5}\\
+It has been specified that the output voltage error should be within $\pm 5\%$ of the output voltage. This allowable error will be smallest with the smallest output voltage, and will therefore define the smallest allowable duty cycle resolution.\\
 
-PWM frequency equation derivation:\\ 
-\url{https://www.desmos.com/calculator/ekjhcrt9zg}\\
+Calculate the allowable output voltage error:
+\begin{align}
+    V_{error} &= 3 \cdot 0.05\\
+    &=0.15V \nonumber
+\end{align}
+
+Calculate the minimum number of discrete voltage steps based on \Cref{E:V_out}
+\begin{align}
+    N_{steps} &= \frac{V_{in}}{V_{error}} = \frac{12}{0.15}\\
+    &=80 \nonumber
+\end{align}
+
+Calculate the resolution in bits:
+\begin{align}
+    N_{bits} &= \log_2(N_{steps}) = \log_2(80)\\
+    &=6.3 \approx 7 \nonumber
+\end{align}
+
+This gives a minimum duty cycle resolution of 7 bits, or 128 discrete steps.
+
+
+
+\section*{Minimum \& Maximum Inductor Size Calculations}
+
+It has been specified that the operating frequency of the buck converter should be between 1$k$Hz \& 100$k$Hz, with an inductor current ripple between 20\% \& 50\%. Based on these specifications, \Cref{E:delta_i} can be used to derive the minimum and maximum inductor sizes that the system will continue to function with. \\
+
+\subsubsection*{Derivation Constants:}
+$R_{load} = 10\Omega$, $V_{in} = 12V$, $V_{max} = 10V$, $V_{min} = 3V$, $f_{min} = 1$kHz, $f_{max} = 100$kHz\\
+
+All calculations will be performed using the minimum allowable inductor current ripple of 20\%, calculated below. This will ensure that all greater current ripple percentages are achievable by the system.
+
+\begin{align}
+    i_{min} &= \frac{V_{min}}{R_{load}}\\
+    &= 0.3A \nonumber\\
+    \\\nonumber
+    \Delta i_{min} &= i_{min} \cdot 0.2\\
+    &= 0.06A \nonumber 
+\end{align}
+
+\subsection*{Minimum Inductor Size}
+
+Using \Cref{A:inductor_equation}, we see that the minimum achievable indictor size will be at the maximum switching frequency. It can be noted that due to the quadratic nature of this equation, the maximum switching frequency for a constant ripple will occur at an output of $V_{o} = \frac{v_{in}}{2}$, with a duty cycle of 50\%.
+
+\begin{align} \label{A:inductor_equation}
+    L &= \frac{ V_{o} \cdot \left( 1 - D \right) } {\Delta i_L \cdot f_s} 
+\end{align} 
+
+Calculate the minimum inductor value:
+\begin{align}
+    L_{min} &= \frac{ \frac{v_{in}}{2} \cdot \left( 1 - 0.5 \right) } {\Delta i_{min} \cdot f_{max}}\\\nonumber
+    \\ \nonumber
+    &= \frac{6 \cdot (1 - 0.5)}{100000 \cdot 0.06}\\ \nonumber
+    &= 0.5mH
+\end{align}
+
+
+\subsection*{Maximum Inductor Size}
+
+From \Cref{A:inductor_equation}, we can see that the maximum inductor value will be at the lowest switching frequency, with the greatest output voltage, and therefore the greatest duty cycle.\\
+
+Calculate the maximum duty cycle:
+\begin{align}
+    D_{max} &= \frac{V_{max}}{V_{in}}\\
+    &= \frac{10}{12} = 83.3\% \nonumber
+\end{align}
+
+Calculate the maximum inductor size:
+\begin{align}
+    L_{min} &= \frac{ V_{max} \cdot \left( 1 - D_{max} \right) } {\Delta i_{min} \cdot f_{min}}\\\nonumber
+    \\ \nonumber
+    &= \frac{1 \cdot (1 - 0.83)}{1000 \cdot 0.06}\\ \nonumber
+    &= 27.78mH
+\end{align}
+
+
+% \section*{PWM Frequency Resolution Calculations}
+
+
+% \section*{Current Shunt Calculations}
+
+

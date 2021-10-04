@@ -10,7 +10,7 @@ Although buck converters are a widespread technology, they are not without their
 
 Another drawback of this design process is the static nature of both the filter and the switching components once they have been selected. This results in the buck converters desired inductor current ripple only being achieved at a very specific designed output voltage or load. This means that with current buck converter designs varying the desired output voltage or varying the output load will cause the inductor current ripple to vary. This is an issue, as very few loads are static and will not change during their operation. 
 
-\section{Project Goals}
+\section{Project Goals}\label{S:goals}
 
 This project aims to eliminate the need to design the output stage of a buck converter. By implementing a control system that varies the switching frequency of the converter, we will be able to directly manipulate the inductor current ripple. This project aims to produce a proof of concept buck converter that is capable of operating at 12V, with an output range of 3-10V and precision of $\pm5\%$. The converter will also be able vary its switching frequency between 1$kHz$ and 100$kHz$, allowing for selection of inductor current ripple between 20\% and 50\% with precision of $\pm5\%$. All of this must be implemented while maintaining the standard functionality of the converter.
 
