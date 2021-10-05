@@ -45,6 +45,9 @@ N.~Mohan, {\em {P}ower {E}lectronics a {F}irst {C}ourse}, ch.~4: Switch Mode
 B.~Hauke, ``{B}asic {C}alculation of a {B}uck {C}onverter's {P}ower {S}tage,''
   tech. rep., Texas Instruments, Aug. 2015.
 
+\bibitem{current_sensor_types}
+P.~Jain, ``Engineers garage - current sensors.'' Online, June 2012.
+
 \bibitem{ESP32Manual}
 Espressif Systems, {\em ESP32: Technical Reference Manual}, 4.4~ed., 2021.
 

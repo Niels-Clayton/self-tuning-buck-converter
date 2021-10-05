@@ -44,7 +44,7 @@ The clock generation stage generates a square wave clock signal at a set frequen
 \subsection{Digital PWM Signal Generation}\label{S:digital_PWM_back}
 
 Designing a PWM signal generator with digital components is far simpler than the method described in \Cref{S:analogue_PWM_back}, and can be done using either a microcontroller or a Field Programmable Gate Array (FPGA). By using an internal timing register that is continually incrementing at a known period we can set a period for our PWM. It is possible to vary the period of the PWM by simply increasing or decreasing the timing registers clock. Next, by toggling a digital I/O when a compare variable is equal to the current value of the timer, we are able to generate a PWM signal with a variable duty cycle \cite{Colley2020}. 
-This timing architecture can be simply implemented within an FPGA, but it can also commonly be found within the hardware of most microcontrollers.It should be noted however, that the maximum frequency and duty cycle accuracy will be dependant on a individual microcontrollers clock speed and internal register sizes.
+This timing architecture can be simply implemented within an FPGA, but it can also commonly be found within the hardware of most microcontrollers.It should be noted however, that the range of achievable frequencies and duty cycle accuracy will be dependant on an individual microcontrollers clock speed and internal register sizes.
 
 \section{Buck Converters}\label{S:buck_back}
 
@@ -84,7 +84,15 @@ These two equations will be used to inform the designs and specifications of thi
 
 \section{Current Sensing}\label{S:current_sense_back}
 
-Discuss the varying methods of current sensing that are available, and what each of their advantages and disadvantages are.
+Current sensors are transducers that converter an input current to an easily measured output voltage that is proportional to the current through the sensor. Current sensors operate on one of two principles, Ohm's law, Faraday’s and Ampere’s law \cite{current_sensor_types}.  Ohm's law describes how when current flows through a resistive element a voltage drop will occur. Sensors operating under this principle will measure the voltage drop across a known resistance, and are referred too as direct sensors as they directly effect the circuit. Faraday’s and Ampere’s law describes how a changing electric flux will induce a changing magnetic field, and a changing magnetic field will induce a changing magnetic flux. Sensors operating under this principle will use the magnetic field induced by the current through the sensor to produce a voltage proportional to that current, and are referred to as indirect sensors as they make no direct contact with the circuit being sensed. 
+
+
+\subsection{Current Sense Amplification}\label{S:current_shunt_back}
+
+Current sense amplification works on the basic principle of Ohm's law $I=\frac{V}{R}$. By sensing the voltage dropped across a known value resistive element (Often called the current shunt), it is possible to calculate the current that is flowing through the element. This form of current sensing is very simple to implement in theory, however it has the effect of altering the system being sensed by adding a resistive load, and thereby increasing the losses of the system. 
+
+To mitigate the effects of this sensing on a circuit, a smaller resistive load can be used. However, this will also decrease the measurable voltage across the load, and therefore decrease the precision of a taken measurement. Because of this, shunt based current sensors are often paired with an operational amplifier known gain. This combination allows for accurate amplification of the shunt voltage drop, increasing the precision of the measurement, and allowing for drastically smaller shunt resistors. 
+
 
 \subsection{Hall Effect Sensors}\label{S:hall_effect_back}
 
@@ -95,11 +103,6 @@ Because of this operation, they are able to sense a current without contacting o
 Hall affect sensors do however suffer from a lack of precision. Due to their operation, their measurements will constantly be offset by any ambient magnetic flux. This means that they are not commonly used for the sensing of small signal currents, as the noise floor of the Earth's own magnetic field can often be larger than the signal being sensed.  
 
 
-\subsection{Current Sense Amplification}\label{S:current_shunt_back}
-
-Current sense amplification works on the basic principle of Ohm's law $I=\frac{V}{R}$. By sensing the voltage dropped across a known value resistive element (Often called the current shunt), it is possible to calculate the current that is flowing through the element. This form of current sensing is very simple to implement in theory, however it has the effect of altering the system being sensed by adding a resistive load, and thereby increasing the losses of the system. 
-
-To mitigate the effects of this sensing on a circuit, a smaller resistive load can be used. However, this will also decrease the measurable voltage across the load, and therefore decrease the precision of a taken measurement. Because of this, shunt based current sensors are often paired with an operational amplifier known gain. This combination allows for accurate amplification of the shunt voltage drop, increasing the precision of the measurement, and allowing for drastically smaller shunt resistors. 
 
 
 
