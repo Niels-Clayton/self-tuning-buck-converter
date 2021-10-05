@@ -89,14 +89,14 @@ Current sensors are transducers that converter an input current to an easily mea
 
 \subsection{Current Sense Amplification}\label{S:current_shunt_back}
 
-Current sense amplification works on the basic principle of Ohm's law $I=\frac{V}{R}$. By sensing the voltage dropped across a known value resistive element (Often called the current shunt), it is possible to calculate the current that is flowing through the element. This form of current sensing is very simple to implement in theory, however it has the effect of altering the system being sensed by adding a resistive load, and thereby increasing the losses of the system. 
+Current sense voltage amplification sensors are a form of direct sensor, working on the principle of Ohm's law $I=\frac{V}{R}$. By sensing the voltage dropped across a known value resistive element (Often called the current shunt), it is possible to calculate the current that is flowing through the element. This form of current sensing is very simple to implement in theory, however it has the effect of altering the system being sensed by adding a resistive load, and thereby increasing the losses of the system. 
 
-To mitigate the effects of this sensing on a circuit, a smaller resistive load can be used. However, this will also decrease the measurable voltage across the load, and therefore decrease the precision of a taken measurement. Because of this, shunt based current sensors are often paired with an operational amplifier known gain. This combination allows for accurate amplification of the shunt voltage drop, increasing the precision of the measurement, and allowing for drastically smaller shunt resistors. 
+To mitigate the effects of this sensing on a circuit, a smaller resistive load can be used. However, this will also decrease the measurable voltage across the load, and therefore decrease the precision of a taken measurement. Because of this, shunt based current sensors are often paired with an operational amplifier of known gain. This combination allows for accurate amplification of the shunts voltage drop, increasing the precision of measurements, and allowing for drastically smaller shunt resistors. 
 
 
 \subsection{Hall Effect Sensors}\label{S:hall_effect_back}
 
-brief overview of hall effect sensors. They function by measuring the magnetic flux density, meaning that they are commonly used to senses the presence of a magnet. However since a current flowing though a wire will produce a magnetic flux, they can also be used to measure current flow.
+brief overview of hall effect sensors. They function by measuring the magnetic flux density, meaning that they are commonly used to sense the presence of a magnet. However since a current flowing though a wire will produce a magnetic flux, they can also be used to measure current flow.
 
 Because of this operation, they are able to sense a current without contacting or altering the circuit. This means that they are commonly used in the measurement of high voltage or high current circuits, as they will remain completely isolated from the circuit being sensed, and will also not dissipate power from the sensed circuit. This provides large safety advantages, and can often decrease the complexity of the sensing circuit. 
 
