@@ -48,7 +48,18 @@ B.~Hauke, ``{B}asic {C}alculation of a {B}uck {C}onverter's {P}ower {S}tage,''
 \bibitem{current_sensor_types}
 P.~Jain, ``Engineers garage - current sensors.'' Online, June 2012.
 
+\bibitem{hall_effect_precision}
+Texas Instruments, {\em Precision Magnetics – Solving the Stability Challenge
+  in Isolated Current Sensing}, Aug. 2020.
+
 \bibitem{ESP32Manual}
 Espressif Systems, {\em ESP32: Technical Reference Manual}, 4.4~ed., 2021.
+
+\bibitem{peak_detector_designs}
+R.~Elliott, ``Peak detection circuits.'' Online, Mar. 2017.
+
+\bibitem{LTC6244_peak_detector}
+H.~Kelley and G.~Alonso, ``Ltc6244 high speed peak detector,'' techreport,
+  Analog Devices, 2020.
 
 \end{thebibliography}

@@ -96,32 +96,20 @@ To mitigate the effects of this sensing on a circuit, a smaller resistive load c
 
 \subsection{Hall Effect Sensors}\label{S:hall_effect_back}
 
-brief overview of hall effect sensors. They function by measuring the magnetic flux density, meaning that they are commonly used to sense the presence of a magnet. However since a current flowing though a wire will produce a magnetic flux, they can also be used to measure current flow.
+Hall effect sensors are a form of indirect sensor, working on the principles of Faraday’s and Ampere’s law as discussed above. They function by measuring the magnetic flux density, meaning that they are commonly used to sense the presence of a magnets or magnetic fields. However since a current flowing though a wire will produce a magnetic flux, they can also be used to measure current flow.
 
-Because of this operation, they are able to sense a current without contacting or altering the circuit. This means that they are commonly used in the measurement of high voltage or high current circuits, as they will remain completely isolated from the circuit being sensed, and will also not dissipate power from the sensed circuit. This provides large safety advantages, and can often decrease the complexity of the sensing circuit. 
+Due to this operation, they are able to sense a current without contacting or altering the circuit. This means that they are commonly used in the measurement of high voltage or high current circuits, as they will remain completely isolated from the circuit being sensed. This provides large safety advantages, eliminates sensing power losses, and can often decrease the complexity of the sensing circuit. 
 
-Hall affect sensors do however suffer from a lack of precision. Due to their operation, their measurements will constantly be offset by any ambient magnetic flux. This means that they are not commonly used for the sensing of small signal currents, as the noise floor of the Earth's own magnetic field can often be larger than the signal being sensed.  
+Hall affect sensors do however suffer from a lack of precision. Due to their operation, their measurements will constantly be offset by any ambient magnetic flux within the surrounding environment. This means that they are not commonly used for the sensing of small signal currents, as the noise floor of the Earth's own magnetic field can often be larger than the signal being sensed \cite{hall_effect_precision}. 
 
-
-
-
-
+\newpage
 
 \section{Control Systems}\label{S:control_back}
 
-Discuss the basics of control theory, and how a controller can be implemented on a digital system within discrete time. 
+Control systems are integral to the operation of any system for which you wish to achieve a desired outcome. In their simplest, a control systems has the purpose of obtaining a desired output from a system, with a desired performance, when a given input is provided. \\
 
-\begin{itemize}
+There are two main topologies of control system, open loop and closed loop. An open loop control system requires no feedback of the output, and therefore no sensing. Because of this, open loop controllers are often very easy and fast to implement within a system because of this, however they have no knowledge of the systems state and are therefore unable to correct for errors such as external disturbances. 
 
-    \item
-        Discuss in very general terms what a control system is what what it seeks to do in a system.
+On the other hand, closed loop controllers require feedback from the current output of a system, and therefore will require sensing to be implemented. This added sensing requirement will add complexity to the system, however a closed loop controller provides the ability to compensate for errors in the systems output.\\
 
-    \item
-        Discuss what the control system will be doing in the case of this project. Talk about how a controller will be used to control both the output voltage of the converter, and the inductor ripple of the converter.
-
-    \item 
-        Discuss the design, use, and implementation of a PID controller within a system. 
-
-\end{itemize}
-
-\subsection{PID Controllers}\label{S:PID_back}
+The performance of a specific control system is often discussed in terms of it's steady state settling time, and it's stead state error. The steady state settling time of a controller describes the time it takes for a controller to reach it's final value (`steady state') when provided with a given input. The slower the steady settling time of a controller, the slower it will react to a given input, and vice versa. The steady state error of a controller describes the error between the desired output and the final output of the system once it's steady state has been achieved. 
