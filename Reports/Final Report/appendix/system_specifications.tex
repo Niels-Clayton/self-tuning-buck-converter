@@ -85,6 +85,16 @@ Calculate the maximum inductor size:
 I need to put this here from desmos: https://www.desmos.com/calculator/oscpnz2ozn
 
 
+\section*{Peak Inductor Current Ripple Sensing Resolution}
+
+The sensing resolution must be smaller or equal to the tolerable error of the inductor current ripple.
+
+\begin{align}
+    I_{min} &= \frac{V_{min}}{R_{load}} = 0.3A\\
+    I_{min_{ripple}} &= I_{min} * 0.2 = 0.06A\\
+    I_{min_{error}} &= I_{min} * 0.25 = 0.075A\\
+    I_{error} &=  I_{min_{error}} - I_{min_{ripple}}\\ \nonumber
+    &= 15mA
+\end{align}
+
 % \section*{Current Shunt Calculations}
-
-

@@ -1,6 +1,6 @@
 \chapter{Background}\label{C:background}
 
-A literature research was performed to inform design decision made in this project, and to evaluate any existing research. It will discuss buck converter design factors and topologies, as well as the various different methods of PWM generation. In performing this literature research, we searched Google Scholar, Engineering Village, and Te Waharoa to find designs that utilised variable frequency PWM. 
+A literature research was performed to inform design decision made in this project, and to evaluate any existing research. This chapter will discuss buck converter design factors and topologies, as well as the various different methods of PWM generation, current sensing, and control implementation. In performing this literature research, we searched Google Scholar, Engineering Village, and Te Waharoa to find designs that utilised variable frequency PWM. 
 
 These searches returned no research relevant to the designs of this project, with the only related work focusing on the electromagnetic noise reduction using randomised frequency modulation \cite{Roman2001,Familiant2016}. Because of this, research was instead performed to inform the design of the buck converter and the generation of PWM signals.
 
@@ -43,7 +43,7 @@ The clock generation stage generates a square wave clock signal at a set frequen
 
 \subsection{Digital PWM Signal Generation}\label{S:digital_PWM_back}
 
-Designing a PWM signal generator with digital components is far simpler than the method described in \Cref{S:analogue_PWM_back}, and can be done using either a microcontroller or a Field Programmable Gate Array (FPGA). By using an internal timing register that is continually incrementing at a known period we can set a period for our PWM. It is possible to vary the period of the PWM by simply increasing or decreasing the timing registers clock. Next, by toggling a digital I/O when a compare variable is equal to the current value of the timer, we are able to generate a PWM signal with a variable duty cycle \cite{Colley2020}. 
+Designing a PWM signal generator with digital components is less complex than the method described in \Cref{S:analogue_PWM_back}, and can be done using either a microcontroller or a Field Programmable Gate Array (FPGA). By using an internal timing register that is continually incrementing at a known period we can set a period for our PWM. It is possible to vary the period of the PWM by simply increasing or decreasing the timing registers clock. Next, by toggling a digital I/O when a compare variable is equal to the current value of the timer, we are able to generate a PWM signal with a variable duty cycle \cite{Colley2020}. 
 This timing architecture can be simply implemented within an FPGA, but it can also commonly be found within the hardware of most microcontrollers.It should be noted however, that the range of achievable frequencies and duty cycle accuracy will be dependant on an individual microcontrollers clock speed and internal register sizes.
 
 \section{Buck Converters}\label{S:buck_back}

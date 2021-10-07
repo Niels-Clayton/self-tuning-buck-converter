@@ -1,5 +1,5 @@
 \documentclass[11pt, a4paper, oneside]{report}
-
+% \usepackage[left=2cm, right=2cm, top=1.5cm, bottom=1.5cm]{geometry}
 
 \usepackage{float} % lets you have non-floating floats
 \usepackage{url} % for typesetting urls
@@ -50,7 +50,11 @@
     },emphstyle=\color{magenta},
 }
 
-
+% Make the title spacing smaller
+% \usepackage{titlesec}
+% \titleformat{\chapter}[hang] 
+% {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter:}{1em}{} 
+% \titlespacing*{\chapter}{0pt}{-50pt}{40pt}
 
 \hypersetup{
     colorlinks=true,
@@ -95,7 +99,7 @@
 
 \begin{abstract}
 
-    Switch-mode power supplies are commonly used in a wide variety of consumer and professional appliances to transform DC voltages with high efficiency. One such switch-mode supply is the buck converter, which steps down a DC voltage. The current buck converter design process requires that a specific output filter be designed around the switching frequency of the converter, the required output voltage, and the desired inductor ripple. This filter design process often results in the selection of non-standards components that are difficult to purchase or manufacture, increasing costs and leading to design compromises. This project will implement a control system to actively control the inductor current ripple by modulating the switching frequency of the converter. This will allow engineers to design buck converters directly for the inductor current ripple they wish to tolerate, eliminating the issues of designing this output filter.
+    Switch-mode power supplies are commonly used in a wide variety of consumer and professional appliances to transform DC voltages with high efficiency. One such switch-mode supply is the buck converter, which steps down a DC voltage. The current buck converter design process requires that a specific output filter be designed around the switching frequency of the converter, the required output voltage, and the desired inductor ripple. This filter design process often results in the selection of non-standard components that are difficult to purchase or manufacture, increasing costs and leading to design compromises. This project will develop a platform that allows for observation and control of the inductor current ripple by modulating the switching frequency of the converter. This will allow engineers to design buck converters directly for the specified inductor current ripple their application can tolerate, eliminating the issues of designing this output filter.
 
 \end{abstract}
 
@@ -103,6 +107,7 @@
 
 \maketitle
 
+\setcounter{tocdepth}{1}
 \tableofcontents
 % \listoffigures
 % \listoftables
@@ -128,6 +133,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\let\OLDthebibliography\thebibliography
+\renewcommand\thebibliography[1]{
+  \OLDthebibliography{#1}
+  \setlength{\parskip}{0pt}
+}
 
 \bibliographystyle{ieeetr}
 \bibliography{../../Literature/bibliography}

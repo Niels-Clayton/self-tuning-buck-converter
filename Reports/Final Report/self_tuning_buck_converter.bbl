@@ -62,4 +62,10 @@ R.~Elliott, ``Peak detection circuits.'' Online, Mar. 2017.
 H.~Kelley and G.~Alonso, ``Ltc6244 high speed peak detector,'' techreport,
   Analog Devices, 2020.
 
+\bibitem{Patil2015}
+M.~Patil and P.~Rodey, {\em Control Systems for Power Electronics - A Practical
+  Guide}, ch.~Chapter 5 - Buck Converter in Closed Loop, pp.~29--40.
+\newblock SpringerBriefs in Applied Sciences and Technology, Springer India,
+  1~ed., 2015.
+
 \end{thebibliography}
