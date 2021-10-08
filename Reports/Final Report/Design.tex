@@ -26,7 +26,7 @@ To meet this requirement, the designed buck converter must have a control system
 
 \subsubsection*{Requirement 4: Provide a selectable inductor current ripple between 20\% and 50\% of the total output current}
 
-To meet this requirement, the designed buck converter must have the ability to change the frequency of it's PWM switching signal. This will allow for variation of the inductor current ripple based on equation \Cref*{E:delta_i}. 
+To meet this requirement, the designed buck converter must have the ability to change the frequency of it's PWM switching signal. This will allow for variation of the inductor peak to peak current ripple based on equation \Cref*{E:delta_i}. 
 
 \subsubsection*{Requirement 5: Provide a variable converter switching frequency between 1kHz and 100kHz}
 
@@ -162,48 +162,104 @@ Based on these specifications, it is clear that this design meets the duty cycle
 
 \section{System State Sensing}\label{S:sensing_design}
 
-The design of the state sensing system will include the output voltage sensor and the inductor current ripple sensor.
+The design of the state sensing system will include the output voltage sensor and the inductor current ripple sensor. These sensors will be responsible for providing the feedback data for the control systems, illustrated in \Cref{F:sys_overview}. To provide a peak to peak inductor current measurement as a percentage of the output current, both the average and peak inductor currents must be measured. Based on these measurements, the inductor current ripple percentage can be calculated.
 
-A successful design will meet all the requirements outlined by \Cref{S:specs_design}. Therefor the output voltage sensor must be capable of measuring voltages between 3V \& 10V with a resolution of 0.15V, as specified by requirement 3. It is also required that the inductor current ripple sensor is capable of measuring both the average inductor current, and the peak inductor current ripple. This must be achieved with a resolution of 15mA, for frequencies between 1kHz \& 100kHz, as specified by requirement 4, 5, 6, \& 7.
+A successful design will meet all the requirements outlined by \Cref{S:specs_design}. Therefor the output voltage sensor must be capable of measuring voltages between 3V \& 10V with a resolution of 150mV, as specified by requirements 2 \& 3. It is also required that the average inductor current, and the peak inductor current ripple measurements achieve a resolution of 15mA, for frequencies between 1kHz \& 100kHz, as specified by requirement 4, 5, 6, \& 7.
 
 
 \subsection{Output Voltage Sensing}
 
 The output voltage of the buck converter will be a DC voltage between 3V \& 10V. As there are no high frequency components to this signal, there are no bandwidth requirements on it's sampling. Due to this the internal analog to digital converter (ADC) of the ESP32 microcontroller will be used for sampling. This 12 bit ADC can measure an input voltage range of 0V to 3V \cite{ESP32Manual}, therefor the output voltage will have to be measured through a voltage divider. This divider will provide an output ratio of $\frac{10}{3}$, allowing for maximal use of the ADC's input range. This will provide a theoretical measurement resolution of 2.5mV. 
 
-Based on the designs specifications, this design clearly meets requirements 2 \& 3.
+Based on these specifications, this design is capable of measuring output voltages between 3V and 10V, with a resolution of 2.5mV, meeting the outlines requirements 2 \& 3.
 
 
 \subsection{Current Sensor Selection}\label{S:current_sense_selection}
 
-To maintain the simplicity of the design, both the average inductor current, and the peak inductor current ripple will be measured from the same sensor. Due to this, a hall effect based current sensor is not suitable for this application as it was discussed in \Cref{S:hall_effect_back} that they lack precision due to a high noise floor. 
+To maintain design simplicity, both the average inductor current, and the peak inductor current ripple will be measured from the same sensor. Due to this, a hall effect based current sensor is not suitable for this application as it was discussed in \Cref{S:hall_effect_back} that they lack precision due to a high noise floor, and would be unable to meet requirements 4 \& 6. 
 
-Because of this, a current shunt based sensor with a defined gain and selectable shunt resistance will be utilised in this project, specifically the LT1999-50 with a 60m$\Omega$ shunt. This current sense amplifier has a specified gain of 50V/V, a typical gain error of 0.2\%, and a bandwidth of 2MHz. This sensing solution will provide a voltage output between 0.67V \& 3.72V across the total current sensing range, with a resolution defined by the gain error of no smaller than 50$\mu$A at the output. Please see \Cref{A:specs} for the calculation of these values. The datasheet also specifies that there will be no attenuation of the output gain for frequencies below 100kHz. 
+Because of this, a current shunt based sensor with a defined gain and selectable shunt resistance has been designed, specifically the LT1999-50 with a 60m$\Omega$ shunt. This current sense amplifier has a specified gain of 50V/V, a typical gain error of 0.2\%, and a bandwidth of 2MHz \cite{LT1999_datasheet}. This sensing solution will provide a voltage output between 0.67V \& 3.72V across the total current sensing range, with a resolution defined by the gain error of 50$\mu$A at the output. \todo{Please see} \Cref{A:specs} for the calculation of these values. The datasheet also specifies that there will be no attenuation of the output gain for frequencies of 100kHz or below. 
 
-Based on these specifications, this design is capable of measuring the full current input range from requirements 4 \& 7, as well as the resolution and frequency requirements 5, \& 6.
+Based on these specifications, this design is capable of measuring the full current input range specified in requirements 4 \& 7, while surpassing the resolution and frequency specifications of requirements 5, \& 6.
 
 
 \subsection{Average Inductor Current Sensing}
 
-To obtain the average inductor current ripple, the output of the previously designed current sense amplifier can be low pass filtered. By designing a first order passive low pass filter with a cut-off frequency of 10Hz, we can be sure to attenuate any selectable switching frequency by at least 40dB. This will provide a simple to measure DC voltage between 0.45V and 3V. This can be measured using the internal ADC of the ESP32 providing a theoretical resolution of 5mV, or 117$\mu$A. Please see \Cref{A:specs} for the calculation of these values.
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \vspace{-33pt}
+    \begin{center}
+      \includegraphics[width=0.35\textwidth]{current_sense/schematic/average_current.pdf}
+    \end{center}
+    \caption{Average current 10Hz cut-off low pass filter}
+    \vspace{-22pt}
+\end{wrapfigure}
 
+To obtain the average inductor current ripple, the output of the previously designed current sense amplifier can be low pass filtered. By designing a first order passive low pass filter with a cut-off frequency of 10Hz, we can be sure to attenuate any selectable switching frequency by at least 40dB. This will provide a simple to measure DC voltage between 0.45V and 3V. This can be measured using the internal ADC of the ESP32 providing a theoretical resolution of 5mV, or 117$\mu$A. \todo{Please see} \Cref{A:specs} for the calculation of these values.
 
 
 \subsection{Peak Inductor Current Sensing}
 
-discuss why it is that peak sensing is important, and how two designs have been created to achieve this task. The precision rectifier is my own design and not based on any existing designs, the sample and hold based sensor is based on designs from these resources \cite{peak_detector_designs, LTC6244_peak_detector}
+Based on the bandwidth requirement of 1kHz to 100kHz, it was identified that sampling the output signal of the current sensors to identify the peaks would be impractical. To achieve this a sampling rate of at least twice the highest frequency component would be required, and a recommended minimum of one decade above is suggested, requiring a sampling rate of 1Mhz. 
 
-\subsection*{Precision Rectifier Peak Voltage Detection}\label{S:current_sense_precision_rectifier_design}
+Due to this, designs were undertaken to simplify the sampling requirements. The following designs will take direct input from the current sensor, and aim to output a DC voltage that is representative of the input current peak values. 
 
-Discuss the operation, and simulations of the Precision Rectifier Peak Voltage Detection. 
+% discuss why it is that peak sensing is important, and how two designs have been created to achieve this task. The precision rectifier is my own design and not based on any existing designs, the sample and hold based sensor is based on designs from these resources \cite{peak_detector_designs, LTC6244_peak_detector}
 
-\subsection*{Sample and Hold Peak Voltage Detection}\label{S:current_sense_sample_and_hold_design}
+\subsubsection*{Precision Rectifier Peak Voltage Detection}\label{S:current_sense_precision_rectifier_design}
 
-Discuss the operation, and simulations of the Sample and Hold Peak Voltage Detection. Then discuss that due to it's simpler design, it's implementation will be far easier, the possible issue it may have will be easier to diagnose, and it's cost will be much lower. then specify that this was the final design selected for this section.
+This design is based based around the operation of a signal precision rectifier, and the knowledge that the inductor current ripple will be symmetrical and triangular in shape \cite{Mohan2012_Design}. Due to the symmetry, we know that the average inductor ripple current over a period will be zero, shown in \Cref*{F:rectification} (a). After rectification of the signal, the the ripple peak to peak value will half, the frequency will double, and the new signal average will be half the new ripple peak to peak, shown in \Cref*{F:rectification} (b). 
+
+\begin{figure}[H]
+    
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\columnwidth]{current_sense/precision_rectification/pre_rectified.png}
+        \subcaption{Pre-rectification current sense output of 1V pk to pk, average voltage of 0V}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\columnwidth]{current_sense/precision_rectification/post_rectified.png}
+        \subcaption{Post-rectification current sense output of 1V pk to pk, average voltage of 0.5V}
+    \end{subfigure}
+    \caption{Average voltage output of a symmetrical signal, before and after rectification}
+    \label{F:rectification}
+\end{figure}
+
+From here, we can obtain the signal average by applying a passive a low pass filter with a cut off of 10Hz to the output, producing a sampleable DC voltage. To obtain the full original signal peak to peak value, this signal can then amplified with a gain of 4. The full design can be seen in \Cref{F:precision_rectifier_circuit}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width = 0.7\textwidth]{current_sense/schematic/precision_rectifier_schematic.pdf}
+    \caption{Precision rectifier peak detector designed circuit schematic}
+    \label{F:precision_rectifier_circuit}
+\end{figure}
+
+% Discuss the operation, and simulations of the Precision Rectifier Peak Voltage Detection. 
+
+\subsubsection*{Sample and Hold Peak Voltage Detection}\label{S:current_sense_sample_and_hold_design}
+
+This design is based on existing voltage peak detection designs \cite{peak_detector_designs,LTC6244_peak_detector}. The design operates on a similar principle to a sample and hold unit, charging a signal capturing capacitor through a diode such that it will not discharge. In order to remove the voltage drop across the charging diode, it is placed within the forward path of an operational amplifier buffer. The output voltage is then buffered again to allow for sampling. The full design can be seen in \Cref{F:sample_and_hold_circuit}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width = 0.7\textwidth]{current_sense/schematic/sample_and_hold_schematic.pdf}
+    \caption{Sample \& hold peak detector designed circuit schematic}
+    \label{F:sample_and_hold_circuit}
+\end{figure}
+
+Both of the discussed designs have been simulated in LTSpice, and have had their operation confirmed, please see \Cref{A:peak_detector} for output plots. From this it was identified that both designs would be able to meet the resolution specification of 10mA, and bandwidth specification of 1kHz to 100kHz outlined in requirement 4, 5, 6, \& 7.
+
+It should also be noted however that the design of the precision rectifier based peak detector is much more complex than that of the sample and hold peak detector. Because of this, it was decided that the sample and hold based peak detector would be most suitable for this project, as it meets all required specifications, and best adheres to the ease of use goal.
+
+
+% Discuss the operation, and simulations of the Sample and Hold Peak Voltage Detection. Then discuss that due to it's simpler design, it's implementation will be far easier, the possible issue it may have will be easier to diagnose, and it's cost will be much lower. then specify that this was the final design selected for this section.
 
 \subsection*{Current sensing digitisation}\label{S:current_sense_ADC_design}
 
-Discuss the selection of the ADC for measuring the peak ripple and mean ripple currents. Talk about the minimum required ADC precision, and bandwidth requirements. Discuss hoe this AC provides a differential output. 
+Due to the operation of the design discussed in \Cref{S:current_sense_sample_and_hold_design}, the output DC voltage will be imposed on a DC refrence voltage. To eliminate this DC bias from the output, a dedicated external ADC with a differential input can be employed. This will allow for the removal of the bias at the digitisation of the signal. The selected ADC is the MAX11644, which provides a 12bit resolution, an internal refrence of 4.096V, and the required differential input. 
+Based on these specifications, this design is capable of measuring input voltages between 0V and 4.096V, with a resolution of 8mV. This will give a current sensing resolution of 2.6mA, meeting the specifications of requirement 6.
+
+
+% Discuss the selection of the ADC for measuring the peak ripple and mean ripple currents. Talk about the minimum required ADC precision, and bandwidth requirements. Discuss hoe this AC provides a differential output. 
 
 
 %

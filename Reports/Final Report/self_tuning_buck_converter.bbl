@@ -55,6 +55,10 @@ Texas Instruments, {\em Precision Magnetics – Solving the Stability Challenge
 \bibitem{ESP32Manual}
 Espressif Systems, {\em ESP32: Technical Reference Manual}, 4.4~ed., 2021.
 
+\bibitem{LT1999_datasheet}
+Analog Devices, {\em High Voltage BidirectionalCurrent Sense Amplifier -
+  LT1999-50}, Sept. 2019.
+
 \bibitem{peak_detector_designs}
 R.~Elliott, ``Peak detection circuits.'' Online, Mar. 2017.
 
