@@ -268,13 +268,13 @@ Based on these specifications, this design is capable of measuring input voltage
 
 \section{Control System}\label{S:control_design}
 
-In the design of the output voltage and inductor current ripple control systems, a successful design will meet all the requirements outlined by \Cref{S:specs_design}. From this we can identify that both controllers must provide a steady state error that is less $\pm$5\% of the targeted value, as specified in requirements 3 \& 6. 
+When designing the output voltage and inductor current ripple control systems, a successful design will meet all the requirements outlined by \Cref{S:specs_design}. From this we can identify that both controllers must provide a steady state error that is less $\pm$5\% of the targeted value, as specified in requirements 3 \& 6. 
 
 \subsection{Output Load Voltage Controller}\label{S:output_control_design}
 
 To achieve the desired output voltage steady state error, a feedback controller with an integrating term should be used. To provide this, our design will implement the common proportional, integral, \& differential (PID) controller. This controller will be provided with the output voltage as in input, this will then be converted to the theoretical PWM duty cycle required to produce that output based on \Cref{E:V_out}. this will then be used to calculate the controller error and output the new PWM duty cycle.
 
-To design this, a mathematical model of a buck converter \cite{Patil2015} was found and simulated in Matlab. This model was then discretised such that it could be implemented on a microcontroller, and a PID controller was then designed with the \lstinline{PIDTune()} function. A step response simulation of this model can be found in \Cref{A:control}. 
+To design this, a mathematical model of a buck converter \cite{Patil2015} was found and simulated in Matlab. This model was then discretised such that it could be implemented on a microcontroller, and a PID controller was then designed with the `\lstinline{PIDTune()}' function. A step response simulation of this model can be found in \Cref{A:control}. 
 
 Due to the control topology used in this design, this design will be able to provide an output voltage steady state error of less than $\pm$5\%, as specified in requirement 3.
 

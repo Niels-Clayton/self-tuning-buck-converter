@@ -3,25 +3,28 @@
 
 \section{PWM Generation}\label{S:pwm_gen_impl}
 
-go ask Daniel about this because currently all I can think to say is about the bootstrap circuit and the code. But the bootstrap circuit is not important to the design, and was inly used due to covid since I will be using a gate driver in the final design. 
+The PWM signal generator was designed around the Espressif ESP32 microcontroller. For ease of development around this microcontroller, a pre-built breadboard compatible development board was purchased for the implementation. \\
 
-\subsubsection{TODO Gate driving and Bootstrapping} 
+Using this development board, a PWM hardware driver was developed to facilitate the implementation of this subsystems core functionality as specified in \Cref{S:specs_design}. This driver implements three core functions, `\lstinline{PWM_setup()}' to initialise the driver, `\lstinline{PWM_set_duty()}' to select a new duty cycle, and `\lstinline{PWM_set_frequency}' to select a new frequency.\\
 
-Discuss how the micro will be unable to directly drive the gate of the switching MOSFET, as it's $V_{GS_{on}}$ will be too large. Because of this a gate driver will need to be selected. The driver will need to be driven using the 3.3V logic from the ESP32, and will need timings fast enough to function correctly at 100kHz. I can also discuss how during the lock-down I was unable to purchase a gate driver, and so I built a bootstrapping circuit from components I located around the house. 
+After the software implementation had been completed, it was identified that the digital output of the microcontroller would not be capable of driving the buck converters switching power MOSFET. To resolve this, a high side N-channel gate driver IC was purchased to drive the MOSFET. This final circuit was then implemented and it's functionality was tested on a breadboard. This circuit can be seen in \todo{add appendix for hardware implementations}.
+
+% Discuss how the micro will be unable to directly drive the gate of the switching MOSFET, as it's $V_{GS_{on}}$ will be too large. Because of this a gate driver will need to be selected. The driver will need to be driven using the 3.3V logic from the ESP32, and will need timings fast enough to function correctly at 100kHz. I can also discuss how during the lock-down I was unable to purchase a gate driver, and so I built a bootstrapping circuit from components I located around the house. 
 
 
-\section{Inductor Current Peak to Peak Sensor}\label{S:current_sense_impl}
+\section{Peak Inductor Current Sensing}\label{S:current_sense_impl}
 
-Do I just show a photo of the breadboard and say that I built it on that?  
 
 
 \section{Control System}\label{S:control_impl}
 
 
-\section{Software Architecture}
+\section{Full system implementation}
 
-Discuss the ESPidf HAL (Hardware Abstraction Layer), and how it provides greater control of the system resources than the more commonly used arduino platform. 
-\\
-Then discuss how the system operates within the freeRTOS real time operating system, what allows for easy multitasking between the different time sensitive control loops that will have to be run on the micro.  
-\\
-Finally discuss the simple to use API that was implemented, which aims to abstract away the HAL layer. This API is implemented using collection of single header libraries written in the 'C' programming language, with each implementing only the core functionality of the hardware they are interacting with. This makes the software platform robust and simple to move to different embedded platforms, with such a move only requiring the re-implementation of the core functions of each library. 
+Discuss how the code implements each of the hardware sections designed. Then also discuss how the full system has been implemented on a PCB 
+
+% Discuss the ESPidf HAL (Hardware Abstraction Layer), and how it provides greater control of the system resources than the more commonly used arduino platform. 
+% \\
+% Then discuss how the system operates within the freeRTOS real time operating system, what allows for easy multitasking between the different time sensitive control loops that will have to be run on the micro.  
+% \\
+% Finally discuss the simple to use API that was implemented, which aims to abstract away the HAL layer. This API is implemented using collection of single header libraries written in the 'C' programming language, with each implementing only the core functionality of the hardware they are interacting with. This makes the software platform robust and simple to move to different embedded platforms, with such a move only requiring the re-implementation of the core functions of each library. 
