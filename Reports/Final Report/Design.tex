@@ -1,6 +1,6 @@
 \chapter{Design}\label{C:design}
 
-The deign processes outlined within this report will draw heavily on the background research discussed in \Cref{C:background}. These designs aim to effectively implement the outlined system requirements discussed by \Cref{S:goals} in a robust and repeatable manner.
+The design processes outlined within this report will draw heavily on the background research discussed in \Cref{C:background}. These designs aim to effectively implement the outlined system requirements discussed by \Cref{S:goals} in a robust and repeatable manner.
 
 
 %
@@ -164,19 +164,19 @@ Based on these specifications, it is clear that this design meets the duty cycle
 
 The design of the state sensing system will include the output voltage sensor and the inductor current ripple sensor. These sensors will be responsible for providing the feedback data for the control systems, illustrated in \Cref{F:sys_overview}. To provide a peak to peak inductor current measurement as a percentage of the output current, both the average and peak inductor currents must be measured. Based on these measurements, the inductor current ripple percentage can be calculated.
 
-A successful design will meet all the requirements outlined by \Cref{S:specs_design}. Therefor the output voltage sensor must be capable of measuring voltages between 3V \& 10V with a resolution of 150mV, as specified by requirements 2 \& 3. It is also required that the average inductor current, and the peak inductor current ripple measurements achieve a resolution of 15mA, for frequencies between 1kHz \& 100kHz, as specified by requirement 4, 5, 6, \& 7.
+A successful design will meet all the requirements outlined by \Cref{S:specs_design}. Therefore the output voltage sensor must be capable of measuring voltages between 3V \& 10V with a resolution of 150mV, as specified by requirements 2 \& 3. It is also required that the average inductor current, and the peak inductor current ripple measurements achieve a resolution of 15mA, for frequencies between 1kHz \& 100kHz, as specified by requirement 4, 5, 6, \& 7.
 
 
 \subsection{Output Voltage Sensing}
 
-The output voltage of the buck converter will be a DC voltage between 3V \& 10V. As there are no high frequency components to this signal, there are no bandwidth requirements on it's sampling. Due to this the internal analog to digital converter (ADC) of the ESP32 microcontroller will be used for sampling. This 12 bit ADC can measure an input voltage range of 0V to 3V \cite{ESP32Manual}, therefor the output voltage will have to be measured through a voltage divider. This divider will provide an output ratio of $\frac{10}{3}$, allowing for maximal use of the ADC's input range. This will provide a theoretical measurement resolution of 2.5mV. 
+The output voltage of the buck converter will be a DC voltage between 3V \& 10V. As there are no high frequency components to this signal, there are no bandwidth requirements on it's sampling. Due to this the internal analog to digital converter (ADC) of the ESP32 microcontroller will be used for sampling. This 12 bit ADC can measure an input voltage range of 0V to 3V \cite{ESP32Manual}, therefore the output voltage will have to be measured through a voltage divider. This divider will provide an output ratio of $\frac{10}{3}$, allowing for maximal use of the ADC's input range. This will provide a theoretical measurement resolution of 2.5mV. 
 
 Based on these specifications, this design is capable of measuring output voltages between 3V and 10V, with a resolution of 2.5mV, meeting the outlines requirements 2 \& 3.
 
 
 \subsection{Current Sensor Selection}\label{S:current_sense_selection}
 
-To maintain design simplicity, both the average inductor current, and the peak inductor current ripple will be measured from the same sensor. Due to this, a hall effect based current sensor is not suitable for this application as it was discussed in \Cref{S:hall_effect_back} that they lack precision due to a high noise floor, and would be unable to meet requirements 4 \& 6. 
+To maintain design simplicity, both the average inductor current, and the peak inductor current ripple will be measured from the same sensor. Due to this, a hall effect based current sensor is not suitable for this application. It was discussed in \Cref{S:hall_effect_back} that they lack precision due to a high noise floor, and would be unable to meet requirements 4 \& 6. 
 
 Because of this, a current shunt based sensor with a defined gain and selectable shunt resistance has been designed, specifically the LT1999-50 with a 60m$\Omega$ shunt. This current sense amplifier has a specified gain of 50V/V, a typical gain error of 0.2\%, and a bandwidth of 2MHz \cite{LT1999_datasheet}. This sensing solution will provide a voltage output between 0.67V \& 3.72V across the total current sensing range, with a resolution defined by the gain error of 50$\mu$A at the output. \todo{Please see} \Cref{A:specs} for the calculation of these values. The datasheet also specifies that there will be no attenuation of the output gain for frequencies of 100kHz or below. 
 
@@ -207,7 +207,7 @@ Due to this, designs were undertaken to simplify the sampling requirements. The 
 
 \subsubsection*{Precision Rectifier Peak Voltage Detection}\label{S:current_sense_precision_rectifier_design}
 
-This design is based based around the operation of a signal precision rectifier, and the knowledge that the inductor current ripple will be symmetrical and triangular in shape \cite{Mohan2012_Design}. Due to the symmetry, we know that the average inductor ripple current over a period will be zero, shown in \Cref*{F:rectification} (a). After rectification of the signal, the the ripple peak to peak value will half, the frequency will double, and the new signal average will be half the new ripple peak to peak, shown in \Cref*{F:rectification} (b). 
+This design is based around the operation of a signal precision rectifier, and the knowledge that the inductor current ripple will be symmetrical and triangular in shape \cite{Mohan2012_Design}. Due to the symmetry, we know that the average inductor ripple current over a period will be zero, shown in \Cref*{F:rectification} (a). After rectification of the signal, the the ripple peak to peak value will halve, the frequency will double, and the new signal average will be half the new ripple peak to peak, shown in \Cref*{F:rectification} (b). 
 
 \begin{figure}[H]
     
@@ -255,7 +255,7 @@ It should also be noted however that the design of the precision rectifier based
 
 \subsection*{Current sensing digitisation}\label{S:current_sense_ADC_design}
 
-Due to the operation of the design discussed in \Cref{S:current_sense_sample_and_hold_design}, the output DC voltage will be imposed on a DC refrence voltage. To eliminate this DC bias from the output, a dedicated external ADC with a differential input can be employed. This will allow for the removal of the bias at the digitisation of the signal. The selected ADC is the MAX11644, which provides a 12bit resolution, an internal refrence of 4.096V, and the required differential input. 
+Due to the operation of the design discussed in \Cref{S:current_sense_sample_and_hold_design}, the output DC voltage will be imposed on a DC refrence voltage. To eliminate this DC bias from the output, a dedicated external ADC with a differential input can be employed. This will allow for the removal of the bias at the digitisation of the signal. The selected ADC is the MAX11644, which provides a 12bit resolution, an internal reference of 4.096V, and the required differential input. 
 Based on these specifications, this design is capable of measuring input voltages between 0V and 4.096V, with a resolution of 8mV. This will give a current sensing resolution of 2.6mA, meeting the specifications of requirement 6.
 
 
@@ -272,7 +272,7 @@ When designing the output voltage and inductor current ripple control systems, a
 
 \subsection{Output Load Voltage Controller}\label{S:output_control_design}
 
-To achieve the desired output voltage steady state error, a feedback controller with an integrating term should be used. To provide this, our design will implement the common proportional, integral, \& differential (PID) controller. This controller will be provided with the output voltage as in input, this will then be converted to the theoretical PWM duty cycle required to produce that output based on \Cref{E:V_out}. this will then be used to calculate the controller error and output the new PWM duty cycle.
+To achieve the desired output voltage steady state error, a feedback controller with an integrating term should be used. To provide this, the design will implement a proportional, integral, \& differential (PID) controller. This controller will be provided with the buck converter output voltage as an input, this will then be converted to the theoretical PWM duty cycle required to produce that output based on \Cref{E:V_out}. This will then be used to calculate the controller error and output the new PWM duty cycle.
 
 To design this, a mathematical model of a buck converter \cite{Patil2015} was found and simulated in Matlab. This model was then discretised such that it could be implemented on a microcontroller, and a PID controller was then designed with the `\lstinline{PIDTune()}' function. A step response simulation of this model can be found in \Cref{A:control}. 
 
