@@ -41,7 +41,7 @@ To meet this requirement, the designed buck converter must have a control system
 
 To meet this requirement, all components of the buck converter must be designed to handle the maximum output current of 1A that will occur with a $10\Omega$ load at 10V. It will also be important that any current sensing is designed to operate within the range defined by these loads. Finally it is required that control systems are implemented to maintain requirements 3, \& 6 as the load varies. 
 
-\subsection{System Architecture}
+\subsection{System Architecture}\label{S:system_architecture}
 
 Based on the specifications outlined in the above section, an architecture that outlines the system design has been developed. This architecture has been divided into three subsystems that must each be developed. This architecture system can be seen in \Cref{F:sys_overview}.\\
 
@@ -49,7 +49,7 @@ Subsystem one implements a PWM generator. From requirements 2, \& 5 it has been 
 
 Subsystem two implements system state sensing. From requirement 3 \& 6 it has been identified that an output voltage sensor, and an inductor current ripple sensor must be designed. This system can be seen in \Cref{F:sys_overview} outlined in blue.\\
 
-Subsystem three implements two control systems. From requirements 3, 6, \& 7 it has been identified that control systems should be designed to ensure that the specified steady state errors of the output voltage and inductor current ripple are met. 
+Subsystem three implements two control systems. From requirements 3, 4, 6, \& 7 it has been identified that control systems should be designed to ensure that the specified steady state errors of the output voltage and inductor current ripple are met. 
 
 One control system will take the output load voltage measurement, and control the PWM duty cycle. The other control system will take the inductor current ripple, and control the PWM frequency. This system can be seen in \Cref{F:sys_overview} outlined in red.
 
