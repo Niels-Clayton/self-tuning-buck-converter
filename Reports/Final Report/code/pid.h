@@ -43,7 +43,7 @@ typedef struct
 
 #ifdef BUCK_CONVERTER_PID_IMPL
 
-void PID_controller_init(PIDController *pid){
+void PID_init(PIDController *pid){
 
     /* Clear controller variables */
     pid->integrator = 0.0f;
@@ -56,7 +56,7 @@ void PID_controller_init(PIDController *pid){
 }
 
 
-void IRAM_ATTR PID_controller_update(PIDController *pid, float setpoint, float measurement){
+void IRAM_ATTR PID_update(PIDController *pid, float setpoint, float measurement){
 
     // Error Signal
     float error = setpoint - measurement;

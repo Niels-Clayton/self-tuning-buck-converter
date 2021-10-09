@@ -106,7 +106,7 @@ void control_loop(void *pvParameters)
     };
 
     // initialise the PID controller
-    PID_controller_init(&voltage_controller);
+    PID_init(&voltage_controller);
 
     // Task variables
     TickType_t xLastWakeTime; // Hold the time stamp of the last wake time
@@ -142,7 +142,7 @@ void control_loop(void *pvParameters)
         }
 
         // Update the duty cycle with the PID controller
-        PID_controller_update(&voltage_controller, target_duty, measurment_duty);
+        PID_update(&voltage_controller, target_duty, measurment_duty);
 
         // Output the new duty cycle
         PWM_set_duty(&pwm_channel, voltage_controller.out);

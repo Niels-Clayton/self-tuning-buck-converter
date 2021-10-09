@@ -167,9 +167,9 @@ The design of the state sensing system will include the output voltage sensor an
 A successful design will meet all the requirements outlined by \Cref{S:specs_design}. Therefore the output voltage sensor must be capable of measuring voltages between 3V \& 10V with a resolution of 150mV, as specified by requirements 2 \& 3. It is also required that the average inductor current, and the peak inductor current ripple measurements achieve a resolution of 15mA, for frequencies between 1kHz \& 100kHz, as specified by requirement 4, 5, 6, \& 7.
 
 
-\subsection{Output Voltage Sensing}
+\subsection{Output Voltage Sensing}\label{S:v_sense_design}
 
-The output voltage of the buck converter will be a DC voltage between 3V \& 10V. As there are no high frequency components to this signal, there are no bandwidth requirements on it's sampling. Due to this the internal analog to digital converter (ADC) of the ESP32 microcontroller will be used for sampling. This 12 bit ADC can measure an input voltage range of 0V to 3V \cite{ESP32Manual}, therefore the output voltage will have to be measured through a voltage divider. This divider will provide an output ratio of $\frac{10}{3}$, allowing for maximal use of the ADC's input range. This will provide a theoretical measurement resolution of 2.5mV. 
+The output voltage of the buck converter will be a DC voltage between 3V \& 10V. As there are no high frequency components to this signal, there are no bandwidth requirements on it's sampling. Due to this the internal analog to digital converter (ADC) of the ESP32 microcontroller will be used for sampling. This 12 bit ADC can measure an input voltage range of 0V to 3V \cite{ESP32Manual}, therefore the output voltage will have to be measured through a voltage divider. This divider will provide an output ratio of $\frac{10}{3.33}$, allowing for maximal use of the ADC's input range. This will provide a theoretical measurement resolution of 2.5mV. 
 
 Based on these specifications, this design is capable of measuring output voltages between 3V and 10V, with a resolution of 2.5mV, meeting the outlines requirements 2 \& 3.
 
@@ -183,7 +183,7 @@ Because of this, a current shunt based sensor with a defined gain and selectable
 Based on these specifications, this design is capable of measuring the full current input range specified in requirements 4 \& 7, while surpassing the resolution and frequency specifications of requirements 5, \& 6.
 
 
-\subsection{Average Inductor Current Sensing}
+\subsection{Average Inductor Current Sensing}\label{S:avg_current_design}
 
 \begin{wrapfigure}{r}{0.3\textwidth}
     \vspace{-33pt}
@@ -197,9 +197,9 @@ Based on these specifications, this design is capable of measuring the full curr
 To obtain the average inductor current ripple, the output of the previously designed current sense amplifier can be low pass filtered. By designing a first order passive low pass filter with a cut-off frequency of 10Hz, we can be sure to attenuate any selectable switching frequency by at least 40dB. This will provide a simple to measure DC voltage between 0.45V and 3V. This can be measured using the internal ADC of the ESP32 providing a theoretical resolution of 5mV, or 117$\mu$A. \todo{Please see} \Cref{A:specs} for the calculation of these values.
 
 
-\subsection{Peak Inductor Current Sensing}
+\subsection{Peak Inductor Current Sensing}\label{S:peak_current_design}
 
-Based on the bandwidth requirement of 1kHz to 100kHz, it was identified that sampling the output signal of the current sensors to identify the peaks would be impractical. To achieve this a sampling rate of at least twice the highest frequency component would be required, and a recommended minimum of one decade above is suggested, requiring a sampling rate of 1Mhz. 
+Based on the bandwidth requirement of 1kHz to 100kHz, it was identified that sampling the output signal of the current sensors to identify the peaks would be impractical. To achieve this a sampling rate of at least twice the highest frequency component would be specified by the Nyquist theorem, and a recommended minimum of one decade above is considered common practice, requiring a sampling rate of 1Mhz. 
 
 Due to this, designs were undertaken to simplify the sampling requirements. The following designs will take direct input from the current sensor, and aim to output a DC voltage that is representative of the input current peak values. 
 
@@ -207,7 +207,7 @@ Due to this, designs were undertaken to simplify the sampling requirements. The 
 
 \subsubsection*{Precision Rectifier Peak Voltage Detection}\label{S:current_sense_precision_rectifier_design}
 
-This design is based around the operation of a signal precision rectifier, and the knowledge that the inductor current ripple will be symmetrical and triangular in shape \cite{Mohan2012_Design}. Due to the symmetry, we know that the average inductor ripple current over a period will be zero, shown in \Cref*{F:rectification} (a). After rectification of the signal, the the ripple peak to peak value will halve, the frequency will double, and the new signal average will be half the new ripple peak to peak, shown in \Cref*{F:rectification} (b). 
+This design is based around the operation of a signal precision rectifier, and the knowledge that the inductor current ripple will be symmetrical and triangular in shape \cite{Mohan2012_Design}. Due to this symmetry, we know that the average inductor ripple current over a period will be zero, shown in \Cref*{F:rectification} (a). After rectification of the signal, the the ripple peak to peak value will halve, the frequency will double, and the new signal average will be half the new ripple peak to peak, shown in \Cref*{F:rectification} (b). 
 
 \begin{figure}[H]
     
@@ -228,7 +228,7 @@ From here, we can obtain the signal average by applying a passive a low pass fil
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width = 0.7\textwidth]{current_sense/schematic/precision_rectifier_schematic.pdf}
+    \includegraphics[width = 0.8\textwidth]{current_sense/schematic/precision_rectifier_schematic.pdf}
     \caption{Precision rectifier peak detector designed circuit schematic}
     \label{F:precision_rectifier_circuit}
 \end{figure}
