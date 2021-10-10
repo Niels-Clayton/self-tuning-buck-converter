@@ -1,1 +1,55 @@
-\chapter{Conclusions \& Future Work}\label{C:conclusion}
+\chapter{Conclusions}\label{C:conclusion}
+
+The ultimate goal of this project was to develop a testing platform through which the effects of variable buck converter switching frequency on inductor current ripple could be observed and controlled. This goal was to be approached with an emphasis on its usability and expandability, providing a proof of concept for further development and research to be performed.\\
+
+With these goals in mind the project was subdivided into three subsystems, each responsible for the operation of a key component of the final systems design. Each subsystem was individually designed, implemented, and evaluated throughout this report.
+
+The first of these subsystem is PWM signal generation, responsible for providing a selectable switching frequency and duty cycle switching signal. This section facilitates buck converter operation, providing the ability to both vary output voltage, and inductor ripple independently. 
+
+The second subsystem involves system state sensing, responsible for measuring the current values of various portions of the design. This section facilitates the feedback on current converter states, monitoring the output voltage, the supply voltage, and the inductor current ripple. 
+
+The final subsystem provides the control, responsible for maintaining the selected buck converter output voltage and inductor current ripple. This subsystems interacts directly with the previous two, receiving system feedback from subsection 2, and providing output frequencies and duty cycles to subsystem 1.\\
+
+This project was also subject to a list of requirements, provided in \Cref{S:goals}, which was then broken down into final system specifications in \Cref{S:specs_design}. The following list briefly outlines each requirement and it's final implementation within this project.\\
+
+\begin{enumerate}
+    \item \textbf{Operate with a 12V DC input supply voltage}
+
+    Each subsystem was successfully designed to operate with a DC input supply between 8V and 16V. 
+
+    \item \textbf{Provide a selectable DC output voltage between 3V and 10V}
+
+    The implemented system was capable maintaining a selected DC output voltage between 1V and 10V, selectable to one decimal pace. 
+
+    \item \textbf{Provide an output voltage precision of at least $\pm5\%$ of the targeted output voltage}
+
+    The implemented system was capable maintaining an output steady state error of $\pm$0.78\%, across the entire output voltage range.
+
+    \newpage
+    \item \textbf{Provide a selectable inductor current ripple between 20\% and 50\% of the total output current}
+
+    This requirement is pending implementation due to Covid-19 relates delays. Evaluation has been performed on each element of the requirements design, all of which successfully met the individual specifications.
+
+    \item \textbf{Provide a variable converter switching frequency between 1kHz and 100kHz}
+
+    The implemented system was capable of varying switching frequency between 1kHz, and 100kHz, with a maximum frequency error of 0.064\% of the target output.
+
+    \item \textbf{Provide an inductor current ripple precision of at least $\pm5$\% of the target inductor current ripple }
+
+    This requirement is pending implementation due to Covid-19 relates delays. Evaluation has been performed on each element of the requirements design, all of which successfully met the individual specifications.
+
+    \item \textbf{Operate with variable load sizes between 10$\Omega$ and 20 $\Omega$}
+
+    Each subsystem has been successfully designed to operate with variable load sizes between 10$\Omega$ and 20 $\Omega$.
+
+\end{enumerate}
+
+
+
+\section{Future Work}
+
+Upon full assembly of this projects subsystems into the final designed system, this project lends it self to a wide variety of future research and study. 
+
+With the projects motivation being based on the complexity and static nature of buck converter design, research into the characterisation of varying buck converter topologies can be performed. This could allow for distinctions between the design process of synchronous and asynchronous buck converters, exploring possible differences in switching frequency requirements between the two topologies. 
+
+It would also be valuable to explore this systems response to non-resistive loads, looking to characterise the different switching requirements for both inductive and capacitive impedances. 

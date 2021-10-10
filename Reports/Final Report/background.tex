@@ -44,7 +44,7 @@ The clock generation stage generates a square wave clock signal at a set frequen
 \subsection{Digital PWM Signal Generation}\label{S:digital_PWM_back}
 
 Designing a PWM signal generator with digital components is less complex than the method described in \Cref{S:analogue_PWM_back}, and can be done using either a microcontroller or a Field Programmable Gate Array (FPGA). By using an internal timing register that is continually incrementing at a known period we can set a period for our PWM. It is possible to vary the period of the PWM by simply increasing or decreasing the timing registers clock. Next, by toggling a digital I/O when a compare variable is equal to the current value of the timer, we are able to generate a PWM signal with a variable duty cycle \cite{Colley2020}. 
-This timing architecture can be simply implemented within an FPGA, but it can also commonly be found within the hardware of most microcontrollers.It should be noted however, that the range of achievable frequencies and duty cycle accuracy will be dependant on an individual microcontrollers clock speed and internal register sizes.
+This timing architecture can be simply implemented within an FPGA, but it can also commonly be found within the hardware of most microcontrollers. However, It should be noted that the range of achievable frequencies and duty cycle accuracy will be dependant on an individual microcontrollers clock speed and internal register sizes.
 
 \section{Buck Converters}\label{S:buck_back}
 
@@ -89,18 +89,18 @@ Current sensors are transducers that converter an input current to an easily mea
 
 \subsection{Current Sense Amplification}\label{S:current_shunt_back}
 
-Current sense voltage amplification sensors are a form of direct sensor, working on the principle of Ohm's law $I=\frac{V}{R}$. By sensing the voltage dropped across a known value resistive element (Often called the current shunt), it is possible to calculate the current that is flowing through the element. This form of current sensing is very simple to implement in theory, however it has the effect of altering the system being sensed by adding a resistive load, and thereby increasing the losses of the system. 
+Current sense voltage amplification sensors are a form of direct sensor, working on the principle of Ohm's law $I=\frac{V}{R}$. By sensing the voltage dropped across a known value resistive element (Often called the current shunt), it is possible to calculate the current that is flowing through the element. This form of current sensing is easy to implement in theory, however it has the effect of altering the system being sensed by adding a resistive load, and thereby increasing the losses of the system. 
 
 To mitigate the effects of this sensing on a circuit, a smaller resistive load can be used. However, this will also decrease the measurable voltage across the load, and therefore decrease the precision of a taken measurement. Because of this, shunt based current sensors are often paired with an operational amplifier of known gain. This combination allows for accurate amplification of the shunts voltage drop, increasing the precision of measurements, and allowing for drastically smaller shunt resistors. 
 
 
 \subsection{Hall Effect Sensors}\label{S:hall_effect_back}
 
-Hall effect sensors are a form of indirect sensor, working on the principles of Faraday’s and Ampere’s law as discussed above. They function by measuring the magnetic flux density, meaning that they are commonly used to sense the presence of a magnets or magnetic fields. However since a current flowing though a wire will produce a magnetic flux, they can also be used to measure current flow.
+Hall effect sensors are a form of indirect sensor, working on the principles of Faraday’s and Ampere’s law as discussed above. They function by measuring the magnetic flux density, meaning that they are commonly used to sense the presence of a magnets or magnetic fields. However, since a current flowing though a wire will produce a magnetic flux, they can also be used to measure current flow.
 
 Due to this operation, they are able to sense a current without contacting or altering the circuit. This means that they are commonly used in the measurement of high voltage or high current circuits, as they will remain completely isolated from the circuit being sensed. This provides large safety advantages, eliminates sensing power losses, and can often decrease the complexity of the sensing circuit. 
 
-Hall affect sensors do however suffer from a lack of precision. Due to their operation, their measurements will constantly be offset by any ambient magnetic flux within the surrounding environment. This means that they are not commonly used for the sensing of small signal currents, as the noise floor of the Earth's own magnetic field can often be larger than the signal being sensed \cite{hall_effect_precision}. 
+However, hall affect sensors do suffer from a lack of precision. Due to their operation, their measurements will constantly be offset by any ambient magnetic flux within the surrounding environment. This means that they are not commonly used for the sensing of small signal currents, as the noise floor of the Earth's own magnetic field can often be larger than the signal being sensed \cite{hall_effect_precision}. 
 
 \newpage
 
@@ -108,8 +108,8 @@ Hall affect sensors do however suffer from a lack of precision. Due to their ope
 
 Control systems are integral to the operation of any system for which you wish to achieve a desired outcome. In their simplest, a control systems has the purpose of obtaining a desired output from a system, with a desired performance, when a given input is provided. \\
 
-There are two main topologies of control system, open loop and closed loop. An open loop control system requires no feedback of the output, and therefore no sensing. Because of this, open loop controllers are often very easy and fast to implement within a system because of this, however they have no knowledge of the systems state and are therefore unable to correct for errors such as external disturbances. 
+There are two main topologies of control system, open loop and closed loop. An open loop control system requires no feedback of the output, and therefore no sensing. Because of this, open loop controllers are often fast to implement within a system because of this. However, it should be noted that they possess no knowledge of the systems state and are therefore unable to correct for errors such as external disturbances. 
 
-On the other hand, closed loop controllers require feedback from the current output of a system, and therefore will require sensing to be implemented. This added sensing requirement will add complexity to the system, however a closed loop controller provides the ability to compensate for errors in the systems output.\\
+On the other hand, closed loop controllers require feedback from the current output of a system, and therefore will require sensing to be implemented. This feedback provides the ability to compensate for errors in the systems output, with the drawback of add complexity.\\
 
 The performance of a specific control system is often discussed in terms of it's steady state settling time, and it's stead state error. The steady state settling time of a controller describes the time it takes for a controller to reach it's final value (`steady state') when provided with a given input. The slower the steady settling time of a controller, the slower it will react to a given input, and vice versa. The steady state error of a controller describes the error between the desired output and the final output of the system once it's steady state has been achieved. 

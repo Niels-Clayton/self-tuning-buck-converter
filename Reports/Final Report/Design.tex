@@ -22,7 +22,7 @@ To meet this requirement, the designed buck converter must have the ability to c
 
 \subsubsection*{Requirement 3: Provide an output voltage precision of at least $\pm5\%$ of the targeted output voltage}
 
-To meet this requirement, the designed buck converter must have a control system to regulate the output voltage. To achieve a steady state error of less than $\pm5\%$, feedback should be implemented, requiring output voltage sensing. We can also specify that a minimum duty cycle resolution of 1.25\% will be required to achieve this. For the derivation of these values, please see \Cref{A:specs}.
+To meet this requirement, the designed buck converter must have a control system to regulate the output voltage. To achieve a steady state error of less than $\pm5\%$, feedback should be implemented, requiring output voltage sensing. We can also specify that a minimum duty cycle resolution of 1.25\% will be required to achieve this. For the derivation of these values, refer to \Cref{A:specs}.
 
 \subsubsection*{Requirement 4: Provide a selectable inductor current ripple between 20\% and 50\% of the total output current}
 
@@ -30,11 +30,11 @@ To meet this requirement, the designed buck converter must have the ability to c
 
 \subsubsection*{Requirement 5: Provide a variable converter switching frequency between 1kHz and 100kHz}
 
-To meet this requirement, the PWM switching frequency must be selectable across the specified range. This, in tandem with requirement 4, allow for the specification of the inductor range for which these requirements can be met. For the derivation of these values, please see \Cref{A:specs}.
+To meet this requirement, the PWM switching frequency must be selectable across the specified range. This, in tandem with requirement 4, allow for the specification of the inductor range for which these requirements can be met. For the derivation of these values, refer to \Cref{A:specs}.
 
 \subsubsection*{Requirement 6: Provide  an  inductor  current  ripple  precision  of  at  least $\pm$5\%  of  the  target  inductor current ripple}
 
-To meet this requirement, the designed buck converter must have a control system to regulate the inductor current ripple. To achieve a steady state error of $\pm$5\%, feedback should be implemented, requiring inductor current ripple sensing. We can also specify that a minimum frequency selection resolution of 200Hz, as well as a minimum current ripple measurement resolution of a resolution of 15mA will be required to achieve this. For the derivation of these values, please see \Cref{A:specs}.  
+To meet this requirement, the designed buck converter must have a control system to regulate the inductor current ripple. To achieve a steady state error of $\pm$5\%, feedback should be implemented, requiring inductor current ripple sensing. We can also specify that a minimum frequency selection resolution of 200Hz, as well as a minimum current ripple measurement resolution of a resolution of 15mA will be required to achieve this. For the derivation of these values, refer to \Cref{A:specs}.  
 
 
 \subsubsection*{Requirement 7: Operate with variable load sizes between $10\Omega$ and $20\Omega$}
@@ -143,7 +143,7 @@ As discussed in \Cref{S:digital_PWM_back}, The design of a digital PWM signal ge
 
 The operation of an FPGA allows for the design and implementation of customised logic. Because of this, designs utilising FPGA's would easily be able to meet the specified requirements for the PWM signal generator.
 
-However the designs integration into the system architecture described in \Cref{F:sys_overview} must also be considered. A PWM generator implemented in an FPGA will be required to either implement or provide an interface with the control subsystem, as well as the state sensing subsystem. These interfaces must also be designed, greatly increasing the complexity of this specific subsystem. Due to this added complexity, it was identified that this design was not suitable for an initial proof of concept, and would not adhere to the ease of use goal. 
+However, the designs integration into the system architecture described in \Cref{F:sys_overview} must also be considered. A PWM generator implemented in an FPGA will be required to either implement or provide an interface with the control subsystem, as well as the state sensing subsystem. These interfaces must also be designed, greatly increasing the complexity of this specific subsystem. Due to this added complexity, it was identified that this design was not suitable for an initial proof of concept, and would not adhere to the ease of use goal. 
 
 \subsubsection*{Microcontroller PWM Generator}
 
@@ -178,7 +178,7 @@ Based on these specifications, this design is capable of measuring output voltag
 
 To maintain design simplicity, both the average inductor current, and the peak inductor current ripple will be measured from the same sensor. Due to this, a hall effect based current sensor is not suitable for this application. It was discussed in \Cref{S:hall_effect_back} that they lack precision due to a high noise floor, and would be unable to meet requirements 4 \& 6. 
 
-Because of this, a current shunt based sensor with a defined gain and selectable shunt resistance has been designed, specifically the LT1999-50 with a 60m$\Omega$ shunt. This current sense amplifier has a specified gain of 50V/V, a typical gain error of 0.2\%, and a bandwidth of 2MHz \cite{LT1999_datasheet}. This sensing solution will provide a voltage output between 0.67V \& 3.72V across the total current sensing range, with a resolution defined by the gain error of 50$\mu$A at the output. \todo{Please see} \Cref{A:specs} for the calculation of these values. The datasheet also specifies that there will be no attenuation of the output gain for frequencies of 100kHz or below. 
+Because of this, a current shunt based sensor with a defined gain and selectable shunt resistance has been designed, specifically the LT1999-50 with a 60m$\Omega$ shunt. This current sense amplifier has a specified gain of 50V/V, a typical gain error of 0.2\%, and a bandwidth of 2MHz \cite{LT1999_datasheet}. This sensing solution will provide a voltage output between 0.67V \& 3.72V across the total current sensing range, with a resolution defined by the gain error of 50$\mu$A at the output. Refer \Cref{A:specs} for the calculation of these values. The datasheet also specifies that there will be no attenuation of the output gain for frequencies of 100kHz or below. 
 
 Based on these specifications, this design is capable of measuring the full current input range specified in requirements 4 \& 7, while surpassing the resolution and frequency specifications of requirements 5, \& 6.
 
@@ -194,7 +194,7 @@ Based on these specifications, this design is capable of measuring the full curr
     \vspace{-22pt}
 \end{wrapfigure}
 
-To obtain the average inductor current ripple, the output of the previously designed current sense amplifier can be low pass filtered. By designing a first order passive low pass filter with a cut-off frequency of 10Hz, we can be sure to attenuate any selectable switching frequency by at least 40dB. This will provide a simple to measure DC voltage between 0.45V and 3V. This can be measured using the internal ADC of the ESP32 providing a theoretical resolution of 5mV, or 117$\mu$A. \todo{Please see} \Cref{A:specs} for the calculation of these values.
+To obtain the average inductor current ripple, the output of the previously designed current sense amplifier can be low pass filtered. By designing a first order passive low pass filter with a cut-off frequency of 10Hz, we can be sure to attenuate any selectable switching frequency by at least 40dB. This will provide a simple to measure DC voltage between 0.45V and 3V. This can be measured using the internal ADC of the ESP32 providing a theoretical resolution of 700$\mu$V, or 244$\mu$A. Refer \Cref{A:specs} for the calculation of these values.
 
 
 \subsection{Peak Inductor Current Sensing}\label{S:peak_current_design}
@@ -246,7 +246,7 @@ This design is based on existing voltage peak detection designs \cite{peak_detec
     \label{F:sample_and_hold_circuit}
 \end{figure}
 
-Both of the discussed designs have been simulated in LTSpice, and have had their operation confirmed, please see \Cref{A:peak_detector} for output plots. From this it was identified that both designs would be able to meet the resolution specification of 10mA, and bandwidth specification of 1kHz to 100kHz outlined in requirement 4, 5, 6, \& 7.
+Both of the discussed designs have been simulated in LTSpice, and have had their operation confirmed, refer to \Cref{A:peak_detector} for output plots. From this it was identified that both designs would be able to meet the resolution specification of 15mA, and bandwidth specification of 1kHz to 100kHz outlined in requirement 4, 5, 6, \& 7.
 
 It should also be noted however that the design of the precision rectifier based peak detector is much more complex than that of the sample and hold peak detector. Because of this, it was decided that the sample and hold based peak detector would be most suitable for this project, as it meets all required specifications, and best adheres to the ease of use goal.
 
@@ -276,8 +276,9 @@ To achieve the desired output voltage steady state error, a feedback controller 
 
 To design this, a mathematical model of a buck converter \cite{Patil2015} was found and simulated in Matlab. This model was then discretised such that it could be implemented on a microcontroller, and a PID controller was then designed with the `\lstinline{PIDTune()}' function. A step response simulation of this model can be found in \Cref{A:control}. 
 
-Due to the control topology used in this design, this design will be able to provide an output voltage steady state error of less than $\pm$5\%, as specified in requirement 3.
+Due to the control topology used in this design, this design will be able to provide an output voltage steady state error of 23mV based on the discrete voltage step size from the PWM generator. This will provide a worst case error of $\pm$0.78\%, meeting the $\pm$5\% specified in requirement 3.
 
+\newpage
 \subsection{Inductor Current Ripple Controller}\label{S:ripple_control_design}
 
 To achieve the desired inductor current ripple steady state error, the same topology implemented for the output voltage controller will be implemented. This PID controller will take the system's inductor current ripple as a percentage of the average current, and then calculate the error between it and the target value. From here it will then output the new PWM switching frequency. 

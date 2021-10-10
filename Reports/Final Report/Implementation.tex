@@ -5,7 +5,7 @@
 
 The PWM signal generator subsystem was designed around the Espressif ESP32 microcontroller. For ease of development around this microcontroller, a pre-built breadboard compatible development board was purchased for the implementation. \\
 
-Using this development board, a PWM hardware driver was developed to facilitate the implementation of this subsystems core functionality as specified in \Cref{S:specs_design}. This driver implements three core functions, `\lstinline{PWM_setup()}' to initialise the PWM hardware, `\lstinline{PWM_set_duty()}' to select a new duty cycle, and `\lstinline{PWM_set_frequency}' to select a new frequency. The full driver implementation can be found in \Cref{A:pwm_code}.\\
+Using this development board, a PWM hardware driver was developed to facilitate the implementation of this subsystems core functionality as specified in \Cref{S:specs_design}. This driver implements three core functions, `\lstinline{PWM_setup()}' to initialise the PWM hardware, `\lstinline{PWM_set_duty()}' to select a new duty cycle, and `\lstinline{PWM_set_frequency}' to select a new frequency. The full driver implementation, refer to \Cref{A:pwm_code}.\\
 
 After the software implementation had been completed, it was identified that the 3.3V digital output of the microcontroller would be incapable of driving the buck converters switching power MOSFET. To resolve this, the IR2125 high side N-channel gate driver IC was purchased to drive the MOSFET from the PWM generators output signal. This final circuit was then implemented and it's functionality was tested on a breadboard. Please see \Cref{A:pcb_and_schematic} for the designed schematic, and \Cref{A:breadboard} for the implemented breadboard circuit.
 
@@ -18,7 +18,7 @@ After the software implementation had been completed, it was identified that the
 
 \subsection{Output Voltage Sensing}\label{S:v_sense_impl}
 
-The output voltage sensing design discussed in \Cref{S:v_sense_design} was implemented on a prototyping breadboard. Please see \Cref{A:pcb_and_schematic} for the designed schematic, and \Cref{A:breadboard} for the implemented breadboard circuit.
+The output voltage sensing design discussed in \Cref{S:v_sense_design} was implemented on a prototyping breadboard. Refer to \Cref{A:pcb_and_schematic} for the designed schematic, and \Cref{A:breadboard} for the implemented breadboard circuit.
 
 Using the ESP32 development board, an ADC hardware driver was developed to facilitate the measurement of the sensor output. This driver implements the core functionality of the ADC though two functions, `\lstinline{init_adc()}' to assign the input IO and measurement resolution, and `\lstinline{read_adc()}' to take an ADC measurement. Using these two functions this driver then also facilitates the computation of a rolling average with the `\lstinline{rolling_average()}' function, and voltage conversion with the `\lstinline{adc_conversion()}' function. The full driver implementation can be found in \Cref{A:adc_code}.\\
 
@@ -37,16 +37,16 @@ From this it was identified that the internal ADC  was non-linear, and would req
 
 \subsubsection*{Average Inductor Current Sensing}
 
-The average inductor current sensing design discussed in \Cref{S:avg_current_design} was implemented on a prototyping breadboard. Please see \Cref{F:final_peak_detector} for the designed schematic, and \Cref{A:breadboard} for the implemented breadboard circuit.
+The average inductor current sensing design discussed in \Cref{S:avg_current_design} was implemented on a prototyping breadboard. Refer to \Cref{F:final_peak_detector} for the designed schematic, and \Cref{A:breadboard} for the implemented breadboard circuit.
 
 This design also utilises the ESP32 internal ADC, which was previously implemented in \Cref{S:v_sense_impl}. Therefore no further implementation was required for the functionality of this design.  
 
 
-\subsubsection*{Peak Inductor Current Sensing}
+\subsubsection*{Peak Inductor Current Sensing}\label{S:peak_current_implementation}
 
 The peak inductor current sensing design discussed in \Cref{S:peak_current_design} was initially implemented on a prototyping breadboard, using an LT084CN operational amplifier (op amp) provided by the lab technicians. 
 
-On implementation it was observed that the functional principles of the design held true, as the design maintained a DC output voltage that was dependant in the input peak to peak ripple. However it was observed that the accuracy of the design was much lower than expected when compared to the design simulations. The operation of this original design \todo{can be seen in} \Cref{A:peak_detector}.\\
+On implementation it was observed that the functional principles of the design held true, as the design maintained a DC output voltage that was dependant in the input peak to peak ripple. However, it was observed that the accuracy of the design was much lower than expected when compared to the design simulations. The operation of this original design \todo{can be seen in} \Cref{A:peak_detector}.\\
 
 It was identified that the limiting factor within the design was the bandwidth and slew-rate of the input stage op amp seen in \Cref{F:sample_and_hold_circuit}. This op amp is responsible for charging the sampling capacitor and negating the forward bias diode drop, and therefore it's bandwidth and slew-rate will dictate the bandwidth of the design.  
 
@@ -82,7 +82,7 @@ The use of the ESP-IDF framework also facilitated the use of FreeRTOS, providing
 
 \subsubsection*{Hardware implementation}
 
-To facilitate the ease of use of the fully designed system, a printed circuit board (PCB) was designed and implemented using the KiCAD software platform. This PCB implements all finalised designed elements discussed in \Cref{C:design}, and provides multiple footprints for the buck converter output filter to allow for expedited testing and varying filters. For the full system schematic, please refer to \Cref{A:pcb_and_schematic}.
+To facilitate the ease of use of the fully designed system, a printed circuit board (PCB) was designed and implemented using the KiCAD software platform. This PCB implements all finalised designed elements discussed in \Cref{C:design}, and provides multiple footprints for the buck converter output filter to allow for expedited testing and varying filters. For the full system schematic, refer to \Cref{A:pcb_and_schematic}.
 
 \begin{figure}[!h]
     \centering
