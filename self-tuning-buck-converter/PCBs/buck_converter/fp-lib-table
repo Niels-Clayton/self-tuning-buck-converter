@@ -4,4 +4,5 @@
   (lib (name LT1999-50)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/LT1999-50.pretty)(options "")(descr ""))
   (lib (name IND_HCTI-150-5.0)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/IND_HCTI-150-5.0.pretty)(options "")(descr ""))
   (lib (name multi_capacitor)(type KiCad)(uri ${KIPRJMOD}/lib/footprint/multi_capacitor.pretty)(options "")(descr ""))
+  (lib (name graphic)(type KiCad)(uri ${KIPRJMOD}/lib/graphic)(options "")(descr ""))
 )
