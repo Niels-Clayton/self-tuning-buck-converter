@@ -1,21 +1,17 @@
-# Repository Directory Structure
+# [Self Tuning Buck Converter](https://niels-clayton.github.io/self-tuning-buck-converter/)
 
 ### Documents
 
-Any files which aren't _Literature_, i.e. anything that won't or can't be cited.
+Documentation and project planing
 
 ### Literature
 
-A flat folder containing PDF copies of anything that will or could be cited in the reports: journal articles, tech notes, etc.  There should be a BibTeX `.bib` bibliography file at the same level as the PDF files, for use with the [JabRef](http://www.jabref.org) open source bibliography and reference manager.
-
-### Presentations
-
-The files used in any presentations, including the final presentation.
+Latex bibliography `.bib` file, organised using [JabRef](http://www.jabref.org), with copies of all cited documents.
 
 ### Reports
 
-Contains the ENGR 489 reports. There are two reports required this year, a Preliminary Report and a Final Report.
+Latex projects for all written reports.
 
-* LaTeX source files.
-* R, Matlab, etc. files, containing _only_ the figures used in the report at this level.
-* One sub-folder "Figures" to keep figures organised.
+- Project Proposal
+- Preliminary Report
+- Final Project Report
