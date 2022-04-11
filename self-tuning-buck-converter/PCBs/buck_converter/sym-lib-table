@@ -1,7 +1,8 @@
 (sym_lib_table
-  (lib (name LT1999-50)(type Legacy)(uri ${KIPRJMOD}/lib/symbol/LT1999-50.lib)(options "")(descr ""))
-  (lib (name IR2125)(type Legacy)(uri ${KIPRJMOD}/lib/symbol/IR2125.lib)(options "")(descr ""))
-  (lib (name ESP32-DEVKITC-32D)(type Legacy)(uri ${KIPRJMOD}/lib/symbol/ESP32-DEVKITC-32D.lib)(options "")(descr ""))
-  (lib (name LD1117V50)(type Legacy)(uri ${KIPRJMOD}/lib/symbol/LD1117V50.lib)(options "")(descr ""))
-  (lib (name MAX11644)(type Legacy)(uri ${KIPRJMOD}/lib/symbol/MAX11644.lib)(options "")(descr ""))
+  (lib (name "LT1999-50")(type "Legacy")(uri "${KIPRJMOD}/lib/symbol/LT1999-50.lib")(options "")(descr ""))
+  (lib (name "IR2125")(type "Legacy")(uri "${KIPRJMOD}/lib/symbol/IR2125.lib")(options "")(descr ""))
+  (lib (name "ESP32-DEVKITC-32D")(type "Legacy")(uri "${KIPRJMOD}/lib/symbol/ESP32-DEVKITC-32D.lib")(options "")(descr ""))
+  (lib (name "LD1117V50")(type "Legacy")(uri "${KIPRJMOD}/lib/symbol/LD1117V50.lib")(options "")(descr ""))
+  (lib (name "MAX11644")(type "Legacy")(uri "${KIPRJMOD}/lib/symbol/MAX11644.lib")(options "")(descr ""))
+  (lib (name "buck_converter-rescue")(type "Legacy")(uri "${KIPRJMOD}/buck_converter-rescue.lib")(options "")(descr ""))
 )
